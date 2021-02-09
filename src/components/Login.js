@@ -6,6 +6,7 @@ import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { GoogleLoginButton } from "react-social-login-buttons";
 import {useHistory} from "react-router-dom" ;
+import axios from "axios" ;
 
 import "../css/Login.css";
 import db, { auth , provider } from '../firebase';
@@ -68,7 +69,24 @@ function Login() {
                     displayPic: user.photoURL,
     
                 })
-            }).catch(err => alert(err) )
+            })
+            .then(()=>{
+                db.collection("users").doc(auth.currentUser.uid).get().then(res => {
+                    const user = res.data() ;
+                    
+                    const adduser = {
+                        "uid" : user.uid ,
+                        "name" : user.displayName ,
+                        "email" : user.email,
+                        "profilePicture" : user.displayPic
+                    }
+                    axios.post(`http://localhost:5000/users/adduser` , adduser)
+                    .then(res => {
+                        console.log(res)
+                    })
+                  }) ;
+            })
+            .catch(err => alert(err) )
 
         }
 
