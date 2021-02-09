@@ -1,0 +1,53 @@
+.createClass{
+    background-color: white;
+    width: 300px;
+    height: 300px;
+    margin: 50px;
+    display: flex;
+    flex-direction: column;
+    border-radius:5px;
+    box-shadow: 0px 5px 7px -3px rgba(0,0,0,0.75);
+    
+    
+}
+
+.createClass > img {
+    width: 100px;
+    height: 100px;
+    margin-left: 100px;
+    margin-top: 20px;
+
+}
+
+.createClass__title{
+    padding-top: 10px;
+    text-align: center;
+}
+
+.createClass__title > p{
+    font-size: 1.5rem;
+}
+
+.createClass__description{
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.createClass__description > p{
+    color: gray;
+}
+
+.createClass > button{
+    margin-top: 20px ;
+    width:150px;
+    height: 40px;
+    margin-left: 75px;
+    border: none;
+    border-radius: 7px;
+    background-color: #3aa5ab;
+    color: white;
+    margin-bottom: 10px;
+}
+.createClass > button:hover{
+    background-color: #2c979bab;
+}

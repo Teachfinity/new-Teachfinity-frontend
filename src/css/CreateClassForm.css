@@ -1,0 +1,88 @@
+.createClassForm{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    position: fixed;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+    width: 600px;
+    max-width: 100%;
+    height: 600px;
+    max-height: 100%;
+    max-width: 800px;
+    background-color: rgb(238, 236, 236);
+    box-shadow: -7px 15px 7px 1000px rgba(0, 0, 0, 0.52);
+    border: 1px solid gray;
+    border-radius: 6px;
+    text-align: center;
+    overflow-y: scroll;
+
+    
+}
+
+.createClassForm__header{
+    display: flex;
+    flex-direction: row;
+   justify-content: space-between;
+    margin-bottom: 100px;
+    
+}
+
+.createClassForm__header > p{
+    color: #3aa5ab;
+    font-size: 2rem;
+    font-weight: 700;
+    border-bottom: 1px solid rgb(197, 195, 195);
+    margin-left: 160px;
+    
+}
+.createClassForm__header > .MuiSvgIcon-root{
+    margin: 15px;
+    color: red;
+    
+    
+    
+}
+.createClassForm > form{
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    justify-content: center;
+    
+}
+
+.createClassForm > form > p{
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: gray;
+    margin-bottom: 10px;
+}
+
+.createClassForm > form > input{
+    width: 60%;
+    margin-left: 100px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.createClassForm > form > textarea{
+    width: 63%;
+    margin-left: 100px;
+    border: none;
+    border-radius: 5px;
+    margin-bottom: 60px;
+}
+
+.createClassForm > form > button{
+    width: 40%;
+    height: 40px;
+    margin-left: 175px;
+    border: none;
+    background-color: #3aa5ab;
+    color: white;
+    border-radius: 10px;
+}

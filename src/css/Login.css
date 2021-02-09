@@ -1,0 +1,115 @@
+.login__background{
+    display: flex;
+    flex-direction: row;
+    background-image: url(https://t4.ftcdn.net/jpg/01/99/79/89/360_F_199798901_fZNnFhICSdEvOTWmwIpiV103vdzA7cCc.jpg);
+    background-size: 100% 100%;
+    min-height: 100ex;
+    background-repeat: no-repeat;
+    justify-content: center;
+    align-items: center;
+    height:100vh ;
+}
+.login__background-cover{
+    height: 100vh ;
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    background-color: #3aa5ab59; 
+    min-height: 100ex;
+    min-width: 100%;
+    justify-content: center;
+    align-items: center;
+    
+}
+.login__rowss{
+    box-shadow: -30px 30px 20px rgba(0, 0, 0, 0.5);
+    align-items: flex-end;
+}
+
+.login-container2{
+    display: flex;
+    background-color: #ffffff00;
+   
+    color: #3AA5AB;
+    justify-content: center;
+    text-align: center;
+    height: 650px;
+    width: 1200px;
+}
+.login-container3{
+    display: flex;
+    background-image: url(../images/login-cover.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    color: #3AA5AB;
+    justify-content: center;
+   
+    text-align: center;
+    align-items: center;
+    height: 650px;
+    width: 800px;
+}
+.login-container1{
+    display: flex;
+    background-color: #eff0f5;
+    
+    color: #3AA5AB;
+    justify-content: center;
+    text-align: center;
+    height: 650px;
+    width: 420px;
+}
+.textfields{
+    margin-bottom: 15px;
+    width: 300px;
+}
+.row{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.rowin{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.login-button{
+    margin-top: 30px;
+    background-color: #3AA5AB;
+    border-radius: 5px;
+    font-weight: bolder;
+    color: #EBECF1;
+    border: #EBECF1;
+    height: 40px;
+    width: 250px;
+    margin-bottom: 20px;
+}
+.login-button:hover{
+    background-color: #3aa5abc4;
+    color: #EBECF1;
+}
+.login__error{
+    color: red ;
+}
+.login__socialButtons{
+ padding: 5px;
+ border-radius: 10px;
+ margin-top: 35px ;
+ text-align: center;
+ padding-left: 15px;
+ 
+}
+
+.login__nav-link{
+font-size: larger;
+border: none;
+color: #3aa5ab;
+}
+
+.login__nav-link:hover{
+   cursor: pointer;
+    text-decoration: underline;
+    font-size: 1.3rem;
+    
+
+}

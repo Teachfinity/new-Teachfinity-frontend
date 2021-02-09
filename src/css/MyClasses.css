@@ -1,0 +1,21 @@
+.myClasses{
+    background-color: rgb(248, 248, 248);
+    height: 100vh;
+    padding: 50px;
+    justify-content: center;
+    
+    
+}
+.myClasses > p{
+    text-align: center; 
+    font-size: 2rem;
+    font-weight: bolder;
+    color: gray;
+    
+}
+.myClasses__createAndJoin{
+    display: flex;
+    justify-content: space-evenly;
+    border-bottom: 1px solid rgba(230, 228, 228, 0.863);
+}
+

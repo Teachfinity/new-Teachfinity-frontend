@@ -1,0 +1,58 @@
+.joinClass{
+    background-color: white;
+    width: 300px;
+    height: 300px;
+    margin: 50px;
+    display: flex;
+    flex-direction: column;
+    border-radius:5px;
+    box-shadow: 0px 5px 7px -3px rgba(0,0,0,0.75);
+}
+.joinClass > img{
+    width: 100px;
+    height: 100px;
+    margin-left: 100px;
+    margin-top: 20px;
+}
+
+.joinClass__title{
+    padding-top: 10px;
+    text-align: center;
+}
+.joinClass__title > p {
+    font-size: 1.5rem;
+}
+
+.joinClass__description{
+    text-align: center;
+    font-size: 0.9rem;
+}
+.joinClass__description > p {
+    color: gray;
+}
+
+.joinClass > input{
+    margin-top: 20px;
+    margin-left: 67px;
+    width: 50%;
+    padding: 5px;
+    border: 1px solid gray ;
+    text-align: center;
+    font-size: 15px;
+    border-radius: 5px;
+}
+.joinClass > button{
+    margin-top: 20px ;
+    width:150px;
+    height: 40px;
+    margin-left: 75px;
+    border: none;
+    border-radius: 7px;
+    background-color: #3aa5ab;
+    color: white;
+    margin-bottom: 10px;
+}
+.joinClass > button:hover {
+    background-color: #2c979bab;
+}
+

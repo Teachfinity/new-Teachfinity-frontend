@@ -1,0 +1,26 @@
+.mainComponent{
+    display: flex;
+    flex-direction: column;
+    
+ 
+    
+}
+.mainComponent__body{
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    height: 100vh;
+    
+ 
+}
+
+.mainComponent__sidebar{
+    flex: 0.01;
+}
+
+.mainComponent__content{
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    
+}
