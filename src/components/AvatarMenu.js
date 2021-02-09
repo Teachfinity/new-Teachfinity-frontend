@@ -15,7 +15,7 @@ function AvatarMenu() {
     return (
         <div className="avatarMenu">
             <div className="avatarMenu__userCredentials">
-            <Avatar src={user.displayPic} style={{width: "75px" , height: "75px"}} />
+            <Avatar src={user.displayPic} style={{width: "90px" , height: "90px"}} />
             <h4>{user.displayName}</h4>
             </div>
 

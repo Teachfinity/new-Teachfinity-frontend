@@ -39,7 +39,7 @@ function Header() {
                
                     <NotificationsIcon fontSize="large"  />
                     
-                    <Avatar src={user.displayPic} onClick={toggleMenu}  /> 
+                    <Avatar src={user.displayPic} onClick={toggleMenu} style={{width: "50px" , height: "50px"}}  /> 
             </div>
            
            

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Row } from "reactstrap";
 import db , {auth} from "../firebase" ;
-// import { CommonLoading } from 'react-loadingg';
+ import { CommonLoading } from 'react-loadingg';
 
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 
@@ -13,7 +13,7 @@ function Signup() {
     const nameRegex = /^[a-zA-Z\- ]{3,20}$/;
     const passwordRegex =/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
     const validEmailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    // const [loading, setLoading] = useState(false);
+     const [loading, setLoading] = useState(false);
     const [errors, setErrors] = useState({
         firstname: '',
         lastname: '',
@@ -87,7 +87,7 @@ function Signup() {
 
     const handleSubmit = (event) => {
         event.preventDefault() ;
-
+        setLoading(true);
         auth.createUserWithEmailAndPassword(
             user.email , user.password
         ).then((user) => {
@@ -102,7 +102,10 @@ function Signup() {
                 displayName: displayName,
                 displayPic: auth.currentUser.photoURL,
 
-            })
+            }) ;
+            setLoading(false)
+            alert("Account created Successfully");
+            
         })
         .catch(err => alert(err.message))
 
@@ -116,7 +119,7 @@ function Signup() {
                     <Row className="signup__rowss">
                         <div>
                             <div className="signup__container2">
-                              {/*   {loading ? <CommonLoading color='#ffff' size='large' /> : null} */}
+                                {loading ? <CommonLoading color='#D3D3D3' size='large' /> : null}
                                 <ValidatorForm onSubmit={() => {}} >
                                     <br></br><h1>Signup</h1><br></br>
                                     <div className="textfields">
