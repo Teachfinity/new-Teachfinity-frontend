@@ -17,18 +17,10 @@ function Header() {
     useEffect(()=>{
         {popup ? dispatch(openAvatarMenu()) : dispatch(closeAvatarMenu())}
     } , [popup , dispatch]) ;
-
     
-
    const toggleMenu = () => {
-       
        setPopup(!popup) ;
-    
-       
-
     }
-
-   
 
     return (
         <div className="header" >

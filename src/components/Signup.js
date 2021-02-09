@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Row } from "reactstrap";
 import db , {auth} from "../firebase" ;
  import { CommonLoading } from 'react-loadingg';
-
+import axios from "axios" ;
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 
 
@@ -102,10 +102,25 @@ function Signup() {
                 displayName: displayName,
                 displayPic: auth.currentUser.photoURL,
 
-            }) ;
+            }) ; 
             setLoading(false)
-            alert("Account created Successfully");
-            
+            alert("Account created Successfully");  
+        })
+        .then(()=>{
+            db.collection("users").doc(auth.currentUser.uid).get().then(res => {
+                const user = res.data() ;
+                
+                const adduser = {
+                    "uid" : user.uid ,
+                    "name" : user.displayName ,
+                    "email" : user.email,
+                    "profilePicture" : user.displayPic
+                }
+                axios.post(`http://localhost:5000/users/adduser` , adduser)
+                .then(res => {
+                    console.log(res)
+                })
+              }) ;
         })
         .catch(err => alert(err.message))
 
