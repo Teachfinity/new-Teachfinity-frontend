@@ -12,6 +12,14 @@ import ClassCard from './ClassCard';
 import {selectMyClassList} from "../features/myClassListSlice" ;
 import {openclassCode, selectclassCodeIsOpen} from "../features/classCodeSlice" ;
 import ClassCode from'./ClassCode';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Redirect
+  } from "react-router-dom";
+import ClassData from './ClassData';
+
 function MyClasses() {
     const isCodeModalOpen  = useSelector(selectclassCodeIsOpen) ;
 
@@ -20,6 +28,7 @@ function MyClasses() {
     const classList = useSelector(selectMyClassList) ;
     /* Render the array of joined classes through the Mondo DB */
     return (
+    
         <div className="myClasses" >
             <p>Create or Join a new Class</p>
             <div className="myClasses__createAndJoin">
@@ -53,6 +62,8 @@ function MyClasses() {
         {isCodeModalOpen && <ClassCode/>}
             
         </div>
+
+       
     )
 }
 
