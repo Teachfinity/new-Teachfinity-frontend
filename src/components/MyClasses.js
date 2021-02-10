@@ -18,6 +18,7 @@ function MyClasses() {
     const isModalOpen  = useSelector(selectClassModalIsOpen) ;
     
     const classList = useSelector(selectMyClassList) ;
+    /* Render the array of joined classes through the Mondo DB */
     return (
         <div className="myClasses" >
             <p>Create or Join a new Class</p>

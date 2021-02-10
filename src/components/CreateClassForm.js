@@ -3,17 +3,41 @@ import CloseIcon from "@material-ui/icons/Close" ;
 import {closeModal} from "../features/createClassSlice" ;
 import {useForm} from "react-hook-form" ;
 import {useSelector , useDispatch} from "react-redux" ;
-import {openclassCode, selectclassCodeIsOpen} from "../features/classCodeSlice" ;
+import {openclassCode, selectclassCodeIsOpen , changeClassCode , selectClassCode} from "../features/classCodeSlice" ;
 import {addClass} from "../features/myClassListSlice" ;
+import axios from "axios" ;
 import "../css/CreateClassForm.css" ;
 
 function CreateClassForm() {
     const dispatch = useDispatch() ;
+    const classCode = useSelector(selectClassCode) ;
     const {register, handleSubmit , errors} = useForm() ;
+    
+    
     const onSubmit = formData => {
-        dispatch(addClass({
+        var code = Math.random().toString(36).substr(2, 6);
+        dispatch(changeClassCode({code: code})) ;
+        
+       
+        
+        /* dispatch(addClass({
             className: formData.classTitle , 
-            classDescription: formData.description }))
+            classDescription: formData.description })) */
+
+
+            /* Post the class data into the database */
+           
+               /*  const addClass = {
+                    "name" : formData.classTitle ,
+                    "description" : formData.description,
+                    "code" :  classCode.code
+                }
+                axios.post("http://localhost:5000/classes/addclass" , newClass)} */
+
+
+            
+
+            
         dispatch(closeModal()) ;
     
     }
@@ -37,7 +61,7 @@ function CreateClassForm() {
                 type="text" ref={register({required:true})}
                 />
                   {errors.description && ( <p className="createClassForm__error">Description is a required field</p> )}
-                <button onClick={()=> {dispatch(openclassCode())}} type="submit"  >Create</button>
+                <button /*onClick={()=> {dispatch(openclassCode())}} */ type="submit"  >Create</button>
 
             </form>
         </div>
