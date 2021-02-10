@@ -18,7 +18,7 @@ function EditProfileForm() {
                 <div className="editProfile__avatar">
                     <Avatar src={user.displayPic} style={{ width: "90px", height: "90px" }} />
                     <div className="editProfile__avatarcontent"><h4>{user.displayName}</h4>
-                    <button>Change Profile Picture</button></div>
+                    <button onClick={()=>{}} >Change Profile Picture</button></div>
                 </div>
                 <p>Display Name </p>
                 <input defaultValue={user.displayName}/>

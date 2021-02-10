@@ -19,3 +19,35 @@
     border-bottom: 1px solid rgba(230, 228, 228, 0.863);
 }
 
+.myClasses__ClassList > p{
+    text-align: center;
+    margin-top: 20px;
+    font-size: 2rem;
+    color: gray;
+    font-weight: bold;
+}
+
+.classList__list{
+    display: flex;
+    flex-wrap: wrap; 
+    text-align: center;
+    justify-content: space-between ;
+    margin: 0 -40px;
+    
+}
+.myClasses__noclasses {
+    color: rgb(212, 212, 212) !important ;
+    font-size: 3rem !important;
+    margin-top: 50px !important;
+    margin-bottom: 50px !important;
+    text-align: center !important;
+   
+}
+
+.myClasses__ClassList{
+    
+    display: flex;
+    flex-direction: column ;
+    border-bottom: 1px solid rgba(230, 228, 228, 0.863);
+    
+}

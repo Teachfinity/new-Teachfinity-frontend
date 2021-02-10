@@ -9,10 +9,13 @@ import CreateClassForm from "./CreateClassForm" ;
 import joinClassIcon from "../images/joinclass.png" ;
 import JoinClassCard from "./JoinClassCard" ;
 import AvatarMenu from './AvatarMenu';
+import ClassCard from './ClassCard';
+import {selectMyClassList} from "../features/myClassListSlice" ;
 function MyClasses() {
 
     const isModalOpen  = useSelector(selectClassModalIsOpen) ;
-    const isAvatarMenuOpen = useSelector(selectAvatarMenuIsOpen) ;
+    
+    const classList = useSelector(selectMyClassList) ;
     return (
         <div className="myClasses" >
             <p>Create or Join a new Class</p>
@@ -29,6 +32,26 @@ function MyClasses() {
 
             </div>
             <div className="myClasses__ClassList">
+
+                <p>Your Classes</p>
+                {classList.length === 0 ? 
+                    <p class="myClasses__noclasses">No Classes to show</p>
+                    :
+
+                    <div className="classList__list">
+                       {classList.map( ({className, classDescription} , index) => (
+                        <ClassCard key={index} title={className} description={classDescription} />
+                    ))}
+                    </div>
+                
+                
+                }
+                    
+
+
+
+                  
+               
 
             </div>
             {isModalOpen && <CreateClassForm/>}

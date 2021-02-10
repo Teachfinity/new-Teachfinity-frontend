@@ -7,8 +7,8 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import EditIcon from '@material-ui/icons/Edit';
 import SettingsIcon from '@material-ui/icons/Settings';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import EditProfileForm from "./EditProfile" ;
-import {selectEditProfileModalIsOpen, openEditProfile} from "../features/editProfileSlice" ;
+
+import {openEditProfile} from "../features/editProfileSlice" ;
 import {auth} from "../firebase" ;
 
 import "../css/AvatarMenu.css" ;
