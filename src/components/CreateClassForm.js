@@ -17,13 +17,13 @@ function CreateClassForm() {
     const onSubmit = formData => {
         var code = Math.random().toString(36).substr(2, 6);
         dispatch(changeClassCode({code: code})) ;
-        
-       
+
         
         /* dispatch(addClass({
             className: formData.classTitle , 
             classDescription: formData.description })) */
 
+            
 
             /* Post the class data into the database */
            
@@ -61,7 +61,7 @@ function CreateClassForm() {
                 type="text" ref={register({required:true})}
                 />
                   {errors.description && ( <p className="createClassForm__error">Description is a required field</p> )}
-                <button /*onClick={()=> {dispatch(openclassCode())}} */ type="submit"  >Create</button>
+                <button onClick={()=> {dispatch(openclassCode())}}   type="submit"  >Create</button>
 
             </form>
         </div>

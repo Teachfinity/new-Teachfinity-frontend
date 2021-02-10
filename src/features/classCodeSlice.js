@@ -4,7 +4,7 @@ export const classCodeSlice = createSlice({
   name: 'classCode',
   initialState: {
     classCodeisOpen: false ,
-    code : null
+    code : {code : null}
   },
   reducers: {
     openclassCode: state => {
