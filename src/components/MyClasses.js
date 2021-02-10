@@ -32,7 +32,7 @@ function MyClasses() {
 
             </div>
             {isModalOpen && <CreateClassForm/>}
-            {isAvatarMenuOpen && <AvatarMenu />}
+            
         </div>
     )
 }

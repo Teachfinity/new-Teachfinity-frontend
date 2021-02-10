@@ -2,7 +2,9 @@ import React from 'react'
 import Header from "./Header" ;
 import Sidebar from "./Sidebar" ;
 import Chat from "./Chat" ;
-
+import {selectAvatarMenuIsOpen} from "../features/avatarMenuSlice" ;
+import {selectEditProfileModalIsOpen} from "../features/editProfileSlice" ;
+import {useSelector} from "react-redux" ;
 import "../css/MainComponent.css" ;
 import {
     BrowserRouter as Router,
@@ -12,9 +14,13 @@ import {
   } from "react-router-dom";
   
   import MyClasses from "./MyClasses" ;
+import EditProfileForm from './EditProfile';
+import AvatarMenu from './AvatarMenu';
 
 
 function MainComponent() {
+    const isModalOpen  = useSelector(selectEditProfileModalIsOpen) ;
+    const isAvatarMenuOpen = useSelector(selectAvatarMenuIsOpen) ;
     return (
         <Router>
         <div className="mainComponent">
@@ -41,7 +47,8 @@ function MainComponent() {
                </div>
                 
             </div>
-          
+            {isAvatarMenuOpen && <AvatarMenu />}
+            {isModalOpen && <EditProfileForm/>}
         </div>
         </Router>
     )

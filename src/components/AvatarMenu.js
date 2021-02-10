@@ -13,7 +13,7 @@ import {auth} from "../firebase" ;
 
 import "../css/AvatarMenu.css" ;
 function AvatarMenu() {
-    const isModalOpen  = useSelector(selectEditProfileModalIsOpen) ;
+    
     const user = useSelector(selectUser) ;
     const dispatch = useDispatch() ;
     return (
@@ -41,7 +41,7 @@ function AvatarMenu() {
                      
                      } ><ExitToAppIcon /><p>Log out</p></button>
             </div>
-            {isModalOpen && <EditProfileForm/>}
+           
         </div>
     )
 }
