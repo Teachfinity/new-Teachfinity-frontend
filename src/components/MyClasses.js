@@ -8,10 +8,12 @@ import {useSelector} from "react-redux" ;
 import CreateClassForm from "./CreateClassForm" ;
 import joinClassIcon from "../images/joinclass.png" ;
 import JoinClassCard from "./JoinClassCard" ;
-import AvatarMenu from './AvatarMenu';
 import ClassCard from './ClassCard';
 import {selectMyClassList} from "../features/myClassListSlice" ;
+import {openclassCode, selectclassCodeIsOpen} from "../features/classCodeSlice" ;
+import ClassCode from'./ClassCode';
 function MyClasses() {
+    const isCodeModalOpen  = useSelector(selectclassCodeIsOpen) ;
 
     const isModalOpen  = useSelector(selectClassModalIsOpen) ;
     
@@ -43,18 +45,11 @@ function MyClasses() {
                         <ClassCard key={index} title={className} description={classDescription} />
                     ))}
                     </div>
-                
-                
                 }
-                    
-
-
-
-                  
-               
-
             </div>
             {isModalOpen && <CreateClassForm/>}
+        
+        {isCodeModalOpen && <ClassCode/>}
             
         </div>
     )

@@ -1,11 +1,12 @@
 import React from 'react' ;
 import CloseIcon from "@material-ui/icons/Close" ;
-import {useDispatch} from "react-redux" ;
 import {closeModal} from "../features/createClassSlice" ;
 import {useForm} from "react-hook-form" ;
-
+import {useSelector , useDispatch} from "react-redux" ;
+import {openclassCode, selectclassCodeIsOpen} from "../features/classCodeSlice" ;
 import {addClass} from "../features/myClassListSlice" ;
 import "../css/CreateClassForm.css" ;
+
 function CreateClassForm() {
     const dispatch = useDispatch() ;
     const {register, handleSubmit , errors} = useForm() ;
@@ -18,7 +19,7 @@ function CreateClassForm() {
     }
     return (
         
-       
+       <div>
         <div className="createClassForm" >
             <div className="createClassForm__header">
                 <p>Create New Class</p>
@@ -36,11 +37,11 @@ function CreateClassForm() {
                 type="text" ref={register({required:true})}
                 />
                   {errors.description && ( <p className="createClassForm__error">Description is a required field</p> )}
-                <button type="submit"  >Create</button>
+                <button onClick={()=> {dispatch(openclassCode())}} type="submit"  >Create</button>
 
             </form>
         </div>
-        
+        </div>
         
     )
 }
