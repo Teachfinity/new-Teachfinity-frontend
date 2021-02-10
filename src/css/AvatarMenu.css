@@ -46,8 +46,6 @@
 
 .avatarMenu__options > button{
     display: flex;
-    
-    justify-content: space-between;
     width: 100% ;
     max-width: 100%;
     padding: 10px;
@@ -59,6 +57,7 @@
 }
 .avatarMenu__options > button > p{
     margin-top: 5px;
+    margin-left: 10px;
     font-weight: bold;
     color: rgb(100, 100, 100);
 }
@@ -82,8 +81,6 @@
 
 .avatarMenu__logout > button{
     display: flex;
-    
-    justify-content: space-between;
     width: 100%;
     max-width: 100%;
     padding: 10px;
@@ -101,6 +98,7 @@
 
 .avatarMenu__logout> button > p{
     color: rgb(197, 41, 41);
+    margin-left: 10px;
     margin-top: 5px ;
     font-weight: bold;
 }
