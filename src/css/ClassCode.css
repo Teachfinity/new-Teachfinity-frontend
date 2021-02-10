@@ -4,7 +4,7 @@
     justify-content: center;
     flex-direction: column;
     position: fixed;
-  top: 45%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
     width: 500px;
@@ -17,14 +17,14 @@
     border: 1px solid gray;
     border-radius: 6px;
     text-align: center;
-    overflow-y: scroll;
+    
 }
 
 .classCode__header{
     display: flex;
     flex-direction: row;
    justify-content: space-between;
-    margin-bottom: 100px;
+    margin-bottom: 80px;
     text-align: center;
 }
 

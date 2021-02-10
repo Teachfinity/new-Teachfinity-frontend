@@ -16,6 +16,7 @@ import {
   import MyClasses from "./MyClasses" ;
 import EditProfileForm from './EditProfile';
 import AvatarMenu from './AvatarMenu';
+import ClassData from './ClassData';
 
 
 function MainComponent() {
@@ -38,6 +39,9 @@ function MainComponent() {
                         </Route>
                         <Route path="/chats" >
                             <Chat />
+                        </Route>
+                        <Route path="/classData" >
+                            <ClassData />
                         </Route>
                         <Redirect to="/myclasses" />
                     </Switch>
