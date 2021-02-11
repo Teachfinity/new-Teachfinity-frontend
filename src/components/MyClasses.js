@@ -1,4 +1,4 @@
-import React from 'react';
+import React , {useEffect , useState} from 'react';
 import "../css/MyClasses.css";
 import CreateClassCard from "./CreateClassCard";
 import createClassIcon from "../images/createclass.png";
@@ -11,6 +11,7 @@ import JoinClassCard from "./JoinClassCard" ;
 import ClassCard from './ClassCard';
 import {selectMyClassList} from "../features/myClassListSlice" ;
 import {openclassCode, selectclassCodeIsOpen} from "../features/classCodeSlice" ;
+import {selectUser} from "../features/userSlice" ;
 import ClassCode from'./ClassCode';
 import {
     BrowserRouter as Router,
@@ -19,14 +20,40 @@ import {
     Redirect
   } from "react-router-dom";
 import ClassData from './ClassData';
+import axios from "axios" ;
 
 function MyClasses() {
     const isCodeModalOpen  = useSelector(selectclassCodeIsOpen) ;
 
     const isModalOpen  = useSelector(selectClassModalIsOpen) ;
+    const user  = useSelector(selectUser) ;
     
     const classList = useSelector(selectMyClassList) ;
+    // const [cid , setCid] = useState([]) ; 
+    const  [userData , setUserData] = useState(null) ;
+    var classes = [];
     /* Render the array of joined classes through the Mondo DB */
+    useEffect(() => {
+        axios.get("http://localhost:5000/users/getusers/"+user.uid)
+        .then((res) => {
+            setUserData(res.data[0].classroomsOwned.map( item => {
+              return  axios.get("http://localhost:5000/classes/getclasses/"+item.cid)
+                .then((res) =>(
+                   {name: res.data.name, description: res.data.description}
+                    
+                ))
+
+
+
+                })) ;
+
+            
+        
+        
+        })
+        .then(() => {console.log(userData)})
+        .catch(err => alert(err) )
+    } , [isCodeModalOpen])
     return (
     
         <div className="myClasses" >

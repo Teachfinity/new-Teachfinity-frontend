@@ -5,19 +5,46 @@ import {useForm} from "react-hook-form" ;
 import {useSelector , useDispatch} from "react-redux" ;
 import {openclassCode, selectclassCodeIsOpen , changeClassCode , selectClassCode} from "../features/classCodeSlice" ;
 import {addClass} from "../features/myClassListSlice" ;
+import {selectUser} from "../features/userSlice" ;
 import axios from "axios" ;
 import "../css/CreateClassForm.css" ;
 
 function CreateClassForm() {
     const dispatch = useDispatch() ;
-    const classCode = useSelector(selectClassCode) ;
+    const user = useSelector(selectUser) ;
+
     const {register, handleSubmit , errors} = useForm() ;
-    
+    var currentUser = null ;  
     
     const onSubmit = formData => {
         var code = Math.random().toString(36).substr(2, 6);
         dispatch(changeClassCode({code: code})) ;
+        axios.get("http://localhost:5000/users/getusers/"+user.uid)
+        .then((res) => {
+            currentUser = res.data[0]._id
+        })
+        .then(() => {
+            const addClass = {
+                "name" : formData.classTitle ,
+                "description" : formData.description,
+                "code" :  code,
+                "teacher": currentUser
+            }
+            axios.post("http://localhost:5000/classes/addclass" , addClass)
+            .then((res) => {
+                axios.put("http://localhost:5000/users/updateuser/"+user.uid+"/classroomsOwned/"+res.data._id)
+                .then(() =>{
+                    alert("Class Created Successfully");
+                }).catch(err => alert("Put -> " + err))
+               
+            })
+            .catch(err => alert(err))  
+        })
+        .catch(err => alert(err)) ;
 
+        
+       
+          
         
         /* dispatch(addClass({
             className: formData.classTitle , 
@@ -27,12 +54,7 @@ function CreateClassForm() {
 
             /* Post the class data into the database */
            
-               /*  const addClass = {
-                    "name" : formData.classTitle ,
-                    "description" : formData.description,
-                    "code" :  classCode.code
-                }
-                axios.post("http://localhost:5000/classes/addclass" , newClass)} */
+                
 
 
             
@@ -69,5 +91,6 @@ function CreateClassForm() {
         
     )
 }
+
 
 export default CreateClassForm
