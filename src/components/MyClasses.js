@@ -28,15 +28,15 @@ function MyClasses() {
     const isModalOpen = useSelector(selectClassModalIsOpen);
     const user = useSelector(selectUser);
 
-    const classList = useSelector(selectMyClassList);
+const classList = useSelector(selectMyClassList);
  const [cid , setCid] = useState([]) ; 
  const [name , setName] = useState([]) ; 
  const [des , setDes] = useState([]) ; 
  const [theArray, setTheArray] = useState([]);
-    var classes = "";
+    var classes = [1,2];
     /* Render the array of joined classes through the Mondo DB */
     useEffect(() => {
-        axios.get("http://localhost:5000/users/getusers/" + user.uid)
+       /*  axios.get("http://localhost:5000/users/getusers/" + user.uid)
             .then((res) => {
                
               setCid(res.data[0].classroomsOwned)  
@@ -47,9 +47,22 @@ function MyClasses() {
                     .then((res)=>{
                        console.log(res.data.name )
                     })
-                 /* mapping end */
+               
             })
-            .catch(err => alert(err))
+            .catch(err => alert(err)) */
+
+         /*    axios.get("http://jsonplaceholder.typicode.com/todos")
+            .then((res) => {
+                res.data.map(item => {
+                  dispatch(addClass({name: item.title , description: item.completed})) ;
+               console.log(item.title)
+                }); 
+              
+             
+            })
+            .catch(err => alert(err)) */
+
+
     }, [])
     return (
 
@@ -70,13 +83,15 @@ function MyClasses() {
             <div className="myClasses__ClassList">
 
                 <p>Your Classes</p>
-                {!classes ?
+                {classList.length===0 ?
                     <p class="myClasses__noclasses">No Classes to show</p>
                     :
                     <div className="classList__list">
+                         {classList.map(({name , description} , index) => (
+                             <ClassCard key={index}  title={name} description={description} />
+                        ))}
+                         
                         
-                            <ClassCard  title={classes.name} description={classes.description} />
-                      
                     </div>
                 }
             </div>
