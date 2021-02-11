@@ -43,7 +43,7 @@ function MainComponent() {
                         <Route path="/classData" >
                             <ClassData />
                         </Route>
-                        <Redirect to="/myclasses" />
+                        <Redirect to="/classData" />
                     </Switch>
 
                     

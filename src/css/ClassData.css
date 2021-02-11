@@ -1,0 +1,12 @@
+.classData{
+    display: flex;
+    height: 100vh;
+}
+
+.classData__sidebar{
+    flex: 0.23;
+}
+.classData__contentScreen{
+    flex: 0.78;
+  
+}

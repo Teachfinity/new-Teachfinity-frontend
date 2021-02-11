@@ -1,11 +1,32 @@
-import React from 'react'
+import React from 'react' ;
+import "../css/ClassData.css" ;
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Redirect
+  } from "react-router-dom";
+import ClassSidebar from './classData/ClassSidebar';
+import ClassFeed from './classData/ClassFeed';
 
 function ClassData() {
     return (
-        <div className="classData">
-            Hello 123
-            {/* All the class screens to be made shere now  */} 
-        </div>
+        <Router>
+            <div className="classData">
+                <div className="classData__sidebar">
+                    <ClassSidebar />
+                </div>
+                <div className="classData__contentScreen">
+                <Switch>
+                        <Route path="/classData/classFeed" >
+                            <ClassFeed />
+                        </Route>
+                       
+                        <Redirect to="/classData/classFeed" />
+                    </Switch>
+                </div>
+            </div>
+        </Router>
     )
 }
 

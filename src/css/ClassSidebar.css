@@ -1,0 +1,53 @@
+.classSidebar{
+    display: flex;
+    flex-direction: column;
+    background-color: whitesmoke;
+    height: 100vh;
+    border-right: 1px solid rgb(216, 216, 216);
+    padding: 5px
+    
+    
+    
+}
+.classSidebar__classInfo{
+    text-align: center;
+    border-bottom: 1px solid rgb(226, 225, 225);
+    padding-bottom: 10px;
+    width: 100%;
+}
+
+.classSidebar__classInfo > img{
+    width: 150px;
+    height: 150px;
+    max-width: 100%;
+}
+
+.classSidebar__classInfo > p {
+    color: rgb(180, 178, 178);
+    font-size: 0.9rem;
+}
+
+.classSidebar__nav{
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    justify-content: left;
+}
+.classSidebar__nav > button{
+    width: 100%;
+    height: 40px;
+    padding: 10px;
+    margin-bottom: 10px;
+    text-align: left;
+    border-bottom: 1px solid rgb(238, 238, 238) ;
+    border-left: none;
+    border-right: none;
+    border-top: none;  
+    background-color: whitesmoke;
+    color: gray;
+    border-radius: 3px;
+
+}
+.classSidebar__nav > button:hover{
+    background-color: rgb(228, 226, 226) ;
+}

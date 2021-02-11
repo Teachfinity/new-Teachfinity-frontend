@@ -1,0 +1,9 @@
+.classFeed{
+    padding: 50px;
+    flex: 1;
+    padding: 30px ;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

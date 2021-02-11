@@ -67,6 +67,7 @@
     border: none;
     border-radius: 5px;
     margin-bottom: 20px;
+    outline-width: 0;
 }
 
 .createClassForm > form > textarea{
@@ -87,6 +88,7 @@
     background-color: #3aa5ab;
     color: white;
     border-radius: 10px;
+    outline-width: 0;
 }
 
 .createClassForm__error{

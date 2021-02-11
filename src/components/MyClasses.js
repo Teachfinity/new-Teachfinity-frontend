@@ -43,7 +43,8 @@ function MyClasses() {
                     
                 ))
 
-
+                    /* Dispatch it in the ClassListSlice one time and that would be used all over 
+                    easily  */
 
                 })) ;
 
