@@ -19,6 +19,7 @@ function CreateClassForm() {
     const onSubmit = formData => {
         var code = Math.random().toString(36).substr(2, 6);
         dispatch(changeClassCode({code: code})) ;
+        dispatch(addClass({ name: formData.classTitle, description:  formData.description}));
         axios.get("http://localhost:5000/users/getusers/"+user.uid)
         .then((res) => {
             currentUser = res.data[0]._id
@@ -34,7 +35,6 @@ function CreateClassForm() {
             .then((res) => {
                 axios.put("http://localhost:5000/users/updateuser/"+user.uid+"/classroomsOwned/"+res.data._id)
                 .then(() =>{
-                    alert("Class Created Successfully");
                 }).catch(err => alert("Put -> " + err))
                
             })

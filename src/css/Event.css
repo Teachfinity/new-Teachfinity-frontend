@@ -1,9 +1,8 @@
-.createClassForm{
+.event{
     position: absolute;
     display: flex;
     justify-content: center;
     flex-direction: column;
-    position: fixed;
   top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -22,7 +21,7 @@
     
 }
 
-.createClassForm__header{
+.event__header{
     display: flex;
     flex-direction: row;
    justify-content: space-between;
@@ -30,7 +29,7 @@
     
 }
 
-.createClassForm__header > p{
+.event__header > p{
     color: #3aa5ab;
     font-size: 2rem;
     font-weight: 700;
@@ -38,14 +37,12 @@
     margin-left: 160px;
     
 }
-.createClassForm__header > .MuiSvgIcon-root{
+.event__header > .MuiSvgIcon-root{
     margin: 15px;
     color: red;
     
-    
-    
 }
-.createClassForm > form{
+.event > form{
     display: flex;
     flex-direction: column;
     justify-self: center;
@@ -53,14 +50,14 @@
     
 }
 
-.createClassForm > form > p{
+.event > form > p{
     font-size: 1.5rem;
     font-weight: bold;
     color: gray;
     margin-bottom: 10px;
 }
 
-.createClassForm > form > input{
+.event > form > input{
     width: 63%;
     margin-left: 100px;
     padding: 10px;

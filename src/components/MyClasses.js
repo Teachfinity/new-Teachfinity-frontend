@@ -3,23 +3,16 @@ import "../css/MyClasses.css";
 import CreateClassCard from "./CreateClassCard";
 import createClassIcon from "../images/createclass.png";
 import { selectClassModalIsOpen } from "../features/createClassSlice";
-import { selectAvatarMenuIsOpen } from "../features/avatarMenuSlice";
 import { useSelector, useDispatch } from "react-redux";
 import CreateClassForm from "./CreateClassForm";
 import joinClassIcon from "../images/joinclass.png";
 import JoinClassCard from "./JoinClassCard";
 import ClassCard from './ClassCard';
-import { selectMyClassList, addClass } from "../features/myClassListSlice";
+import { selectMyClassList, addClass , clearClass } from "../features/myClassListSlice";
+import { selectClassesEnrolledList, addclassesEnrolled , clearclassesEnrolled } from "../features/classesEnrolledSlice";
 import { openclassCode, selectclassCodeIsOpen } from "../features/classCodeSlice";
 import { selectUser } from "../features/userSlice";
 import ClassCode from './ClassCode';
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Redirect
-} from "react-router-dom";
-import ClassData from './ClassData';
 import axios from "axios";
 
 function MyClasses() {
@@ -28,42 +21,40 @@ function MyClasses() {
     const isModalOpen = useSelector(selectClassModalIsOpen);
     const user = useSelector(selectUser);
 
-const classList = useSelector(selectMyClassList);
- const [cid , setCid] = useState([]) ; 
- const [name , setName] = useState([]) ; 
- const [des , setDes] = useState([]) ; 
- const [theArray, setTheArray] = useState([]);
-    var classes = [1,2];
+    const classList = useSelector(selectMyClassList);
+    const classenrolled = useSelector(selectClassesEnrolledList);
+    const [cid, setCid] = useState([]);
+    const [ceid, setCeid] = useState([]);
+    const [isBusy, setBusy] = useState(true);
     /* Render the array of joined classes through the Mondo DB */
     useEffect(() => {
-       /*  axios.get("http://localhost:5000/users/getusers/" + user.uid)
+        dispatch(clearClass()) ;
+        dispatch(clearclassesEnrolled()) ;
+        axios.get("http://localhost:5000/users/getusers/" + user.uid)
             .then((res) => {
-               
-              setCid(res.data[0].classroomsOwned)  
-              
+                setCid(res.data[0].classroomsOwned)
+                setCeid(res.data[0].classroomsJoined)
+                console.log(cid);
             }).then(() => {
-                
-                    axios.get("http://localhost:5000/classes/getclasses/"+cid[0].cid)
-                    .then((res)=>{
-                       console.log(res.data.name )
-                    })
-               
+                cid.map(item => {
+                    axios.get("http://localhost:5000/classes/getclasses/" + item.cid)
+                        .then((response) => {
+                            dispatch(addClass({ name: response.data.name, description: response.data.description, id: response.data._id }));
+                        })
+                })
+            }).then(() => {
+                ceid.map(item => {
+                    axios.get("http://localhost:5000/classes/getclasses/" + item.cid)
+                        .then((response) => {
+                            dispatch(addclassesEnrolled({ name: response.data.name, description: response.data.description, id: response.data._id }));
+                        })
+                })
             })
-            .catch(err => alert(err)) */
-
-         /*    axios.get("http://jsonplaceholder.typicode.com/todos")
-            .then((res) => {
-                res.data.map(item => {
-                  dispatch(addClass({name: item.title , description: item.completed})) ;
-               console.log(item.title)
-                }); 
-              
-             
+            .then(() => {
+                setBusy(false);
             })
-            .catch(err => alert(err)) */
-
-
-    }, [])
+            .catch(err => alert("Cid says" + err))
+    }, [isBusy])
     return (
 
         <div className="myClasses" >
@@ -83,15 +74,25 @@ const classList = useSelector(selectMyClassList);
             <div className="myClasses__ClassList">
 
                 <p>Your Classes</p>
-                {classList.length===0 ?
-                    <p class="myClasses__noclasses">No Classes to show</p>
+                {isBusy && classList.length===0 ?
+                    <p class="myClasses__noclasses">No classes to Show</p>
                     :
                     <div className="classList__list">
-                         {classList.map(({name , description} , index) => (
-                             <ClassCard key={index}  title={name} description={description} />
+                        {classList && classList.map((item) => (
+                            <ClassCard title={item.name} description={item.description} id={item.id} />
                         ))}
-                         
-                        
+                    </div>
+                }
+            </div>
+            <div className="myClasses__ClassList">
+                <p>Classes Enrolled</p>
+                {isBusy && classenrolled.length===0 ?
+                    <p class="myClasses__noclasses">No classes to Show</p>
+                    :
+                    <div className="classList__list">
+                        {classenrolled && classenrolled.map((item) => (
+                            <ClassCard title={item.name} description={item.description} id={item.id}/>
+                        ))}
                     </div>
                 }
             </div>

@@ -2,6 +2,7 @@ import React from 'react'
 import Header from "./Header" ;
 import Sidebar from "./Sidebar" ;
 import Chat from "./Chat" ;
+import Timetable from "./timetableData/Timetable" ;
 import {selectAvatarMenuIsOpen} from "../features/avatarMenuSlice" ;
 import {selectEditProfileModalIsOpen} from "../features/editProfileSlice" ;
 import {useSelector} from "react-redux" ;
@@ -40,10 +41,13 @@ function MainComponent() {
                         <Route path="/chats" >
                             <Chat />
                         </Route>
+                        <Route path="/timetable" >
+                            <Timetable />
+                        </Route>
                         <Route path="/classData" >
                             <ClassData />
                         </Route>
-                        <Redirect to="/classData" />
+                        <Redirect to="/myclasses" />
                     </Switch>
 
                     

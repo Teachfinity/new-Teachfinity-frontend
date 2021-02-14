@@ -1,0 +1,60 @@
+.timetable {
+    display: flex;
+    flex: 1 1;
+}
+.timetable_background{
+    width: 100%;
+    background-color: white;
+    min-height: 90vh;
+    font-size: 20px;
+    font-weight: bolder;
+    color: black;
+}
+.rbc-toolbar .rbc-toolbar-label {
+    font-size: 48px;
+    color: black;
+    font-weight: bolder;
+}
+.rbc-toolbar{
+    height: 160px;
+    background-image: url(https://i.pinimg.com/originals/09/2b/8e/092b8e002e1e7b3ddc6fec7cf70b1b88.jpg);
+}
+.rbc-btn-group{
+    background-color: rgba(255, 192, 203, 0.795);
+}
+.rbc-header{
+    background-color: rgba(255, 192, 203, 0.774);
+}
+.rbc-event.rbc-selected{
+    background-color: #62949d !important;
+    padding: 0px 0px !important;
+}
+.rbc-event{
+    background-color: #62949d !important;
+}
+.rbc-today {
+    background-color: rgba(255, 192, 203, 0.5) !important;
+}
+.eventlabel{
+    margin-left: 20px;
+}
+.eventinput{
+    width: 400px;
+    margin-left: 50px;
+}
+.addbutton{
+    padding-left: 1.25cm;
+}
+.rbc-row{
+    font-size: 18px;
+}
+.rbc-time-slot{
+    height: 2000px;
+}
+.rbc-row-content {
+    z-index: 0 im !important;
+}
+.timers{
+    margin-left: 20px;
+    color: cadetblue;
+}

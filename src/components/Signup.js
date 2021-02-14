@@ -107,22 +107,24 @@ function Signup() {
             alert("Account created Successfully");  
         })
         .then(()=>{
-            db.collection("users").doc(auth.currentUser.uid).get().then(res => {
-                const user = res.data() ;
-                
-                const adduser = {
-                    "uid" : user.uid ,
-                    "name" : user.displayName ,
-                    "email" : user.email,
-                    "profilePicture" : user.displayPic
-                }
-                axios.post(`http://localhost:5000/users/adduser` , adduser)
-                .then(res => {
-                    console.log(res)
-                })
+            setTimeout(() => {
+                db.collection("users").doc(auth.currentUser.uid).get().then(res => {
+                    const user = res.data() ;
+                    const adduser = {
+                        "uid" : user.uid ,
+                        "name" : user.displayName ,
+                        "email" : user.email,
+                        "profilePicture" : user.displayPic
+                    }
+                    axios.post(`http://localhost:5000/users/adduser` , adduser)
+                    .then(res => {
+                        console.log(res)
+                    })
+              }, 2000);
+            
               }) ;
         })
-        .catch(err => alert(err.message))
+        .catch(err => alert("Signup Error: " + err.message))
 
     }
 

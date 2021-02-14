@@ -3,6 +3,8 @@ import { Avatar } from '@material-ui/core';
 import {useSelector , useDispatch} from "react-redux" ;
 import {selectUser } from "../features/userSlice" ;
 import {closeAvatarMenu} from "../features/avatarMenuSlice" ;
+import {clearClass} from "../features/myClassListSlice" ;
+import {clearclassesEnrolled} from "../features/classesEnrolledSlice" ;
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import EditIcon from '@material-ui/icons/Edit';
 import SettingsIcon from '@material-ui/icons/Settings';
@@ -34,6 +36,8 @@ function AvatarMenu() {
                 <button onClick={() =>
                      {
                          dispatch(closeAvatarMenu()) ;
+                         dispatch(clearClass()) ;
+                         dispatch(clearclassesEnrolled()) ;
                         auth.signOut() ;
                       
                     
