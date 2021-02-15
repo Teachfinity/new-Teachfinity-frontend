@@ -7,11 +7,9 @@
   top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
-    width: 600px;
+    width: 500px;
     max-width: 100%;
-    height: 600px;
-    max-height: 100%;
-    max-width: 800px;
+    height: 550px;
     background-color: rgb(238, 236, 236);
     box-shadow: -7px 15px 7px 1000px rgba(0, 0, 0, 0.637);
     border: 1px solid gray;
@@ -24,7 +22,7 @@
     display: flex;
     flex-direction: row;
    justify-content: space-between;
-    margin-bottom: 100px;
+    margin-bottom: 50px;
     text-align: center;
 }
 
@@ -52,7 +50,7 @@
     font-size: 1.5rem;
     font-weight: bold;
     color: gray;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 .editProfile > form > input{
@@ -75,16 +73,17 @@
 .editProfile > form > button{
     width: 40%;
     height: 40px;
-    margin-left: 175px;
+    margin-left: 150px;
     border: none;
     background-color: #3aa5ab;
     color: white;
     border-radius: 10px;
+    margin-top: 20px;
 }
 .editProfile__avatar{
     display: flex;
     justify-content: center;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
 }
 .editProfile__avatarcontent{
     display: flex;

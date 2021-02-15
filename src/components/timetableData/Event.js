@@ -213,6 +213,7 @@ function AddEvent({selected, startdate, endate}) {
     const onFormSubmit = (event) => {
         event.preventDefault();
         myEventsList.push(events);
+        console.log(events)
         toggleModal();
         setEventname("")
       }
@@ -251,7 +252,7 @@ function AddEvent({selected, startdate, endate}) {
                 </div>
                 <form onSubmit={onFormSubmit}>
                     <FormGroup className="event_form_group">
-                        <TextField onChange={updatestate} label="Event Name" placeholder="Enter title for event..." className="eventlabel"></TextField>
+                        <TextField onChange={updatestate} label="Event Name" placeholder="Enter title for event..." required="true" className="eventlabel"></TextField>
                     </FormGroup>
                     <div className="event__timepickers">
                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -294,7 +295,7 @@ function AddEvent({selected, startdate, endate}) {
                         <FormHelperText>Required</FormHelperText>
                     </FormControl>
                     </div>
-                    <button className="event_button" onClick={() => alert("Event Added")} type="submit"  >Create</button>
+                    <button className="event_button" type="submit"  >Create</button>
 
                 </form>
             </div>
