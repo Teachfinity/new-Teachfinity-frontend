@@ -34,7 +34,12 @@ function MessageSender() {
 
 
                 dispatch(newPost()) ;
-            }).catch(err => alert("Post" + err)) 
+            })
+            .then(() => {
+                setImage("") ;
+                setMessage("") ;
+            })
+            .catch(err => alert("Post" + err)) 
 
        
         
@@ -51,7 +56,7 @@ function MessageSender() {
                      onChange={e => setMessage(e.target.value)}
                     placeholder="Enter your message here" />
                     {/* The image to be modified with button to upload image later */}
-                    <input type="file" value={image}
+                    <input value={image}
                     className="messageSender__image"
                     onChange={e => setImage(e.target.value)}
                     placeholder="imageURL (optional)"/>

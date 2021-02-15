@@ -8,6 +8,7 @@ import {
   } from "react-router-dom";
 import ClassSidebar from './classData/ClassSidebar';
 import ClassFeed from './classData/ClassFeed';
+import ClassMeetings from './classData/ClassMeetings';
 
 function ClassData() {
     return (
@@ -20,6 +21,9 @@ function ClassData() {
                 <Switch>
                         <Route path="/classData/classFeed" >
                             <ClassFeed />
+                        </Route>
+                        <Route path="/classData/meetings" >
+                            <ClassMeetings />
                         </Route>
                        
                         <Redirect to="/classData/classFeed" />

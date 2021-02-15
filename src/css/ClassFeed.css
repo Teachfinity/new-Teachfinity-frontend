@@ -7,3 +7,11 @@
     align-items: center;  
     
 }
+.classFeed__loader{
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+    margin-left: 20px;
+    
+    width: 100%;
+}

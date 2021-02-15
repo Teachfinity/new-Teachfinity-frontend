@@ -1,0 +1,65 @@
+.meeting{
+   
+        width: 100%;
+        margin-top: 50px;
+        border-radius: 15px;
+        background-color: white;
+        box-shadow: -5px 5px 7px -7px rgba(0,0,0,0.75);
+        padding: 10px;
+        
+    
+}
+.meeting__heading > h2{
+    text-align: center;
+    color: #3aa5ab;
+    padding: 8px;
+    
+}
+.meeting__details{
+    display: flex;
+    
+}
+.meeting__details > h2{
+    color: gray;
+    margin-right: 20px;
+    flex: 0.27;
+   
+}
+.meeting__time > p{
+    
+    margin-right: 10px;
+    color: rgb(104, 103, 103);
+}
+.meeting__time > h4{
+    
+    margin-right: 10px;
+    color: rgb(104, 103, 103);
+}
+.meeting__date > p{
+    
+    margin-right: 10px;
+    color: rgb(104, 103, 103);
+}
+.meeting__date > h4{
+    
+    margin-right: 10px;
+    color: rgb(104, 103, 103);
+}
+.meeting__timings{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+   
+  
+}
+.meeting__time{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 5px;
+   
+}
+.meeting__date{
+    display: flex;
+    flex-direction: row;
+    
+}

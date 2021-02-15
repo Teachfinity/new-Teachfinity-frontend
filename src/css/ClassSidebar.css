@@ -46,6 +46,7 @@
     background-color: whitesmoke;
     color: gray;
     border-radius: 3px;
+    outline-width: 0;
 
 }
 .classSidebar__nav > button:hover{

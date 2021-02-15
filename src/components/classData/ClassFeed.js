@@ -6,7 +6,7 @@ import axios from "axios" ;
 import {selectedClass} from "../../features/selectClassSlice" ;
 import {useSelector , useDispatch} from "react-redux" ;
 import {selectNewPost ,addPost , clearPost , selectMyPostList} from "../../features/postListSlice" ;
-
+import MyLoader from "../content-loader" ;
 function ClassFeed() {
     const dispatch = useDispatch() ;
     const selectClass = useSelector(selectedClass) ;
@@ -35,7 +35,13 @@ function ClassFeed() {
             <MessageSender />
             {/* Posts on the feed */}
             {isBusy && postList ?
-            <p>No Posts to show</p>
+           (<div className="classFeed__loader" >
+           <MyLoader />
+           <MyLoader />
+           <MyLoader />
+           </div>
+           )
+
                 : 
             
             postList && postList.map(({createdAt , creatorDisplay , creatorName , message , imagePath}) => (

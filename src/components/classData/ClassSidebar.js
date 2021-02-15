@@ -3,7 +3,9 @@ import "../../css/ClassSidebar.css" ;
 import classDataLogo from "../../images/classDataLogo.png" ;
 import {selectedClass} from "../../features/selectClassSlice" ;
 import {useSelector} from "react-redux" ;
+import {useHistory} from "react-router-dom" ;
 function ClassSidebar() {
+    const history = useHistory() ;
     const selectClass = useSelector(selectedClass) ;
     return (
         <div className="classSidebar" >
@@ -14,8 +16,10 @@ function ClassSidebar() {
             </div>
 
         <div className="classSidebar__nav">
-            <button>Announcements</button>
-            <button>Meetings</button>
+            <button 
+            onClick={() => history.push("/classData/classFeed")}>Announcements</button>
+            <button
+            onClick={() => history.push("/classData/meetings")} >Meetings</button>
             <button>Grades</button>
         </div>
             
