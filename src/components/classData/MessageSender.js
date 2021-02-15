@@ -2,16 +2,44 @@ import { Avatar } from '@material-ui/core';
 import React , {useState} from 'react'
 import "../../css/MessageSender.css" ;
 import {selectUser} from "../../features/userSlice" ;
-import {useSelector} from "react-redux" ;
+import {selectedClass} from "../../features/selectClassSlice" ;
+import {useSelector , useDispatch} from "react-redux" ;
+import {selectNewPost , newPost} from "../../features/postListSlice" ;
+import axios from 'axios';
+
 function MessageSender() {
+    const dispatch = useDispatch() ;
+    const selectClass = useSelector(selectedClass) ;
     const user  = useSelector(selectUser) ;
     const [message , setMessage] = useState("") ;
-    const [image , setImage] = useState("") ;
-
+    const [image , setImage] = useState(null) ;
+    const [postId , setPostId] = useState("") ;
+    var currentUser = null ;  
+    
     const handleSubmit = (e) => {
         e.preventDefault() ;
+        /* Post the data in the post schema */
+        
+            const sendPost = {
+                    "message": message,
+                    "imagePath": image,
+                    "creatorDisplay": user.displayPic ,
+                    "creatorName": user.displayName,
+                    "classroom": selectClass.id,
+                }
+            axios.post('http://localhost:5000/posts/addpost', sendPost)
+            .then((res) => {
+                axios.put('http://localhost:5000/classes/updateclass/'+selectClass.id+'/post/'+res.data._id)
+                .catch(err => alert(err))
 
-        alert(message + " " + image) ;
+
+                dispatch(newPost()) ;
+            }).catch(err => alert("Post" + err)) 
+
+       
+        
+        /* Post the id of the post from the response into the class Schema */
+        
     }
     return (
         <div className="messageSender" >
@@ -23,7 +51,7 @@ function MessageSender() {
                      onChange={e => setMessage(e.target.value)}
                     placeholder="Enter your message here" />
                     {/* The image to be modified with button to upload image later */}
-                    <input value={image}
+                    <input type="file" value={image}
                     className="messageSender__image"
                     onChange={e => setImage(e.target.value)}
                     placeholder="imageURL (optional)"/>

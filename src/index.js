@@ -7,10 +7,14 @@ import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
 import "react-big-calendar/lib/css/react-big-calendar.css";
 
+
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
+  
       <App />
+     
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')

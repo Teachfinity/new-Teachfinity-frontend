@@ -84,21 +84,21 @@
 .editProfile__avatar{
     display: flex;
     justify-content: center;
-    background-color: pink;
+    margin-bottom: 20px;
 }
 .editProfile__avatarcontent{
     display: flex;
-    width: 150px;
+    width: 200px;
     flex-direction: column;
     justify-content: space-between;
 }
-.editProfile__avatarcontent > button{
-    font-size: 20px;
+.editProfile__avatarcontent > label{
+    font-size: 15px;
     font-weight: bolder;
     border: none;
     color: #3aa5ab;
 }
-.editProfile__avatarcontent > button:hover{
+.editProfile__avatarcontent > label:hover{
     cursor: pointer;
      text-decoration: underline;
      font-size: 1.3rem;

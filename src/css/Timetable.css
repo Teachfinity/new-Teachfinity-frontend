@@ -35,13 +35,6 @@
 .rbc-today {
     background-color: rgba(255, 192, 203, 0.5) !important;
 }
-.eventlabel{
-    margin-left: 20px;
-}
-.eventinput{
-    width: 400px;
-    margin-left: 50px;
-}
 .addbutton{
     padding-left: 1.25cm;
 }
@@ -52,7 +45,7 @@
     height: 2000px;
 }
 .rbc-row-content {
-    z-index: 0 im !important;
+    z-index: 0 !important;
 }
 .timers{
     margin-left: 20px;

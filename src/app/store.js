@@ -8,6 +8,7 @@ import classesEnrolledSliceReducer from "../features/classesEnrolledSlice" ;
 import classCodeReducer from "../features/classCodeSlice" ;
 import timetableReducer from "../features/TimetableSlice" ;
 import selectedClassReducer from "../features/selectClassSlice" ;
+import selectedPostReducer from "../features/postListSlice" ;
 export default configureStore({
   reducer: {
     user: userReducer,
@@ -18,6 +19,7 @@ export default configureStore({
     classesEnrolled: classesEnrolledSliceReducer,
     classCode: classCodeReducer,
     timetable: timetableReducer,
-    selectedClass: selectedClassReducer
+    selectedClass: selectedClassReducer,
+    postList : selectedPostReducer
   },
 });
