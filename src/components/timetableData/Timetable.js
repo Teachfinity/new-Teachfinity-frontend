@@ -3,10 +3,12 @@ import DateFnsUtils from '@date-io/date-fns';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import Event from './Event';
 import { selectEventIsOpen, openEventMenu} from "../../features/TimetableSlice";
+
 import { selectMyClassList, addClass , clearClass } from "../../features/myClassListSlice";
 import { selectClassesEnrolledList, addclassesEnrolled , clearclassesEnrolled } from "../../features/classesEnrolledSlice";
 import { useSelector, useDispatch } from "react-redux";
-import {addMid , clearMid, selectmyMid} from "../../features/myEventsListSlice" ;
+import {addMid , clearMid, selectmyMid , addEvent , clearEvent ,
+   selectmyEventsList , selectNewEvent , clearNewEvent} from "../../features/myEventsListSlice" ;
 import axios from 'axios';
 
 import moment from 'moment'
@@ -17,11 +19,15 @@ function Timetable(){
   const localizer = momentLocalizer(moment) 
   const dispatch = useDispatch();
   const classList = useSelector(selectMyClassList);
+  
   const classenrolled = useSelector(selectClassesEnrolledList);
   const isModalOpen = useSelector(selectEventIsOpen);
   const midList = useSelector(selectmyMid) ;
   const now = new Date();
-  const myEventsList = [
+  const myEventsList = useSelector(selectmyEventsList) ;
+  const isNewEvent = useSelector(selectEventIsOpen) ;
+  const isEvent = useSelector(selectNewEvent) ;
+  /*  [
   {
     title: 'Today',
     start: new Date(new Date().setHours(new Date().getHours())),
@@ -32,8 +38,13 @@ function Timetable(){
     start: now,
     end: now,
   },
+  {
+    title: "Lecture 1",
+    end: new Date("Wed Feb 17 2021 00:00:00 GMT+0500 (Pakistan Standard Time)"),
+    start: new Date("Wed Feb 17 2021 11:00:00 GMT+0500 (Pakistan Standard Time)")
+  } 
  
-]
+] */
 
   const [selecteddate, Setselecteddate] = useState("");
   const [date, Setdate] = useState("");
@@ -54,7 +65,22 @@ function Timetable(){
 
   useEffect(()=>{
   //  Class You own 
-  dispatch(clearMid()) ;
+  
+
+   
+    dispatch(clearMid()) ;
+ dispatch(clearEvent()) ;
+ setBusy(true) ;
+  
+   
+  
+  /* {newEventList.length >0 && 
+   
+        newEventList.map(event => {
+        dispatch(addEvent(event))
+      }) 
+  } */
+  
     classList.map(classid=>{
       axios.get("http://localhost:5000/classes/getclasses/" + classid.id)
       .then((res)=>{
@@ -76,28 +102,55 @@ function Timetable(){
           dispatch(addMid(meeting.mid))
         })}
       })
-      .then(() => {
-        setBusy(false) ;
-      })
       .catch(err => alert(err)) 
     }) ; 
+    setTimeout(() => {
+        setBusy(false) ;
+    } , 3000) ;
+
+    {!isBusy && 
+      
+      
+       
+        
+      
+        
+        midList.map((id) => {
+          axios.get("http://localhost:5000/meetings/getmeetings/" + id)
+         .then((res) => {
+           dispatch(addEvent({
+             title: res.data[0].name ,
+             end: new Date(res.data[0].startTime)  ,
+             start:  new Date(res.data[0].endTime) 
+           }));
+          
+         })
+         .catch(err => alert(err))
+           
+       })
+        
+
+       setTimeout(() => {
+        
+         setListBusy(false) ;
+         
+       }, 3000)
     
-{!isBusy && midList.map((id) => {
-  axios.get("http://localhost:5000/meetings/getmeetings/" + id)
-  .then((res) => {
-    myEventsList.push({
-      title: res.data[0].name,
-      start: new Date(res.data[0].startTime),
-      end: new Date(res.data[0].endTime)
-    });
-  })
-  .catch(err => alert(err))
+        
+     
+ 
+    }
   
-})
-setListBusy(false) ;
-{!isListBusy && console.log(myEventsList)}
-}
-} , [isBusy]) ;
+
+ 
+
+    
+/* {!isBusy && 
+
+  } */
+  
+
+} , [isListBusy,isEvent]) ;
 
     return (
       <div className="timetable">
@@ -106,7 +159,7 @@ setListBusy(false) ;
           selectable={true}
           //onSelectEvent={event => this.onEventClick(event)}
           onSelectSlot={(slotInfo) => onSlotChange(slotInfo)}
-          events={isListBusy ? alert("no item") : alert("meeting")}
+          events={isListBusy ? [] : myEventsList}
           startAccessor="start"
           endAccessor="end"
         />
