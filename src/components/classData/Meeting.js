@@ -1,10 +1,42 @@
 import React from 'react';
 import "../../css/Meeting.css";
+import moment from 'moment'
+
 function Meeting({ meetingName, startTime, endTime }) {
+    const start = moment(startTime).format('hh:mm A ') ;
+    const end = moment(endTime).format('hh:mm A ') ;
+    const date = moment(startTime).format('DD-MM-YYYY');
+    const getday = moment(startTime).weekday() ;
+    var day ;
+    switch(getday){
+        case 1:
+            day = "Monday";
+            break;
+        case 2:
+            day = "Tuesday";
+            break;
+        case 3:
+            day = "Wednesday";
+            break;
+        case 4:
+            day = "Thursday";
+            break;
+        case 5:
+            day = "Friday";
+            break;
+        case 6:
+            day = "Saturday";
+            break;
+        case 7:
+            day = "Sunday";
+            break;
+            
+    }
+   
     return (
         <div className="meeting" >
             <div className="meeting__heading">
-                <h2>Mahnoor Saleem Announced a new Meeting</h2>
+                <h2>New Meeting</h2>
             </div>
             <div className="meeting__details">
                 <h2>
@@ -14,14 +46,15 @@ function Meeting({ meetingName, startTime, endTime }) {
                 <div className="meeting__timings">
                     <div className="meeting__time">
                         <p>From:</p>
-                        <h4>{startTime}</h4>
-                        <p>-</p>
-                        <h4>{endTime}</h4>
+                        <h4>{start}</h4>
+                        <p>to</p>
+                        <h4>{end}</h4>
                     </div>
                     
                     <div className="meeting__date">
                     <p>Date:</p>
-                    <h4>18-feb-2020 Thursday</h4>
+                    <h4>{date}</h4>
+                    <h4>{day}</h4>
                     </div>
                    
                 </div>

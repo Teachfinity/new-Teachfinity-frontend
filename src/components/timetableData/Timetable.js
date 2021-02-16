@@ -22,11 +22,8 @@ function Timetable(){
   
   const classenrolled = useSelector(selectClassesEnrolledList);
   const isModalOpen = useSelector(selectEventIsOpen);
-  const midList = useSelector(selectmyMid) ;
   const now = new Date();
   const myEventsList = useSelector(selectmyEventsList) ;
-  const isNewEvent = useSelector(selectEventIsOpen) ;
-  const isEvent = useSelector(selectNewEvent) ;
   /*  [
   {
     title: 'Today',
@@ -70,25 +67,24 @@ function Timetable(){
    
     dispatch(clearMid()) ;
  dispatch(clearEvent()) ;
- setBusy(true) ;
   
-   
-  
-  /* {newEventList.length >0 && 
-   
-        newEventList.map(event => {
-        dispatch(addEvent(event))
-      }) 
-  } */
   
     classList.map(classid=>{
       axios.get("http://localhost:5000/classes/getclasses/" + classid.id)
       .then((res)=>{
         //console.log(res.data.meetings)
         {res.data.meetings.length>0 &&
-          res.data.meetings.map(meeting => {
-           
+          res.data.meetings.map(meeting => { 
           dispatch(addMid(meeting.mid))
+          axios.get("http://localhost:5000/meetings/getmeetings/" + meeting.mid)
+         .then((res) => {
+           dispatch(addEvent({
+             title: res.data[0].name ,
+             start: new Date(res.data[0].startTime)  ,
+             end:  new Date(res.data[0].endTime) 
+           }));
+         })
+         .catch(err => alert(err))
         })}
       }).catch(err => alert(err)) 
     }) ; 
@@ -100,6 +96,14 @@ function Timetable(){
         {res.data.meetings.length>0 &&
           res.data.meetings.map(meeting => {
           dispatch(addMid(meeting.mid))
+          axios.get("http://localhost:5000/meetings/getmeetings/" + meeting.mid)
+         .then((res) => {
+           dispatch(addEvent({
+             title: res.data[0].name ,
+             start: new Date(res.data[0].startTime)  ,
+             end:  new Date(res.data[0].endTime) 
+           }));
+         })
         })}
       })
       .catch(err => alert(err)) 
@@ -107,50 +111,9 @@ function Timetable(){
     setTimeout(() => {
         setBusy(false) ;
     } , 3000) ;
-
-    {!isBusy && 
-      
-      
-       
-        
-      
-        
-        midList.map((id) => {
-          axios.get("http://localhost:5000/meetings/getmeetings/" + id)
-         .then((res) => {
-           dispatch(addEvent({
-             title: res.data[0].name ,
-             end: new Date(res.data[0].startTime)  ,
-             start:  new Date(res.data[0].endTime) 
-           }));
-          
-         })
-         .catch(err => alert(err))
-           
-       })
-        
-
-       setTimeout(() => {
-        
-         setListBusy(false) ;
-         
-       }, 3000)
-    
-        
-     
- 
-    }
   
 
- 
-
-    
-/* {!isBusy && 
-
-  } */
-  
-
-} , [isListBusy,isEvent]) ;
+} , [isModalOpen]) ;
 
     return (
       <div className="timetable">
@@ -159,7 +122,7 @@ function Timetable(){
           selectable={true}
           //onSelectEvent={event => this.onEventClick(event)}
           onSelectSlot={(slotInfo) => onSlotChange(slotInfo)}
-          events={isListBusy ? [] : myEventsList}
+          events={isBusy ? [] : myEventsList}
           startAccessor="start"
           endAccessor="end"
         />

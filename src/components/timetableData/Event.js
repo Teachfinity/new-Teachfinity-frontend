@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function AddEvent({selected, startdate, endate}) {
+function Event({selected, startdate, endate}) {
 
     const dispatch = useDispatch();
     const classList = useSelector(selectMyClassList);
@@ -62,12 +62,13 @@ function AddEvent({selected, startdate, endate}) {
         axios.post('http://localhost:5000/meetings/addmeeting', AddEvent)
         .then((res) => {
             axios.put('http://localhost:5000/classes/updateclass/'+res.data.classroom+'/meeting/'+res.data._id)
+            .then(() => {
+                toggleModal();
+                setEventname("")
+            })
             .catch(err => alert(err))
         })
-       
         .catch(err => alert(err))
-        toggleModal();
-        setEventname("")
       }
       const updatestate = (event) => {
         const { value } = event.target;
@@ -156,4 +157,4 @@ function AddEvent({selected, startdate, endate}) {
     )
 }
 
-export default AddEvent
+export default Event
