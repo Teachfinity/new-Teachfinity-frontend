@@ -3,8 +3,8 @@ import CloseIcon from "@material-ui/icons/Close";
 import axios from "axios" ;
 import { useSelector, useDispatch } from "react-redux";
 import { closeEventMenu, selectEventIsOpen } from "../../features/TimetableSlice";
-import { selectMyClassList, addClass , clearClass } from "../../features/myClassListSlice";
-import { addEvent } from "../../features/myEventsListSlice";
+import { selectMyClassList,  } from "../../features/myClassListSlice";
+import { NewEvent , addEvent  } from "../../features/myEventsListSlice";
 import {userSlice} from "../../features/userSlice" ;
 import DateFnsUtils from '@date-io/date-fns';
 import { TextField, Select, MenuItem, FormControl, InputLabel, FormHelperText, makeStyles } from '@material-ui/core'
@@ -45,11 +45,13 @@ function AddEvent({selected, startdate, endate}) {
         setClass(event.target.value);
     };
     const toggleModal= () =>{
-        dispatch(closeEventMenu())
+            dispatch(closeEventMenu())
     }
     const onFormSubmit = (event) => {
         event.preventDefault();
-        dispatch(addEvent({name: events.title, startTime: events.start, endTime: events.end, classroom: classs}));
+        
+        dispatch(NewEvent(true)) ;
+        
         const AddEvent = {
             name: events.title, 
             startTime: events.start, 
@@ -60,10 +62,9 @@ function AddEvent({selected, startdate, endate}) {
         axios.post('http://localhost:5000/meetings/addmeeting', AddEvent)
         .then((res) => {
             axios.put('http://localhost:5000/classes/updateclass/'+res.data.classroom+'/meeting/'+res.data._id)
-            .then(() => {
-              alert("Meeting added in class successfully")
-            }).catch(err => alert(err))
+            .catch(err => alert(err))
         })
+       
         .catch(err => alert(err))
         toggleModal();
         setEventname("")
