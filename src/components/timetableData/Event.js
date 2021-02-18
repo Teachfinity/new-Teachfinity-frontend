@@ -16,6 +16,9 @@ import {
     MuiPickersUtilsProvider,
     KeyboardDateTimePicker
 } from '@material-ui/pickers';
+import moment from 'moment'
+import { id } from 'date-fns/esm/locale';
+import { TrainRounded } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -40,6 +43,9 @@ function Event({selected, startdate, endate}) {
     const [selecteddate, Setselecteddate] = useState(selected);
     const [date, Setdate] = useState(startdate);
     const [enddate, Setenddate] = useState(endate);
+    var studentName;
+    var clash = false
+    
 
     const handleChange = (event) => {
         setClass(event.target.value);
@@ -47,9 +53,60 @@ function Event({selected, startdate, endate}) {
     const toggleModal= () =>{
             dispatch(closeEventMenu())
     }
-    const onFormSubmit = (event) => {
-        event.preventDefault();
+    const clashDetector = () =>{
+        //classroom -> students -> classes joined-> classid->meeting ids->meeting info
+        //start time end time
+        // new meeting-> start time-> studentmeetings starttime < new start time < end time
+        // st start time< end time  <st end time
+        axios.get('http://localhost:5000/classes/getstudents/class/'+classs)
+        .then((res)=>{
+            //console.log(res.data)
+            res.data.map((students) =>{
+                students.sid.classroomsJoined.map((cids)=>{
+                    //console.log(cids.cid)
+                    axios.get('http://localhost:5000/meetings/getmeetings/class/'+cids.cid)
+                    .then((res)=>{
+                        if(res.data.length === 0){
+                            /* isClash = false ; */
+                            console.log("Noo meetings for this class" + cids.cid) ; 
+                        }
+                        else{
+                           res.data.map(meeting => {
+                               const dbdate = moment(meeting.startTime).format('DD-MM-YYYY');
+                               const dbstart = parseInt(moment(meeting.startTime).format('HH'));
+                               const dbend = parseInt(moment(meeting.endTime).format('HH'));
+                               const selectstart = parseInt(moment(date).format('HH'))
+                               const selectend = parseInt(moment(enddate).format('HH'))
+                               if(moment(date).format('DD-MM-YYYY') === dbdate){
+                                   if(dbstart<=selectstart && selectstart<=dbend){
+                                      studentName = students.sid.name
+                                      clash = true
+                                   } 
+                                   if(dbstart<=selectend && selectend<=dbend){
+                                    studentName = students.sid.name
+                                       clash = true
+                                   }
+                               } 
+                           })
+                        }
+                    })
+                })
+            })
+        })
         
+        .catch(err => alert(err))
+          
+    }
+    const onFormSubmit = (event) => {
+        
+        event.preventDefault();
+
+        clashDetector()
+        setTimeout(()=>{
+                clash ? alert(studentName+" is having a clash") : createEvent()
+        },8000)    
+    }
+    const createEvent = () =>{
         dispatch(NewEvent(true)) ;
         
         const AddEvent = {
@@ -63,13 +120,14 @@ function Event({selected, startdate, endate}) {
         .then((res) => {
             axios.put('http://localhost:5000/classes/updateclass/'+res.data.classroom+'/meeting/'+res.data._id)
             .then(() => {
+                studentName = ""
                 toggleModal();
                 setEventname("")
             })
             .catch(err => alert(err))
         })
         .catch(err => alert(err))
-      }
+        }
       const updatestate = (event) => {
         const { value } = event.target;
         setEventname( value);
@@ -94,7 +152,7 @@ function Event({selected, startdate, endate}) {
             end: new Date(edate),
         })
         Setenddate(edate)
-    };
+    }
     return (
 
         <div>
