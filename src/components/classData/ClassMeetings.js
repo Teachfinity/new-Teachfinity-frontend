@@ -33,7 +33,7 @@ function ClassMeetings() {
         <div className="classMeetings" >
             <p>Meetings</p>
             {myEventsList.length===0 ? 
-            <p class="classMeetings__noclasses">No classes to Show</p>
+            <p class="classMeetings__noclasses">No meetings to Show</p>
             :
             <div className="classMeetings__list">
             {myEventsList && myEventsList.map((item) => (

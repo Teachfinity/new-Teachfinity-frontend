@@ -17,10 +17,18 @@ function ClassSidebar() {
 
         <div className="classSidebar__nav">
             <button 
-            onClick={() => history.push("/classData/classFeed")}>Announcements</button>
+            onClick={() => history.push("/classData/classFeed")}>
+            Announcements
+            </button>
             <button
-            onClick={() => history.push("/classData/meetings")} >Meetings</button>
+            onClick={() => history.push("/classData/meetings")} >
+            Meetings
+            </button>
             <button>Grades</button>
+            <button
+            onClick={() => history.push("/classData/classCabinet")} >
+            Class Cabinet
+            </button>
         </div>
             
         </div>
