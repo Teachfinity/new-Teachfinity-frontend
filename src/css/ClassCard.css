@@ -20,6 +20,9 @@
 .classCard:hover{
     background-color: rgb(243, 243, 243);
 }
+.more_icon{
+    float: right !important;
+}
 .classCard > p {
     color: gray ;
    font-size: 0.9rem;

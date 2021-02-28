@@ -26,6 +26,46 @@
     color: rgb(180, 178, 178);
     font-size: 0.9rem;
 }
+.info_modal{
+    display: flex;
+}
+.info_fade{
+    position: fixed;
+    display: flex;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 40px;
+    background-color: rgb(238, 236, 236);
+    box-shadow: 7px 25px 7px 1400px rgba(0, 0, 0, 0.308);
+}
+.info_fade > h2{
+    color: #3aa5ab;
+    font-size: 2rem;
+    font-weight: 700;
+    border-bottom: 1px solid rgb(197, 195, 195);
+    margin-bottom: 40px;
+}
+.info_fade > p{
+    padding: 20px;
+}
+.info_fade > p > button{
+    width: 40%;
+    height: 40px;
+    border: none;
+    margin-left: 20px;
+    background-color: #3aa5ab;
+    color: white;
+    font-weight: bolder;
+    border-radius: 10px;
+    outline-width: 0;
+}
+.info_fade > p > button:hover{
+    background-color: #3aa5ab83;
+}
 
 .classSidebar__nav{
     display: flex;

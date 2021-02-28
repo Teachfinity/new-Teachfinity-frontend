@@ -39,18 +39,21 @@ function MyClasses() {
                 cid.map(item => {
                     axios.get("http://localhost:5000/classes/getclasses/" + item.cid)
                         .then((response) => {
-                            dispatch(addClass({ name: response.data.name, description: response.data.description, id: response.data._id }));
+                            dispatch(addClass({ name: response.data.name, description: response.data.description, id: response.data._id, code: response.data.code }));
                         })
                 })
             }).then(() => {
                 ceid.map(item => {
                     axios.get("http://localhost:5000/classes/getclasses/" + item.cid)
                         .then((response) => {
-                            dispatch(addclassesEnrolled({ name: response.data.name, description: response.data.description, id: response.data._id }));
+                            dispatch(addclassesEnrolled({ name: response.data.name, description: response.data.description, id: response.data._id, code: response.data.code }));
                         })
                 })
             })
             .then(() => {
+                console.log(classList.map((item) =>{
+                    console.log(item)
+                }))
                 setBusy(false);
             })
             .catch(err => alert("Cid says" + err))
@@ -79,7 +82,7 @@ function MyClasses() {
                     :
                     <div className="classList__list">
                         {classList && classList.map((item) => (
-                            <ClassCard title={item.name} description={item.description} id={item.id} />
+                            <ClassCard title={item.name} description={item.description} id={item.id} code={item.code} />
                         ))}
                     </div>
                 }
@@ -91,7 +94,7 @@ function MyClasses() {
                     :
                     <div className="classList__list">
                         {classenrolled && classenrolled.map((item) => (
-                            <ClassCard title={item.name} description={item.description} id={item.id}/>
+                            <ClassCard title={item.name} description={item.description} id={item.id} code={item.code}/>
                         ))}
                     </div>
                 }

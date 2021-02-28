@@ -18,9 +18,7 @@ function Post({ id, profilepic, message, timestamp, username, image }) {
     const currdate = moment(currentDate).format('DD-MM-YYYY');
     const [comments, setComments] = useState([]);
     const [liked, setLiked] = useState(false);
-    const [disliked, setDisliked] = useState(false);
     const [likes, setLikes] = useState([]);
-    const [dislikes, setDislikes] = useState([]);
     const [comment, setComment] = useState("");
     const user = useSelector(selectUser);
     const isNewPost = useSelector(selectNewPost);
@@ -35,7 +33,6 @@ function Post({ id, profilepic, message, timestamp, username, image }) {
                     setComments(res.data.comments)
                 }
                 setLikes(res.data.likes)
-                setDislikes(res.data.dislikes)
             })
             .then(() => {
                 setTimeout(() => {
