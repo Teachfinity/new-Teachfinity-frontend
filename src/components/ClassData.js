@@ -9,6 +9,7 @@ import {
 import ClassSidebar from './classData/ClassSidebar';
 import ClassFeed from './classData/ClassFeed';
 import ClassMeetings from './classData/ClassMeetings';
+import ClassCabinet from "./classData/ClassCabinet" ;
 
 function ClassData() {
     return (
@@ -19,11 +20,14 @@ function ClassData() {
                 </div>
                 <div className="classData__contentScreen">
                 <Switch>
-                        <Route path="/classData/classFeed" >
+                        <Route exact path="/classData/classFeed" >
                             <ClassFeed />
                         </Route>
-                        <Route path="/classData/meetings" >
+                        <Route exact path="/classData/meetings" >
                             <ClassMeetings />
+                        </Route>
+                        <Route exact path="/classData/classCabinet" >
+                            <ClassCabinet />
                         </Route>
                        
                         <Redirect to="/classData/classFeed" />

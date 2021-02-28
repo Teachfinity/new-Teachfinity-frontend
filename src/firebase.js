@@ -1,4 +1,5 @@
 import firebase from "firebase" ;
+import "firebase/storage" ;
 const firebaseConfig = {
     apiKey: "AIzaSyBmHKmlxh4QqxAdKVCWV3HTkKbafltkr0c",
     authDomain: "teachfinity-project.firebaseapp.com",
@@ -12,11 +13,11 @@ const firebaseConfig = {
   const firebaseApp = firebase.initializeApp(firebaseConfig) ;
 
   const db = firebaseApp.firestore() ;
-
+ const storageRef = firebaseApp.storage().ref()
   const auth = firebase.auth() ;
   const provider = new firebase.auth.GoogleAuthProvider() ;
 
-  export {auth , provider} ;
+  export {auth , provider , storageRef} ;
   
   export default db ;
 

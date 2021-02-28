@@ -1,43 +1,95 @@
-import React, {useState} from 'react';
+import React, {useState , useRef} from 'react';
 import CloseIcon from "@material-ui/icons/Close";
 import { useSelector, useDispatch } from "react-redux";
 import { closeEditProfile } from "../features/editProfileSlice";
 import { Avatar } from '@material-ui/core';
-import { selectUser } from "../features/userSlice";
+import { selectUser , login} from "../features/userSlice";
 import "../css/EditProfile.css";
-import db , {auth} from "../firebase" ;
+import db , {auth , storageRef} from "../firebase" ;
 function EditProfileForm() {
     const dispatch = useDispatch();
     const user = useSelector(selectUser);
-    const [image, setImage] = useState(user.displayPic)
-
-    const imageHandler = (e) =>{
-        const reader = new FileReader();
-        reader.onload = () =>{
-            if(reader.readyState===2){
-                setImage(reader.result);
-               const profilepic = reader.result ;
-               db.collection("users").doc(auth.currentUser.uid).update({
-                   displayPic: profilepic
-                   
-               }).then(() => {
-                  console.log(reader.result) ;
-                auth.currentUser.updateProfile({
-                    displayName: "Jane Q. User",
-                    photoURL: profilepic
-                  }).then(function() {
-                    alert("Updated Successfully")
-                  }).catch(function(error) {
-                    alert(error)
-                  });
-                  
-               }).then(() => {
-                   console.log(auth.currentUser)
-               }).catch(err => alert(err))
-            }
-        }
-        reader.readAsDataURL(e.target.files[0])
+    const [image , setImage] = useState(user.displayPic);
+    const [fileUrl , setFileUrl] = useState(null) ;
+    const changedName = useRef(user.displayName) ;
+    
+    const imageHandler = async (e) =>{
+       
+        const file = e.target.files[0] ;
         
+        
+      
+        if(file){
+            
+            const fileRef = storageRef.child(file.name);
+            await fileRef.put(file);
+            setFileUrl(await fileRef.getDownloadURL());
+            
+            setImage(await fileRef.getDownloadURL())
+            
+           
+        }
+        else{
+            setFileUrl(image) ;
+        }
+        
+
+        
+    }
+    const handleSubmit =  e => {
+        e.preventDefault() ;
+        const newname = changedName.current.value
+        if(fileUrl){
+            
+             db.collection("users").doc(auth.currentUser.uid).update({
+                 displayPic:  fileUrl ,
+                 displayName: newname
+                 
+             }).then(() => {
+     
+                 auth.currentUser.updateProfile({
+                     displayName: newname ,
+                     photoURL: fileUrl
+                 })
+                
+                 
+             }).then(()=> {
+                 dispatch(login({
+                     uid: user.uid ,
+                     email: user.email,
+                     displayPic:  fileUrl ,
+                     displayName: newname 
+                   })) ;
+             })
+             .catch(err => alert(err))
+        }
+        else{
+            db.collection("users").doc(auth.currentUser.uid).update({
+                displayPic:  image ,
+                displayName: newname
+                
+            }).then(() => {
+    
+                auth.currentUser.updateProfile({
+                    displayName: newname ,
+                    photoURL: image
+                })
+               
+                
+            }).then(()=> {
+                dispatch(login({
+                    uid: user.uid ,
+                    email: user.email,
+                    displayPic:  image ,
+                    displayName: newname 
+                  })) ;
+            })
+            .catch(err => alert(err))
+
+        }
+    
+        dispatch(closeEditProfile())
+       console.log(changedName.current.value) ;
     }
 
     return (
@@ -46,13 +98,14 @@ function EditProfileForm() {
                 <p>Edit Profile</p>
                 {<CloseIcon onClick={() => dispatch(closeEditProfile())} />}
             </div>
-            <form onSubmit>
+            <form onSubmit={handleSubmit}>
                 <div className="editProfile__avatar">
                     <Avatar src={image} style={{width: "90px", height: "90px" }} />
                     
                     <div className="editProfile__avatarcontent"><h4>{user.displayName}</h4>
                     <input
                         type="file"
+                        
                         id="upload-button"
                         onChange={imageHandler}
                         style={{ display: 'none' }} /* Make the file input element invisible */
@@ -64,8 +117,9 @@ function EditProfileForm() {
                     
                 </div>
                 <p>Display Name </p>
-                <input defaultValue={user.displayName} />
-                <button type="submit">Submit</button>
+                <input className="editProfile__username" name="username" 
+                defaultValue={user.displayName}  ref={changedName} />
+                <button  type="submit">Confirm Changes</button>
 
             </form>
         </div>
