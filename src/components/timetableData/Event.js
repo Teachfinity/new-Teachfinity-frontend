@@ -193,15 +193,15 @@ function Event({selected, startdate, endate}) {
                             id="demo-simple-select-required"
                             value={classs}
                             onChange={handleChange}
-                            className={classes.selectEmpty}
+                            className={` ${classes.selectEmpty} `}
+                            
                         >
-                            <MenuItem value="">
-                                <em>None</em>
-                            </MenuItem>
+                            <div className="custom-menu">
                             {classList.map(item => (
                                 <MenuItem value={item.id}>{item.name}</MenuItem>
                             )
                             )}
+                            </div>
                         </Select>
                         <FormHelperText>Required</FormHelperText>
                     </FormControl>

@@ -18,6 +18,7 @@ function ClassFeed() {
         axios.get("http://localhost:5000/posts/getposts/"+selectClass.id)
         .then((res) => {
             /* Array in response */
+            console.log(res.data);
             dispatch(addPost(res.data)) ;
         })
         .then(()=>{
@@ -44,8 +45,10 @@ function ClassFeed() {
 
                 : 
             
-            postList && postList.map(({createdAt , creatorDisplay , creatorName , message , imagePath}) => (
-                <Post profilepic={creatorDisplay}
+            postList && postList.map(({_id, createdAt , creatorDisplay , creatorName , message , imagePath}) => (
+                <Post 
+                id = {_id}
+                profilepic={creatorDisplay}
                  message={message} 
                  timestamp={createdAt}
                  username={creatorName}

@@ -7,7 +7,9 @@
     padding: 10px;
     
 }
-
+.post_icon{
+    float: right;
+}
 .post__top{
     display: flex;
     position: relative;
@@ -29,12 +31,10 @@
 
 .post__bottom{
     margin-top: 10px;
-    margin-bottom: 10px;
     padding: 15px 20px;
 }
 .post__image{
     display: flex;
-    
     justify-content: center;
     
 }
@@ -45,5 +45,56 @@
     max-height: 100%;
     border: none;
     outline-width: 0;
-
+}
+.post_contentbar{
+    display: flex;
+    padding-left: 20px;
+}
+.post_likes{
+    display: flex;
+    flex-direction: column;
+}
+.post_likes > div{
+    margin-left: 5px;
+}
+.thumbs_up{
+    color: lightslategrey;
+    margin-right: 10px;
+}
+.thumbs_up:hover{
+    color: lightseagreen;
+}
+.thumbs_up_clicked{
+    color: lightseagreen;
+    margin-right: 10px;
+}
+.post_comments{
+    padding: 20px
+}
+.post_comments > p{
+    padding: 10px;
+    font-size: 15px;
+}
+.post_comments > p > div{
+    font-size: small;
+}
+.post_comments > p > strong{
+    margin-right: 15px;
+}
+.post_commentbox{
+    display: flex;
+    margin-left: 10px;
+}
+.post_input{
+    border: none;
+    border-radius: 20px;
+    outline-width: 0;
+    width: 900px;
+    padding: 10px;
+    background-color: whitesmoke ;
+    color: gray;
+}
+.post_button{
+    margin-left: 20px;
+    border: none;
 }

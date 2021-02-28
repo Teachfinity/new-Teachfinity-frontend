@@ -71,9 +71,10 @@
     align-items: center;
     margin-left: 110px;
 }
-.MuiMenu-list {
+/* MuiMenu-list */
+.custom-menu  {
     overflow-y: scroll !important;
-    height: 350px !important;
+    height: 320px !important;
 }
 .MuiSelect-nativeInput{
     width: 0px !important;
