@@ -9,6 +9,7 @@ import classCodeReducer from "../features/classCodeSlice" ;
 import timetableReducer from "../features/TimetableSlice" ;
 import selectedClassReducer from "../features/selectClassSlice" ;
 import selectedPostReducer from "../features/postListSlice" ;
+import studentListReducer from "../features/studentListSlice" ;
 import eventListReducer from "../features/myEventsListSlice" ;
 export default configureStore({
   reducer: {
@@ -22,6 +23,7 @@ export default configureStore({
     timetable: timetableReducer,
     selectedClass: selectedClassReducer,
     postList : selectedPostReducer,
+    studentList : studentListReducer,
     eventList : eventListReducer
   },
 });
