@@ -1,5 +1,5 @@
 .classCabinet{
-    padding: 0px 10px 0px 10px;
+    
     display: flex ;
     flex-direction: column;
   
@@ -8,8 +8,9 @@
 .classCabinet__navigation{
     width: 100%;
     background-color: rgb(236, 236, 236);
-    padding: 20px 10px;
-   
-    
+    padding: 20px 10px;   
+}
+.classCabinet__screens{
+    padding: 0px 10px 0px 10px;
 }
 

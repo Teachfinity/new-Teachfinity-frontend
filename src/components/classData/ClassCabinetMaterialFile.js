@@ -4,7 +4,6 @@ function ClassCabinetMaterialFile({fileName , link}) {
     return (
         <a className="anchortag" href={link} target="_blank" >
             <div className="classCabinetMaterialFile" >
-           
             {fileName}
         </div>
         </a>

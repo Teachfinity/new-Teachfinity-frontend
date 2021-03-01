@@ -3,17 +3,25 @@ import '../../css/ClassCabinetMaterial.css' ;
 import db , {auth , storageRef} from "../../firebase" ;
 import ClassCabinetMaterialFile from "./ClassCabinetMaterialFile" ;
 function ClassCabinetMaterial() {
-    const [filename , setFilename] = useState("")
+    const [filename , setFilename] = useState("") ; 
+    const [fileUrl , setFileUrl] = useState("") ;
+    const [submitFileName , setSubmitFileName] = useState("")
     
-    const fileHandler = e => {
+    const fileHandler = async e => {
         const file  = e.target.files[0] ;
         if(file){
-
             setFilename(file.name) ;
+            const fileRef = storageRef.child(file.name);
+            await fileRef.put(file);
+            setFileUrl(await fileRef.getDownloadURL());
         }
         else{
             setFilename("") ;
         }
+    }
+    const handleSubmit = e => {
+        e.preventDefault() ;
+        setSubmitFileName(filename) ;
     }
 
     return (
@@ -30,7 +38,7 @@ function ClassCabinetMaterial() {
                         filename !== ""
                             ?
                             <div className="classCabinetMaterial__uploadButton">
-                                <button>Confirm upload</button>
+                                <button onClick={handleSubmit} >Confirm upload</button>
                             </div>
                             :
                             <></>
@@ -39,7 +47,13 @@ function ClassCabinetMaterial() {
                 
             </div>
             <div className="classCabinetMaterial__files">
-              <ClassCabinetMaterialFile fileName={"Midterm Exam.pdf"} link={"https://firebasestorage.googleapis.com/v0/b/teachfinity-project.appspot.com/o/classDataLogo.png?alt=media&token=610d085f-26bf-4cfe-b987-fa343e515132"}  />
+                    {
+                        submitFileName !== "" ? 
+                        <ClassCabinetMaterialFile fileName={submitFileName} link={fileUrl}  />
+                        :
+                        <></>
+
+                    }
             </div>
            
         </div>
