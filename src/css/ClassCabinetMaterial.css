@@ -14,8 +14,9 @@
     justify-content: space-between;
    
 }
-.classCabinetMaterial__uploadArea > form{
-    display: flex ;
+.classCabinetMaterial__uploadArea > form {
+    display: flex;
+    
 }
 
 .classCabinetMaterial__uploadArea > form > label{
@@ -31,13 +32,15 @@
     background-color: rgb(207, 207, 207);
 }
 .classCabinetMaterial__uploadArea > form > p{
-    margin-top: 5px;
+    margin-top: 7px;
     margin-left: 10px;
     color: gray;
+    cursor: pointer;
 }
 
 .classCabinetMaterial__uploadButton {
-    margin-top: 10px;
+   
+    display: flex;
     
     
 }
@@ -48,6 +51,24 @@
     border-radius: 5px;
     outline-width: 0;
     color: white;
-    ;
+  
 
+}
+.classCabinetMaterial__uploadButton > button:hover{
+    background-color: #00c8d3;
+}
+
+.classCabinetMaterial__cancelButton > .MuiSvgIcon-root{
+    color: gray;
+    margin-top: 5px;
+    margin-left: 15px;
+    padding: 5px;
+    font-size: 1.5rem;
+}
+
+.classCabinetMaterial__cancelButton > .MuiSvgIcon-root:hover{
+    color: rgb(224, 48, 48) ;
+    background-color: rgb(238, 238, 238);
+    border-radius: 999px;
+    
 }
