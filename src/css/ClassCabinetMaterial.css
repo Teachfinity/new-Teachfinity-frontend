@@ -1,0 +1,50 @@
+.classCabinetMaterial{
+    display: flex;
+    flex-direction: column;
+    
+}
+.classCabinetMaterial__upload{
+    width: 60%;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: -5px 5px 7px -7px rgba(0,0,0,0.75);
+    margin-top: 10px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+   
+}
+.classCabinetMaterial__uploadArea > form{
+    display: flex ;
+}
+
+.classCabinetMaterial__uploadArea > form > label{
+    background-color: gray;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    outline-width: 0;
+    color: white;
+    
+}
+.classCabinetMaterial__uploadArea > form > p{
+    margin-top: 5px;
+    margin-left: 10px;
+    color: gray;
+}
+
+.classCabinetMaterial__uploadButton {
+    margin-top: 10px;
+    
+    
+}
+.classCabinetMaterial__uploadButton > button{
+    background-color: #3aa5ab;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    outline-width: 0;
+    color: white;
+    ;
+
+}

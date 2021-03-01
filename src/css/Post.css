@@ -70,6 +70,7 @@
     margin-right: 10px;
 }
 .post_comments{
+
     padding-left: 20px;
     border-top: 1px solid lightgrey;
     border-bottom: 1px solid lightgrey;
@@ -93,7 +94,7 @@
     border: none;
     border-radius: 20px;
     outline-width: 0;
-    width: 900px;
+    width: 100%;
     padding: 10px;
     background-color: whitesmoke ;
     color: gray;
@@ -101,4 +102,18 @@
 .post_button{
     margin-left: 20px;
     border: none;
+    border-radius: 5px;
+    background-color: rgb(230, 230, 230);
+    
+   
+}
+.post_button_active{
+    margin-left: 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #3aa5ab;
+    color: white;
+    font-weight: bold;
+    
+   
 }
