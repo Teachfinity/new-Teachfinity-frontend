@@ -154,7 +154,7 @@ function Post({ id, profilepic, message, timestamp, username, image }) {
                 />
                 <button
                     disabled={!comment}
-                    className="post_button"
+                    className= {`${!comment ? "post_button" : "post_button_active"}`}
                     type="submit"
                     onClick={postComment}
                 >
