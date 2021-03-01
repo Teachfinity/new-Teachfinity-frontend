@@ -23,6 +23,7 @@ function MessageSender() {
             const sendPost = {
                     "message": message,
                     "imagePath": image,
+                    "uid": user.uid,
                     "creatorDisplay": user.displayPic ,
                     "creatorName": user.displayName,
                     "classroom": selectClass.id,

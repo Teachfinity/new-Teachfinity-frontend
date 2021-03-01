@@ -6,6 +6,8 @@ import { Avatar } from '@material-ui/core';
 import { selectUser , login} from "../features/userSlice";
 import "../css/EditProfile.css";
 import db , {auth , storageRef} from "../firebase" ;
+import axios from 'axios'
+
 function EditProfileForm() {
     const dispatch = useDispatch();
     const user = useSelector(selectUser);
@@ -40,7 +42,7 @@ function EditProfileForm() {
         e.preventDefault() ;
         const newname = changedName.current.value
         if(fileUrl){
-            
+            const dp = {"dp": fileUrl}
              db.collection("users").doc(auth.currentUser.uid).update({
                  displayPic:  fileUrl ,
                  displayName: newname
@@ -60,6 +62,22 @@ function EditProfileForm() {
                      displayPic:  fileUrl ,
                      displayName: newname 
                    })) ;
+             })
+             .then(()=>{
+                 axios.put("http://localhost:5000/users/updateuser/"+user.uid+"/name/"+newname)
+                 .then(()=>{
+                    axios.put("http://localhost:5000/users/updateuser/"+user.uid+"/profilePic", dp)
+                    .catch(err=>alert(err))
+                 })
+                 .catch(err=>alert(err))
+             })
+             .then(()=>{
+                axios.put("http://localhost:5000/posts/updatepost/"+user.uid+"/creatorname/"+newname)
+                .then(()=>{
+                    axios.put("http://localhost:5000/posts/updatepost/"+user.uid+"/creatordp", dp)
+                    .catch(err=>alert(err.message))
+                 })
+                 .catch(err=>alert(err))
              })
              .catch(err => alert(err))
         }
@@ -83,6 +101,14 @@ function EditProfileForm() {
                     displayPic:  image ,
                     displayName: newname 
                   })) ;
+            })
+            .then(()=>{
+                axios.put("http://localhost:5000/users/updateuser/"+user.uid+"/name/"+newname)
+                .catch(err=>alert(err))
+            })
+            .then(()=>{
+                axios.put("http://localhost:5000/posts/updatepost/"+user.uid+"/creatorname/"+newname)
+                .catch(err=>alert(err))
             })
             .catch(err => alert(err))
 
