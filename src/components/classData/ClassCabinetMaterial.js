@@ -1,6 +1,7 @@
 import React , {useRef , useState} from 'react'
 import '../../css/ClassCabinetMaterial.css' ;
 import db , {auth , storageRef} from "../../firebase" ;
+import ClassCabinetMaterialFile from "./ClassCabinetMaterialFile" ;
 function ClassCabinetMaterial() {
     const [filename , setFilename] = useState("")
     
@@ -36,6 +37,9 @@ function ClassCabinetMaterial() {
                     }
                 
                 
+            </div>
+            <div className="classCabinetMaterial__files">
+              <ClassCabinetMaterialFile fileName={"Midterm Exam.pdf"} link={"https://firebasestorage.googleapis.com/v0/b/teachfinity-project.appspot.com/o/classDataLogo.png?alt=media&token=610d085f-26bf-4cfe-b987-fa343e515132"}  />
             </div>
            
         </div>

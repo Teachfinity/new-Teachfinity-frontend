@@ -27,6 +27,9 @@
     color: white;
     
 }
+.classCabinetMaterial__uploadArea > form > label:hover{
+    background-color: rgb(207, 207, 207);
+}
 .classCabinetMaterial__uploadArea > form > p{
     margin-top: 5px;
     margin-left: 10px;
