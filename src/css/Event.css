@@ -1,9 +1,10 @@
 .event{
+    padding-top: 10px;
     position: absolute;
     display: flex;
     justify-content: center;
     flex-direction: column;
-  top: 45%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
     width: 500px;
@@ -11,7 +12,7 @@
     height: 550px;
     background-color: rgb(238, 236, 236);
     box-shadow: -7px 15px 7px 1000px rgba(0, 0, 0, 0.52);
-    border: 1px solid gray;
+    border: 1px solid gray ;
     border-radius: 6px;
     overflow-y: scroll;
     

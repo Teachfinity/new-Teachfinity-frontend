@@ -11,6 +11,7 @@ export class LoginPage extends Component {
   isvalid = ({ nickname }) => nickname
 
   setUser = ({ user, isUser }) =>  {
+    
     if( isUser ) {
       this.setState({ error: 'This nickname already taken'})
     } else {
@@ -27,7 +28,8 @@ export class LoginPage extends Component {
   handleSubmit = () => {
     let { socket } = this.props
     let { nickname } = this.state
-    this.isvalid( this.state ) ? socket.emit( event.IS_USER, nickname, this.setUser ) :
+    
+    this.isvalid( this.state ) ?   socket.emit( event.IS_USER, nickname, this.setUser ) :
     this.setState({ error : 'Please input your nickname'})
   }
 

@@ -31,9 +31,9 @@ function ClassCabinetMaterial() {
             <div className="classCabinetMaterial__upload">
                 <div className="classCabinetMaterial__uploadArea">
                     <form>
-                        <input onChange={fileHandler} id="file-upload" type="file" style={{ display: "none" }} />
+                        <input  onChange={fileHandler} id="file-upload" type="file" style={{ display: "none" }} />
                         <label htmlFor="file-upload">Upload File</label>
-                        <p>{filename}</p>
+                        <p>{filename}</p>z
                     </form>
                 </div>
                 {
