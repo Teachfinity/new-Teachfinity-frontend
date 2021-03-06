@@ -4,6 +4,7 @@ export const myClassListSlice = createSlice({
   name: 'classList',
   initialState: {
     classes : [],
+    newclass: false ,
   },
   reducers: {
    addClass : (state,action) => {
@@ -12,11 +13,15 @@ export const myClassListSlice = createSlice({
    clearClass : (state) => {
      state.classes = [] ;
    },
+   newClass : (state) => {
+     state.newclass = !state.newclass ;
+   },
 
   },
 });
 
-export const { addClass, clearClass } = myClassListSlice.actions;
+export const { addClass, clearClass, newClass } = myClassListSlice.actions;
+export const selectnewClass = state => state.classList.newclass;
 
 
 

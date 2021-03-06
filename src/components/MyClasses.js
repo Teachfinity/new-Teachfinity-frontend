@@ -8,9 +8,12 @@ import CreateClassForm from "./CreateClassForm";
 import joinClassIcon from "../images/joinclass.png";
 import JoinClassCard from "./JoinClassCard";
 import ClassCard from './ClassCard';
+import ClassEnrolledCard from './ClassEnrolledCard';
 import { selectMyClassList, addClass , clearClass } from "../features/myClassListSlice";
 import { selectClassesEnrolledList, addclassesEnrolled , clearclassesEnrolled } from "../features/classesEnrolledSlice";
 import { openclassCode, selectclassCodeIsOpen } from "../features/classCodeSlice";
+import { Menu, MenuItem, IconButton } from '@material-ui/core';
+import { StarBorder, Star, MoreVert } from '@material-ui/icons';
 import { selectUser } from "../features/userSlice";
 import ClassCode from './ClassCode';
 import axios from "axios";
@@ -82,7 +85,9 @@ function MyClasses() {
                     :
                     <div className="classList__list">
                         {classList && classList.map((item) => (
+                        
                             <ClassCard title={item.name} description={item.description} id={item.id} code={item.code} />
+
                         ))}
                     </div>
                 }
@@ -94,7 +99,7 @@ function MyClasses() {
                     :
                     <div className="classList__list">
                         {classenrolled && classenrolled.map((item) => (
-                            <ClassCard title={item.name} description={item.description} id={item.id} code={item.code}/>
+                            <ClassEnrolledCard title={item.name} description={item.description} id={item.id} code={item.code}/>
                         ))}
                     </div>
                 }

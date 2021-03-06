@@ -30,10 +30,18 @@
 .classList__list{
     display: flex;
     flex-wrap: wrap; 
-    text-align: center;
-    justify-content: space-between ;
-    margin: 0 -40px;
-    
+    justify-content: space-between;
+}
+.classList__list > div{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    border-radius: 20px;
+}
+.iconButton{
+    float: right;
+    padding: 0px !important;
+    align-items: flex-start !important;
 }
 .myClasses__noclasses {
     color: rgb(212, 212, 212) !important ;

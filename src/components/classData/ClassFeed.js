@@ -21,7 +21,6 @@ function ClassFeed() {
     useEffect(() => {
         /* response for the post  */
         dispatch(clearStudent())
-        dispatch(clearPost())
         axios.get("http://localhost:5000/posts/getposts/"+selectClass.id)
         .then((res) => {
             /* Array in response */

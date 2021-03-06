@@ -100,11 +100,13 @@ function Event({selected, startdate, endate}) {
     const onFormSubmit = (event) => {
         
         event.preventDefault();
-
-        clashDetector()
+        if(events.start>events.end){
+            alert("End time can not be less than start time")
+        }
+        else{ clashDetector()
         setTimeout(()=>{
                 clash ? alert(studentName+" is having a clash") : createEvent()
-        },8000)    
+        },8000) }   
     }
     const createEvent = () =>{
         dispatch(NewEvent(true)) ;
@@ -193,15 +195,16 @@ function Event({selected, startdate, endate}) {
                             id="demo-simple-select-required"
                             value={classs}
                             onChange={handleChange}
-                            className={` ${classes.selectEmpty} `}
+                            className={classes.selectEmpty}
                             
                         >
-                            <div className="custom-menu">
-                            {classList.map(item => (
-                                <MenuItem value={item.id}>{item.name}</MenuItem>
-                            )
-                            )}
-                            </div>
+                                    <MenuItem value="">
+                                        <em>None</em>
+                                    </MenuItem>
+                                    {classList.map(item => (
+                                        <MenuItem value={item.id}>{item.name}</MenuItem>
+                                    )
+                                    )}
                         </Select>
                         <FormHelperText>Required</FormHelperText>
                     </FormControl>
