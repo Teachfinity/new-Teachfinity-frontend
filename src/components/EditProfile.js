@@ -28,6 +28,7 @@ function EditProfileForm() {
             setFileUrl(await fileRef.getDownloadURL());
             
             setImage(await fileRef.getDownloadURL())
+            console.log("file changed : " +  await fileRef.getDownloadURL()) ;
             
            
         }

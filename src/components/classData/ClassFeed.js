@@ -79,7 +79,11 @@ function ClassFeed() {
                     >
                         <Fade in={open}>
                             <div className="members_info">
-                                 {studentList.map((item)=>(
+                                 {studentList.length===0 ?
+                                 
+                                 <p className="classFeed__nostudents" >No Students yet</p>
+                                 :
+                                 studentList.map((item)=>(
                                      <div className="class_members">
                                      <Avatar src={item.profile} className="post__avatar" />
                                      <p>{item.name}</p>
@@ -91,7 +95,7 @@ function ClassFeed() {
                 </div>
             </div>
             {/* Posts on the feed */}
-            {isBusy && postList ?
+            {isBusy  ?
            (<div className="classFeed__loader" >
            <MyLoader />
            <MyLoader />
@@ -100,6 +104,8 @@ function ClassFeed() {
            )
 
                 : 
+                postList.length === 0 ?  <p class="classFeed__noclasses">No Announcements</p>
+                :
             
             postList && postList.map(({_id, createdAt , creatorDisplay , creatorName , message , imagePath}) => (
                 <Post 

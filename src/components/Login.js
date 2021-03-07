@@ -7,10 +7,11 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { GoogleLoginButton } from "react-social-login-buttons";
 import {useHistory} from "react-router-dom" ;
 import axios from "axios" ;
-
+import {toast} from 'react-toastify' ;
 import "../css/Login.css";
 import db, { auth , provider } from '../firebase';
 
+toast.configure() ;
 function Login() {
    
     const history = useHistory() ;
@@ -20,7 +21,23 @@ function Login() {
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState({email: '' });
     // const [loading, setLoading] = useState("");
+    
 
+    const successNotify = () =>{
+        toast.info("Login Successful" , 
+        {
+            position: toast.POSITION.TOP_RIGHT ,
+            
+        }
+        ) ;
+        
+    }
+    const errorNotify = (err) =>{
+        toast.error("ERROR :" + err , 
+        {
+            position: toast.POSITION.TOP_RIGHT,
+        })
+    }
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -53,8 +70,8 @@ function Login() {
             email, password
         ).then((user) => {
             console.log(user) ;
-            alert("Login Successful") ;
-        }).catch(err => alert(err.message)) ;
+            successNotify() ;
+        }).catch(err => errorNotify(err.message)) ;
     }
 
       const   handleGoogleLogin = () => {
@@ -86,7 +103,7 @@ function Login() {
                     })
                   }) ;
             })
-            .catch(err => alert(err) )
+            .catch(err => errorNotify(err) )
 
         }
 

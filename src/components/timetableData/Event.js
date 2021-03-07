@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import CloseIcon from "@material-ui/icons/Close";
 import axios from "axios" ;
+import {ThreeDots } from "../content-loader" ;
 import { useSelector, useDispatch } from "react-redux";
 import { closeEventMenu, selectEventIsOpen } from "../../features/TimetableSlice";
 import { selectMyClassList,  } from "../../features/myClassListSlice";
@@ -31,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Event({selected, startdate, endate}) {
+    const [loading , setLoading] = useState(false) ;
 
     const dispatch = useDispatch();
     const classList = useSelector(selectMyClassList);
@@ -98,6 +100,7 @@ function Event({selected, startdate, endate}) {
           
     }
     const onFormSubmit = (event) => {
+        setLoading(true) ;
         
         event.preventDefault();
         if(events.start>events.end){
@@ -106,9 +109,11 @@ function Event({selected, startdate, endate}) {
         else{ clashDetector()
         setTimeout(()=>{
                 clash ? alert(studentName+" is having a clash") : createEvent()
+               
         },8000) }   
     }
     const createEvent = () =>{
+     
         dispatch(NewEvent(true)) ;
         
         const AddEvent = {
@@ -124,6 +129,7 @@ function Event({selected, startdate, endate}) {
             .then(() => {
                 studentName = ""
                 toggleModal();
+                setLoading(false) ;
                 setEventname("")
             })
             .catch(err => alert(err))
@@ -164,6 +170,9 @@ function Event({selected, startdate, endate}) {
                     {<CloseIcon onClick={() => dispatch(closeEventMenu())} />}
                 </div>
                 <form onSubmit={onFormSubmit}>
+              
+              
+              
                     <FormGroup className="event_form_group">
                         <TextField onChange={updatestate} label="Event Name" placeholder="Enter title for event..." required="true" className="eventlabel"></TextField>
                     </FormGroup>
@@ -210,7 +219,7 @@ function Event({selected, startdate, endate}) {
                     </FormControl>
                     </div>
                     <button className="event_button" type="submit"  >Create</button>
-
+                    {loading && <ThreeDots/>}
                 </form>
             </div>
         </div>

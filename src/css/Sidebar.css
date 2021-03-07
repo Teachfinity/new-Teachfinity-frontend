@@ -15,15 +15,14 @@
     padding: 7px;   
 }
 .sidebar__button:hover  {
-    background-color: #f0f0f0f5;
-    cursor: pointer;
+    background-color: #25c0c5d7
     
 }
 .sidebar__button:hover > .MuiSvgIcon-root{
-    color: #3aa5ab;
+    color: whitesmoke;
 }
 .sidebar__button:hover > p{
-    color: #3aa5ab;
+    color: whitesmoke;
     font-weight: bolder;
 }
 .sidebar__button > p{

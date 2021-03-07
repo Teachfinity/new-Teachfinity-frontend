@@ -1,0 +1,42 @@
+
+.chatSidebar{
+    display: flex;
+    flex-direction: column;
+    
+}
+.chatSidebar__search{
+    display: flex;
+    background-color: white;
+    margin-top:5px;
+   
+    border: 1px solid rgb(192, 192, 192);
+    border-radius: 5px;
+    padding: 6px ;
+    
+    
+}
+.chatSidebar__search > .MuiSvgIcon-root{
+    font-size: 1.5rem;
+    color: gray;
+}
+.chatSidebar__search > input{
+    border: none;
+    color: gray;
+    outline-width: 0;
+    font-size: 1rem;
+}
+
+.chatSidebar__contacts{
+   
+    margin-top: 10px;
+}
+.chatSidebar__contacts > h1{
+    color: rgb(170, 170, 170);
+    font-weight: normal;
+
+}
+.chatSidebar__contact{
+    border-top: 1px solid rgb(231, 231, 231);
+    
+
+}

@@ -3,7 +3,7 @@ import DateFnsUtils from '@date-io/date-fns';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import Event from './Event';
 import { selectEventIsOpen, openEventMenu} from "../../features/TimetableSlice";
-
+import {ThreeDots , NetflixLoader} from "../content-loader" ;
 import { selectMyClassList, addClass , clearClass } from "../../features/myClassListSlice";
 import { selectClassesEnrolledList, addclassesEnrolled , clearclassesEnrolled } from "../../features/classesEnrolledSlice";
 import { useSelector, useDispatch } from "react-redux";
@@ -24,24 +24,24 @@ function Timetable(){
   const isModalOpen = useSelector(selectEventIsOpen);
   const now = new Date();
   const myEventsList = useSelector(selectmyEventsList) ;
-  /*  [
+  /* const loadingArray =  [
   {
-    title: 'Today',
+    title: "loading....",
     start: new Date(new Date().setHours(new Date().getHours())),
     end: new Date(new Date().setHours(new Date().getHours())),
   },
   {
-    title: 'Point in Time Event',
+    title: "Loading...",
     start: now,
     end: now,
   },
   {
-    title: "Lecture 1",
+    title: "Loading...",
     end: new Date("Wed Feb 17 2021 00:00:00 GMT+0500 (Pakistan Standard Time)"),
     start: new Date("Wed Feb 17 2021 11:00:00 GMT+0500 (Pakistan Standard Time)")
   } 
  
-] */
+]  */
 
   const [selecteddate, Setselecteddate] = useState("");
   const [date, Setdate] = useState("");
@@ -117,6 +117,12 @@ function Timetable(){
 
     return (
       <div className="timetable">
+        {isBusy ? 
+        <div style={{paddingTop: "20px" , paddingLeft: "15px",}} >
+          <NetflixLoader />
+        </div>
+        : 
+        
         <Calendar className="timetable_background"
           localizer={localizer}
           selectable={true}
@@ -126,7 +132,8 @@ function Timetable(){
           startAccessor="start"
           endAccessor="end"
         />
-        {isModalOpen && <Event selected={selecteddate} startdate={date} endate={enddate} />}
+      }
+      {isModalOpen && <Event selected={selecteddate} startdate={date} endate={enddate} />}
       </div>
     )
 }

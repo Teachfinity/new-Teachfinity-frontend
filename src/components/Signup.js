@@ -4,9 +4,13 @@ import db , {auth} from "../firebase" ;
  import { CommonLoading } from 'react-loadingg';
 import axios from "axios" ;
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import {toast} from "react-toastify" ;
+import 'react-toastify/dist/ReactToastify.css';
 
 
 import "../css/Signup.css";
+
+toast.configure() ;
 
 function Signup() {
     
@@ -30,6 +34,21 @@ function Signup() {
         confirmpassword: ""
     });
     
+    const successNotify = () =>{
+        toast.info("Account Created Successfully" , 
+        {
+            position: toast.POSITION.TOP_RIGHT ,
+            
+        }
+        ) ;
+        
+    }
+    const errorNotify = (err) =>{
+        toast.error("Sign-up Error :" + err , 
+        {
+            position: toast.POSITION.TOP_RIGHT,
+        })
+    }
 
 
     const handleChange = (event) => {
@@ -86,6 +105,7 @@ function Signup() {
     const displayName = user.firstname + " "+  user.lastname ;
 
     const handleSubmit = (event) => {
+       
         event.preventDefault() ;
         setLoading(true);
         auth.createUserWithEmailAndPassword(
@@ -104,7 +124,8 @@ function Signup() {
 
             }) ; 
             setLoading(false)
-            alert("Account created Successfully");  
+            // alert("Account created Successfully"); 
+            successNotify() ; 
         })
         .then(()=>{
             setTimeout(() => {
@@ -120,11 +141,11 @@ function Signup() {
                     .then(res => {
                         console.log(res)
                     })
-              }, 2000);
+              }, 3000);
             
               }) ;
         })
-        .catch(err => alert("Signup Error: " + err.message))
+        .catch(err =>  errorNotify(err))
 
     }
 
