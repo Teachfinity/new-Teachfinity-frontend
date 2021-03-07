@@ -5,7 +5,9 @@ import {selectUser} from "../../features/userSlice" ;
 import {selectedClass} from "../../features/selectClassSlice" ;
 import {useSelector , useDispatch} from "react-redux" ;
 import {selectNewPost , newPost} from "../../features/postListSlice" ;
+import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 import axios from 'axios';
+import {storageRef} from '../../firebase';
 
 function MessageSender() {
     const dispatch = useDispatch() ;
@@ -37,7 +39,7 @@ function MessageSender() {
                 dispatch(newPost()) ;
             })
             .then(() => {
-                setImage("") ;
+                setImage(null) ;
                 setMessage("") ;
             })
             .catch(err => alert("Post" + err)) 
@@ -46,6 +48,19 @@ function MessageSender() {
         
         /* Post the id of the post from the response into the class Schema */
         
+    }
+    const imageHandler = async(event) =>{
+        const file = event.target.files[0];
+        if(file){
+            console.log(file)
+            const fileRef = storageRef.child(file.name);
+            await fileRef.put(file);
+            setImage(await fileRef.getDownloadURL())
+            console.log(await fileRef.getDownloadURL())
+        }
+        else{
+            setImage(null)
+        }
     }
     return (
         <div className="messageSender" >
@@ -57,15 +72,17 @@ function MessageSender() {
                      onChange={e => setMessage(e.target.value)}
                     placeholder="Enter your message here" />
                     {/* The image to be modified with button to upload image later */}
-                    <input value={image}
+                    {/* <input value={image}
                     className="messageSender__image"
                     onChange={e => setImage(e.target.value)}
-                    placeholder="imageURL (optional)"/>
+                    placeholder="imageURL (optional)"/> */}
+                        <input onChange={imageHandler} id="file-upload" type="file" style={{ display: "none" }} />
+                        <label className="messageSender__uploader" htmlFor="file-upload"><PhotoLibraryIcon></PhotoLibraryIcon></label>
                     <button onClick={handleSubmit} type="submit" ></button>
                 </form>
             </div>
             <div className="messageSender__bottom">
-
+                {image!==null && <img src={image}/>}
             </div>
         </div>
     )

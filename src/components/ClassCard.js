@@ -7,7 +7,11 @@ import { newClass } from "../features/myClassListSlice";
 import { StarBorder, Star, MoreVert } from '@material-ui/icons';
 import { Menu, MenuItem, IconButton } from '@material-ui/core';
 import { selectUser } from "../features/userSlice";
-import axios from 'axios'
+import axios from 'axios';
+import {toast} from 'react-toastify';
+
+toast.configure();
+
 function ClassCard({ title, description, id, code }) {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
@@ -26,6 +30,13 @@ function ClassCard({ title, description, id, code }) {
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+    const successNotify = () =>{
+        toast.success("Class Deleted Successfully" ,
+        {
+            position: toast.POSITION.TOP_RIGHT,
+        })
+    }
 
     const deleteClass = (id) => {
         axios.get("http://localhost:5000/classes/getstudents/class/" + id)
@@ -47,16 +58,18 @@ function ClassCard({ title, description, id, code }) {
                                     .then(() => {
                                         //Delete Class
                                         axios.delete("http://localhost:5000/classes/delclass/" + id)
-                                            .then(() => {
-                                                dispatch(newClass())
-                                            })
-                                            .catch(err => alert("Error says " + err))
                                     })
                                     .catch(err => alert("Error says " + err))
                             })
                             .catch(err => alert("Error says " + err))
                     })
                     .catch(err => alert("Error says " + err))
+            })
+            .then(()=>{
+                setTimeout(()=>{
+                    dispatch(newClass())
+                },5000)
+                successNotify()
             })
             .catch(err => alert("Error says " + err))
         handleClose()
