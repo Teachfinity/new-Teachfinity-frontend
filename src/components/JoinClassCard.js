@@ -6,6 +6,10 @@ import {addclassesEnrolled} from "../features/classesEnrolledSlice" ;
 import axios from "axios";
 import "../css/JoinClassCard.css" ;
 import { FormatListNumberedRtlRounded } from '@material-ui/icons';
+import {toast} from 'react-toastify';
+
+toast.configure();
+
 function JoinClassCard({icon , title , description}) {
     const dispatch = useDispatch() ;
     const user = useSelector(selectUser) ;
@@ -18,11 +22,31 @@ function JoinClassCard({icon , title , description}) {
     var classname = null;
     var classdesc = null
 
+    const errorNotify = (err) =>{
+        toast.error("Error :" + err ,
+        {
+            position: toast.POSITION.TOP_RIGHT,
+        })
+    }
+    const warningNotify = (err) =>{
+        toast.warn(err ,
+        {
+            position: toast.POSITION.TOP_RIGHT,
+        })
+    }
+    const successNotify = () =>{
+        toast.success("Class Joined Successfully" ,
+        {
+            position: toast.POSITION.TOP_RIGHT,
+        })
+    }
+
     const handleSubmit = () =>{
         axios.get("http://localhost:5000/classes/getclasses/code/"+code)
         .then((res)=>{
             if(res.data.length===0){
-                alert("Invalid Code")
+                errorNotify("Invalid Code")
+                setCode("")
             }
             else{
             setCode("")
@@ -36,7 +60,7 @@ function JoinClassCard({icon , title , description}) {
             .then((res) => {
                 curruser = res.data[0]._id
                 if(teacher===curruser){
-                    alert("You are already the admin of this class")
+                    warningNotify("You are already the admin of this class")
                 }
                 else{
                     console.log(students)
@@ -47,7 +71,7 @@ function JoinClassCard({icon , title , description}) {
                         }
                     })
                     if(studentFound){
-                        alert("You have already Joined this class")
+                        warningNotify("You have already Joined this class")
                     }
                     else{
                         dispatch(addclassesEnrolled({ name: classname, description: classdesc}));
@@ -56,7 +80,7 @@ function JoinClassCard({icon , title , description}) {
                             axios.put("http://localhost:5000/users/updateuser/"+user.uid+"/classroomsJoined/"+getclass)
                         })
                         .then(()=>{
-                            alert("Class Joined Successfully")
+                            successNotify()
                         })
                         .catch(err => alert(err))
                     } 

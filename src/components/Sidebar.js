@@ -6,6 +6,7 @@ import MessageIcon from '@material-ui/icons/Message';
 import LocalLibraryIcon from '@material-ui/icons/LocalLibrary';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import BookmarksIcon from '@material-ui/icons/Bookmarks';
+import CreateIcon from '@material-ui/icons/Create';
 import {useHistory} from "react-router-dom" ;
 
 function Sidebar() {
@@ -14,6 +15,7 @@ function Sidebar() {
     const [chat, setChat] = useState(false)
     const [diary, setDiary] = useState(false)
     const [timetable, setTimetable] = useState(false)
+    const [quiz, setQuiz] = useState(false)
     const [bookmarks, setBookmarks] = useState(false)
 
     const Classes = ()=>{
@@ -22,6 +24,7 @@ function Sidebar() {
         setChat(false)
         setDiary(false)
         setTimetable(false)
+        setQuiz(false)
         setBookmarks(false)
     }
     const Chat = ()=>{
@@ -30,6 +33,7 @@ function Sidebar() {
         setChat(true)
         setDiary(false)
         setTimetable(false)
+        setQuiz(false)
         setBookmarks(false)
     }
     const Diary = ()=>{
@@ -38,6 +42,7 @@ function Sidebar() {
         setChat(false)
         setDiary(true)
         setTimetable(false)
+        setQuiz(false)
         setBookmarks(false)
     }
     const Timetable = ()=>{
@@ -46,6 +51,16 @@ function Sidebar() {
         setChat(false)
         setDiary(false)
         setTimetable(true)
+        setQuiz(false)
+        setBookmarks(false)
+    }
+    const Quiz = ()=>{
+        //history.push("/chats")
+        setMain(false)
+        setChat(false)
+        setDiary(false)
+        setTimetable(false)
+        setQuiz(true)
         setBookmarks(false)
     }
     const Bookmarks = ()=>{
@@ -54,6 +69,7 @@ function Sidebar() {
         setChat(false)
         setDiary(false)
         setTimetable(false)
+        setQuiz(false)
         setBookmarks(true)
     }
 
@@ -64,6 +80,7 @@ function Sidebar() {
             {chat? <div className="sidebar__button__active" ><MessageIcon /><p>Chat</p></div>:<div className="sidebar__button" onClick={Chat} ><MessageIcon /><p>Chat</p></div> }
             {diary? <div className="sidebar__button__active" ><LocalLibraryIcon /><p>Diary</p></div>:<div className="sidebar__button" ><LocalLibraryIcon /><p>Diary</p></div>}
             {timetable? <div className="sidebar__button__active" ><DateRangeIcon /><p>Timetable</p></div>:<div className="sidebar__button" onClick={Timetable} ><DateRangeIcon /><p>Timetable</p></div>}
+            {quiz? <div className="sidebar__button__active" ><CreateIcon /><p>Quiz Generator</p></div>:<a href="http://localhost:4000/" target="_blank" style={{textDecoration:"none"}}><div className="sidebar__button" onClick={Quiz}><CreateIcon /><p>Quiz Generator</p></div></a>}
             {bookmarks? <div className="sidebar__button__active" ><BookmarksIcon /><p>Bookmarks</p></div>:<div className="sidebar__button" ><BookmarksIcon /><p>Bookmarks</p></div>}
             
         </div>

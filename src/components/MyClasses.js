@@ -16,6 +16,7 @@ import { Menu, MenuItem, IconButton } from '@material-ui/core';
 import { StarBorder, Star, MoreVert } from '@material-ui/icons';
 import { selectUser } from "../features/userSlice";
 import ClassCode from './ClassCode';
+import {selectnewClass} from "../features/myClassListSlice"
 import axios from "axios";
 
 function MyClasses() {
@@ -23,27 +24,31 @@ function MyClasses() {
     const dispatch = useDispatch();
     const isModalOpen = useSelector(selectClassModalIsOpen);
     const user = useSelector(selectUser);
+    const isNewClass = useSelector(selectnewClass);
 
     const classList = useSelector(selectMyClassList);
     const classenrolled = useSelector(selectClassesEnrolledList);
-    const [cid, setCid] = useState([]);
-    const [ceid, setCeid] = useState([]);
+    var cid = [];
+    var ceid = [];
     const [isBusy, setBusy] = useState(true);
     /* Render the array of joined classes through the Mondo DB */
     useEffect(() => {
         dispatch(clearClass()) ;
         dispatch(clearclassesEnrolled()) ;
-        
+        cid = []
+        ceid = []
         axios.get("http://localhost:5000/users/getusers/" + user.uid)
             .then((res) => {
-                setCid(res.data[0].classroomsOwned)
-                setCeid(res.data[0].classroomsJoined)
+                cid = res.data[0].classroomsOwned
+                ceid = res.data[0].classroomsJoined
                 console.log(cid);
             }).then(() => {
                 cid.map(item => {
                     axios.get("http://localhost:5000/classes/getclasses/" + item.cid)
                         .then((response) => {
-                            dispatch(addClass({ name: response.data.name, description: response.data.description, id: response.data._id, code: response.data.code }));
+                            dispatch(addClass({ name: response.data.name, description: response.data.description, id: response.data._id, code: response.data.code }));                        
+                            cid = []
+                            ceid = []
                         })
                 })
             }).then(() => {
@@ -61,7 +66,7 @@ function MyClasses() {
                 setBusy(false);
             })
             .catch(err => alert("Cid says" + err))
-    }, [isBusy])
+    }, [isNewClass])
     return (
 
         <div className="myClasses" >

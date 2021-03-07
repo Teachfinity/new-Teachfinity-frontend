@@ -19,7 +19,7 @@ import {
 } from '@material-ui/pickers';
 import moment from 'moment'
 import { id } from 'date-fns/esm/locale';
-import { TrainRounded } from '@material-ui/icons';
+import {toast} from 'react-toastify';
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -30,6 +30,8 @@ const useStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(2),
     },
 }));
+
+toast.configure();
 
 function Event({selected, startdate, endate}) {
     const [loading , setLoading] = useState(false) ;
@@ -48,7 +50,13 @@ function Event({selected, startdate, endate}) {
     var studentName;
     var clash = false
     
-
+    const errorNotify = (err) =>{
+        toast.error("Error :" + err ,
+        {
+            position: toast.POSITION.TOP_RIGHT,
+        })
+        setLoading(false) ;
+    }
     const handleChange = (event) => {
         setClass(event.target.value);
     };
@@ -70,7 +78,7 @@ function Event({selected, startdate, endate}) {
                     .then((res)=>{
                         if(res.data.length === 0){
                             /* isClash = false ; */
-                            console.log("Noo meetings for this class" + cids.cid) ; 
+                            console.log("No meetings for this class" + cids.cid) ; 
                         }
                         else{
                            res.data.map(meeting => {
@@ -96,7 +104,7 @@ function Event({selected, startdate, endate}) {
             })
         })
         
-        .catch(err => alert(err))
+        .catch(err => errorNotify(err))
           
     }
     const onFormSubmit = (event) => {
@@ -104,11 +112,12 @@ function Event({selected, startdate, endate}) {
         
         event.preventDefault();
         if(events.start>events.end){
-            alert("End time can not be less than start time")
+            errorNotify("End time can not be less than start time")
+            
         }
         else{ clashDetector()
         setTimeout(()=>{
-                clash ? alert(studentName+" is having a clash") : createEvent()
+                clash ? errorNotify(studentName+" is having a clash") : createEvent()
                
         },8000) }   
     }
