@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { Segment, Form, Icon } from 'semantic-ui-react';
 
+import "../../css/MessageInput.css" ;
 export class MessageInput extends Component {
   state = {
     msg: ''
@@ -8,7 +8,8 @@ export class MessageInput extends Component {
 
   handleChange = e => this.setState({ msg: e.target.value })
 
-  handleSubmit = () => {
+  handleSubmit = (e) => {
+    e.preventDefault() ;
     this.props.sendMsg( this.state.msg )
     this.setState({ msg: '' })
   }
@@ -20,27 +21,22 @@ export class MessageInput extends Component {
   render() {
     let { msg } = this.state 
     return (
-      <Segment>
-        <Form onSubmit={msg.length > 0 ? this.handleSubmit : null }>
-          <Form.Input
-            fluid
+      <div className="messageInput">
+
+        <form onSubmit={msg.length > 0 ? this.handleSubmit : null }>
+          <input
+
             name='msg'
             value={msg}
             placeholder='Write your message'
             onChange={this.handleChange}
             onFocus = {this.handleOnFocused}
             onBlur = {this.handleOnBlur}
-            icon={<Icon 
-              name='send' 
-              link 
-              circular 
-              inverted 
-              onClick={ this.handleSubmit }
-              disabled = { msg.length < 1 } 
-            />}
           />
-        </Form>
-      </Segment>
+          <button type="submit" />
+        </form>
+      </div>
+     
     )
   }
 }

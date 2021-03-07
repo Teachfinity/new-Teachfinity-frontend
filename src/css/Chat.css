@@ -2,17 +2,43 @@
     background-color: rgb(248, 248, 248);
     height: 100vh;
     display: flex;
+    justify-content: center;
+    align-items: center;
     
 
 }
-.chat__sidebar{
-    flex: 0.25;
-    background-color: whitesmoke;
-    height: 100vh;
-    border-right: 1px solid rgb(200, 200, 200);
-    padding: 10px;
+.chat__login{
+    padding: 30px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
 }
-.chat__content{
-    flex: 0.75;
-    background-color: whitesmoke;
+.chat__loginHeader{
+    text-align: center;
+    margin:30px ;
+}
+.chat__loginHeader > h2{
+    color: #3aa5ab;
+}
+.chat__loginHeader > p{
+    color: gray;
+}
+.chat__loginImg{
+    width: 200px;
+    height: 200px;
+    margin: 30px ;
+}
+.chat__chatPage{
+    display: flex;
+}
+.chat__sidebar{
+    flex: 0.3;
+}
+.chat__chatContent{
+    flex: 0.7;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
 }

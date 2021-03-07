@@ -5,7 +5,7 @@ import Sidebar from './Sidebar';
 import MessageHeader from './MessageHeader'
 import MessagesBody from './MessagesBody'
 import MessageInput from './MessageInput'
-
+import "../../css/Chat.css" ;
 
 export class ChatPage extends Component {
 
@@ -126,37 +126,40 @@ export class ChatPage extends Component {
     let { user, users, pChats, logout, socket } = this.props
     let { activeChannel, chats } = this.state
     return (
-      <Grid style={{ height: '100vh', margin: '0px'}}>
-        <Grid.Column computer={4} tablet={ 4 } mobile={6} style={{ background: '#4c3c4c', height: '100%'}}>
-          <Sidebar
-            user = { user }
-            users = { users }
-            chats = { chats }
-            socket = { socket }
-            activeChannel = { activeChannel }
-            logout = { logout }
-            setActivePChannel = { this.setActivePChannel }
-            setActiveChannel = { this.setActiveChannel }
-            pChats = { pChats }
-          />
-        </Grid.Column>
-        <Grid.Column computer={12} tablet={ 12 } mobile={10} style={{ background: '#eee', height: '100%'}}>
-        {
-          activeChannel && (
-            <React.Fragment>
-              <MessageHeader activeChannel= { activeChannel } />
-              <MessagesBody 
-                messages = { activeChannel.messages } 
-                user={ user } 
-                typingUser = { activeChannel.typingUser } />
-              <MessageInput 
-                sendMsg = { this.sendMsg } 
-                sendTyping = { this.sendTyping } />  
-            </React.Fragment>
-          ) 
-        }
-        </Grid.Column>
-      </Grid>   
+    <div className="chat__chatPage">
+      <div className="chat__sidebar">
+      <Sidebar
+        user = { user }
+        users = { users }
+        chats = { chats }
+        socket = { socket }
+        activeChannel = { activeChannel }
+        logout = { logout }
+        setActivePChannel = { this.setActivePChannel }
+        setActiveChannel = { this.setActiveChannel }
+        pChats = { pChats }
+      />
+      </div>
+
+    <div className="chat__chatContent">
+
+    {
+      activeChannel && (
+       <>
+          <MessageHeader activeChannel= { activeChannel } />
+          <MessagesBody 
+            messages = { activeChannel.messages } 
+            user={ user } 
+            typingUser = { activeChannel.typingUser } />
+          <MessageInput 
+            sendMsg = { this.sendMsg } 
+            sendTyping = { this.sendTyping } />  
+        </>
+      ) 
+    }
+    </div>
+    </div>
+      
     )
   }
 }

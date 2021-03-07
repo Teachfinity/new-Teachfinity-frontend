@@ -1,42 +1,208 @@
-
 .chatSidebar{
     display: flex;
     flex-direction: column;
+    height: 100vh;
+    background-color: whitesmoke;
+    border-right: 1px solid rgb(214, 214, 214);
+
     
 }
-.chatSidebar__search{
-    display: flex;
-    background-color: white;
-    margin-top:5px;
-   
-    border: 1px solid rgb(192, 192, 192);
-    border-radius: 5px;
-    padding: 6px ;
-    
-    
-}
-.chatSidebar__search > .MuiSvgIcon-root{
-    font-size: 1.5rem;
+.chatSidebar > p{
     color: gray;
-}
-.chatSidebar__search > input{
-    border: none;
-    color: gray;
-    outline-width: 0;
+    text-align: center;
     font-size: 1rem;
+    border-bottom: 1px solid rgb(230, 230, 230);
+    padding-bottom: 7px;
 }
+.chatSidebar__header{
+    margin-top: 18px;
+    display: flex;
+    padding: 10px;
+    justify-content: center;
+  
+}
+.chatSidebar__header > .MuiSvgIcon-root{
 
-.chatSidebar__contacts{
+    color: #3aa5ab;
+    font-size: 2.5rem;
+}
+.chatSidebar__header > h1{
+    color: #3aa5ab;
+    text-align: center;
+    margin-right: 10px;
+}
+.chatSidebar__channels{
+    display: flex;
+    flex-direction: column;
+    padding: 5px ;
+  
    
-    margin-top: 10px;
-}
-.chatSidebar__contacts > h1{
-    color: rgb(170, 170, 170);
-    font-weight: normal;
 
 }
-.chatSidebar__contact{
-    border-top: 1px solid rgb(231, 231, 231);
+.chatSidebar__channelsHeader{
+    display: flex;
+    justify-content: space-between;
+    color: rgb(105, 105, 105);
+    font-weight: bold;
+
+}
+.chatSidebar__channelsHeader > .MuiSvgIcon-root{
+    color: gray;
+    margin-top: 5px;
+}
+.chatSidebar__channelsHeader > .MuiSvgIcon-root:hover{
+    color: rgb(189, 189, 189);
+   
+}
+.chatSidebar__channel{
+    margin-left: 10px;
+    color: gray;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.classSidebar__onlineUsers{
+        display: flex;
+        flex-direction: column;
+        padding: 5px ;
+ 
+}
+
+.classSidebar__onlineUsersHeader{
+    display: flex;
+    justify-content: space-between;
+    color: rgb(105, 105, 105);
+    font-weight: bold;
+}
+.classSidebar__onlineUser{
+    margin-left: 10px;
+    color: gray;
+   
+}
+.chatSidebar__username{
+    cursor: pointer; 
+    display: flex;
+    margin-bottom: 10px ;
+    justify-content: space-between;
+}
+.chatSidebar__username > div{
+    display: flex;
+}
+.chatSidebar__username > div > .MuiSvgIcon-root{
+  
+    font-size: 1.5rem;
+    margin-right: 5px;
     
+}
+.chatSidebar__username > span{
+    background-color: rgb(221, 47, 47);
+    width: 15px;
+    height: 15px;
+    text-align: center;
+    padding: 3px;
+    color: white;
+    border-radius: 5px;
+    font-size: 0.7rem;
+    font-weight: bold;
+}
+.chatSidebar__username > div:hover{
+    color: rgb(187, 187, 187);
+}
+.chatSidebar__logoutButton{
+    justify-content: center;
+display: flex;
+}
+.chatSidebar__logoutButton > button {
+    margin-top: 30px;
+    background-color: rgb(209, 55, 55);
+   
+    width: 50%;
+    
+    outline-width: 0;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    color: white ;
+    font-weight: bold;
+}
+.chatSidebar__logoutButton > button:hover{
+    background-color: rgb(195, 48, 48);
+}
 
+.classSidebar__modal{
+    position: absolute;
+    display: flex;
+    
+    flex-direction: column;
+    position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+    width: 500px;
+    max-width: 100%;
+    height: 300px;
+    background-color: rgb(238, 236, 236);
+    box-shadow: -7px 15px 7px 1000px rgba(0, 0, 0, 0.637);
+    border: 1px solid gray;
+    border-radius: 6px;
+    text-align: center;
+}
+.classSidebar__modal > h2{
+    margin-top: 20px;
+    color: #3aa5ab;
+}
+.classSidebar__modal > form{
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+}
+.classSidebar__modal > form > input{
+    padding: 10px;
+    margin-bottom: 10px;
+    outline-width: 0;
+    border: none;
+    border-radius: 5px;
+}
+.classSidebar__buttons{
+    display: flex;
+    justify-content: space-evenly;
+}
+.classSidebar__cancel{
+    padding: 10px;
+    border-radius: 5px;
+    border: 3px solid rgb(206, 52, 52);
+    color: rgb(200, 78, 78);
+    background-color: transparent ;
+}
+.classSidebar__cancel:hover{
+    background-color: rgb(206, 52, 52) ;
+    color: white;
+}
+.classSidebar__add{
+    padding: 10px;
+    border-radius: 5px;
+    border: 3px solid rgb(119, 163, 119);
+    color: rgb(75, 129, 75);
+    background-color: transparent ;
+}
+.classSidebar__add:hover{
+    background-color: rgb(119, 163, 119); 
+    color: white;
+}
+.chatSidebar__channelRow{
+    display: flex;
+    justify-content: space-between;
+}
+.chatSidebar__channelRow > span{
+    background-color: rgb(221, 47, 47);
+    width: 15px;
+    height: 15px;
+    text-align: center;
+    padding: 3px;
+    color: white;
+    border-radius: 5px;
+    font-size: 0.7rem;
+    font-weight: bold;
 }

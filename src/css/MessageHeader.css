@@ -1,0 +1,14 @@
+.messageHeader{
+    background-color: white;
+    padding: 10px;
+    border-radius: 3px;
+    margin-bottom: 15px;
+    border: 1px solid rgb(216, 216, 216);
+}
+.messageHeader > h2{
+    color: gray;
+}
+.messageHeader > h4{
+    font-weight:normal ;
+    color: rgb(190, 189, 189);
+}

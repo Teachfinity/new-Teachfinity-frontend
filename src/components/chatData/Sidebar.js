@@ -1,8 +1,12 @@
 import React, { Component } from 'react'
 import events from '../../events'
-import { Menu, Header, Icon, Button, Label, Modal, Form, Input, Message } from 'semantic-ui-react'
+import { Menu, Label, Message } from 'semantic-ui-react'
 import Loader from 'react-dots-loader'
-import 'react-dots-loader/index.css'
+import 'react-dots-loader/index.css' ;
+import "../../css/ChatSidebar.css" ;
+import AddCircleIcon from '@material-ui/icons/AddCircle';
+import RateReviewIcon from '@material-ui/icons/RateReview';
+import FaceIcon from '@material-ui/icons/Face';
 
 export class Sidebar extends Component {
 
@@ -15,14 +19,17 @@ export class Sidebar extends Component {
 
   displayChannels = chats => (
     chats.map(chat => (
-      <Menu.Item
+      <div
+       className="chatSidebar__channelRow"
         key={chat.name}
         onClick={() => this.props.setActiveChannel(chat.name)}
-        active={this.props.activeChannel.name === chat.name}
-      >
+      
+      > 
         # {chat.name}
-        {chat.msgCount > 0 && <Label size='mini' color='red'> {chat.msgCount} </Label>}
-      </Menu.Item>
+        
+        {chat.msgCount > 0 && <span> {chat.msgCount} </span> }
+        
+      </div>
     ))
   )
 
@@ -39,18 +46,21 @@ export class Sidebar extends Component {
         }
       }
       return (
-        <Menu.Item
+        <div
           key={user}
           onClick={(user === 'You...') ? null : () => setActivePChannel(user)}
           active={this.props.activeChannel.name === user}
+          className="chatSidebar__username"
         >
-          # {user[0].toUpperCase() + user.slice(1)}
+          <div>
+          <FaceIcon/> <p>{user[0].toUpperCase() + user.slice(1)}</p> 
+          </div>
           <Loader
             style={{ marginLeft: '10px' }}
-            size={4} color='grey' distance={3}
+            size={4} color='white' distance={3}
             visible={pChat[0] ? pChat[0].isTyping : false} />
-          {msgCount && <Label size='mini' color='red'> {msgCount} </Label>}
-        </Menu.Item>
+          {msgCount && <span> {msgCount} </span>}
+        </div>
       )
     })
   }
@@ -66,7 +76,7 @@ export class Sidebar extends Component {
       this.setState({ error: null })
       return true
     } else {
-      this.setState({ error: 'Both Name and Description are require ' })
+      this.setState({ error: 'Both Name and Description are required ' })
       return false
     }
   }
@@ -89,73 +99,66 @@ export class Sidebar extends Component {
     let { user, users, chats, logout } = this.props
     let { modal, error } = this.state
     return (
-      <React.Fragment>
-        <Menu
-          style={{ background: '#4c3c4c', paddingTop: '2em' }}
-          vertical
-          inverted
-          fluid
-          stackable
-          size='large'
-        >
-
-          <Header inverted as='h3'>
-            <Icon name='chat' />
-            <Header.Content> Simple Chat </Header.Content>
-            
-          </Header>
-          <Menu.Menu>
-            <Menu.Item style={{ paddingLeft: '0' }}>
+      <div className="chatSidebar" >
+        <div className="chatSidebar__header">
+        <h1>Teachfinity Chat</h1> 
+        <RateReviewIcon />
+        </div>
+        <p> Your Nickname: {user.nickname[0].toUpperCase() + user.nickname.slice(1)}</p>
+        <div className="chatSidebar__channels">
+            <div className="chatSidebar__channelsHeader" >
               <span style={{ fontSize: '1.2em' }}>
-                <Icon name='bullhorn' /> Channel lists
+                 Channel lists
               </span>
-              <Icon name='add' onClick={this.openModal} />
-            </Menu.Item>
+              <AddCircleIcon name='add' onClick={this.openModal} />
+            </div>
+            <div className="chatSidebar__channel">
             {chats[0] && this.displayChannels(chats)}
-          </Menu.Menu>
-          <br />
-          <Menu.Menu>
-            <Menu.Item style={{ paddingLeft: '0' }}>
+            </div>
+        </div>  
+           <br />
+
+          <div className="classSidebar__onlineUsers">
+
+            <div className="classSidebar__onlineUsersHeader" >
               <span style={{ fontSize: '1.2em' }}>
-                <Icon name='address book' /> Online Users
+               Online Users
               </span>
-            </Menu.Item>
+            </div>
+            <div className="classSidebar__onlineUser">
             {(users && chats[0]) && this.displayUsers(users)}
-          </Menu.Menu>
+            </div>
+          </div>
+          
           <br />
-          <Menu.Menu>
-            <Menu.Item style={{ paddingLeft: '0' }}>
-              <Button
-                icon
-                inverted
-                labelPosition='right'
-                onClick={logout}
-              >
-                <Icon name='sign-out alternate' />
-                LogOut
-              </Button>
-            </Menu.Item>
-          </Menu.Menu>
-        </Menu>
-        <Modal open={modal} size='small'  >
-          <Header icon='bullhorn' content='Add new Channel' />
-          <Modal.Content>
-            <Form>
-              <Form.Field>
-                <Input
+              <div className="chatSidebar__logoutButton">
+              <button onClick={logout}>
+                 LogOut
+              </button>
+
+              </div>
+           
+         {modal && 
+         
+
+       <div className="classSidebar__modal" >
+         <h2>Add New Channel</h2>
+         
+            <form>
+            
+                <input
                   placeholder='Channel Name'
                   name='channelName'
                   onChange={this.handleChange}
                 />
-              </Form.Field>
-              <Form.Field>
-                <Input
+            
+                <input
                   name='channelDescription'
                   placeholder='Channel Description'
                   onChange={this.handleChange}
                 />
-              </Form.Field>
-            </Form>
+           
+            </form>
             {
               error && (
                 <Message error >
@@ -164,17 +167,20 @@ export class Sidebar extends Component {
                 </Message>
               )
             }
-          </Modal.Content>
-          <Modal.Actions>
-            <Button color='red' inverted onClick={this.closeModal}>
-              <Icon name='remove' /> Cancel
-            </Button>
-            <Button color='green' inverted onClick={this.handleSubmit}>
-              <Icon name='checkmark' /> Add
-            </Button>
-          </Modal.Actions>
-        </Modal>
-      </React.Fragment>
+     
+        <div className="classSidebar__buttons">
+            <button className="classSidebar__cancel" onClick={this.closeModal}>
+               Cancel
+            </button>
+            <button  className="classSidebar__add" onClick={this.handleSubmit}>
+              Add
+            </button>
+        </div>
+       
+      </div>
+         }
+      
+      </div>
     )
   }
 }

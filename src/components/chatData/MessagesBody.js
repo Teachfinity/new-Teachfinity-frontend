@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { Segment, Card } from 'semantic-ui-react';
-import moment from 'moment'
 
+import moment from 'moment'
+import "../../css/MessagesBody.css" ;
 export class MessagesBody extends Component {
 
   componentDidMount(){
@@ -20,20 +20,22 @@ export class MessagesBody extends Component {
   render() {
     let { messages , user, typingUser } = this.props
     return (
-      <Segment style={{ height: 'calc( 100vh - 56px - 147px)'}}>
-        <div ref='contaniner' style={{  height:'calc( 100vh - 56px - 147px - 35px)', overflowY: 'auto'}}>
+    
+        <div ref='contaniner' className="messageBody" >
           <div style={{ minHeight: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', padding: '.1em', paddingRight: '.5em' }}>
             {
               messages.length > 0 && (
                 messages.map( message => (
-                  <Card key={ message.id } fluid style={{ marginTop: '0px'}}>
-                    <Card.Content
-                      style={{ padding: '3px 10px' }} 
-                      textAlign={ message.sender === user.nickname ? 'right' : 'left' }>
+               
+                    <div
+                    className= {` ${message.sender===user.nickname ? "messageBody__sender" : "messageBody__receiver"}`}
+                     
+                    >
                       <h3>{message.message}</h3>
-                      {message.sender[0].toUpperCase() + message.sender.slice(1)} Send @ { moment(message.timef).fromNow()}
-                    </Card.Content>
-                  </Card>
+                     <p> {message.sender[0].toUpperCase() + message.sender.slice(1)} Send @ { moment(message.timef).fromNow()}</p>
+                    </div>
+                   
+                
                 ))
               )
             }
@@ -46,7 +48,7 @@ export class MessagesBody extends Component {
             }
           </div>
         </div>
-      </Segment>
+     
     )
   }
 }

@@ -1,0 +1,22 @@
+.messageInput{
+    background-color: white;
+    padding: 15px;
+    border-radius: 3px;
+    border: 1px solid rgb(216, 216, 216);
+     margin-bottom: 10px;
+}
+.messageInput > form{
+    display: flex;
+
+}
+.messageInput > form >input{
+    width: 100%;
+    padding: 10px;
+    border: 1px solid rgb(224, 224, 224);
+    border-radius: 5px;
+    outline-width: 0;
+
+}
+.messageInput > form >button{
+    display: none;
+}

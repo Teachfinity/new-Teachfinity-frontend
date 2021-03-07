@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import event from  '../../events'
-import { Grid, Header, Icon, Form, Message } from 'semantic-ui-react';
-
+import { Icon, Form, Message } from 'semantic-ui-react';
+import "../../css/Chat.css" ;
 export class LoginPage extends Component {
   state = {
     nickname: '',
-    error: ''
+    error: '' ,
+   
   }
   
   isvalid = ({ nickname }) => nickname
@@ -35,18 +36,17 @@ export class LoginPage extends Component {
 
   render() {
     return (
-      <Grid
-        style={{ height: '100vh', padding: '0px', margin: '0px' }}
-        textAlign='center'
-        verticalAlign='middle'
-      >
-        <Grid.Column computer={ 6 } tablet={ 8 } mobile={ 14 } >
-          <Header as='h2' icon textAlign='center' color='blue'>
-            <Icon name='discussions' />
-            Simple Chats.
-          </Header>
+     
+       <div className="chat__login" >
+         <div className="chat__loginHeader">
+         <h2>Welcome to chats</h2>
+         <p>You need to enter a nickname to continue with chats</p>
+           </div>
+         <div className="chat__loginForm">
+
           <Form size='small' onSubmit={this.handleSubmit}>
             <Form.Input 
+              className=""
               name='nickname'
               type='text'
               placeholder='Your nickname !'
@@ -58,8 +58,14 @@ export class LoginPage extends Component {
               <Message negative>{ this.state.error }</Message>
             )}
           </Form>
-        </Grid.Column>
-      </Grid>
+         </div>
+         <img className="chat__loginImg" src="https://eyeonindie.com/wp-content/uploads/2020/08/ClutteredPlayfulAnteater-size_restricted.gif" />
+       
+            
+        
+       </div>
+        
+   
     )
   }
 }

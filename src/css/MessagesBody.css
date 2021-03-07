@@ -1,0 +1,32 @@
+.messageBody{
+    height: calc( 90vh - 56px - 147px - 35px) ;
+    overflow-Y: 'auto' ;
+    background-color: white;
+    padding: 15px;
+    border-radius: 3px;
+   border: 1px solid rgb(216, 216, 216);
+    margin-bottom: 10px;
+}
+.messageBody__sender{
+    text-align: right;
+    border: 1px solid rgb(219, 219, 219);
+    border-radius: 5px;
+    margin: 5px 0px;
+    padding: 5px;
+    
+}
+.messageBody__receiver > p{
+    color: gray;
+    font-size: 0.7rem;
+}
+.messageBody__receiver{
+    text-align: left;
+    border: 1px solid rgb(219, 219, 219);
+    border-radius:5px ;
+    margin: 5px 0px;
+    padding: 5px;
+}
+.messageBody__sender > p{
+    color: gray;
+    font-size: 0.7rem;
+}

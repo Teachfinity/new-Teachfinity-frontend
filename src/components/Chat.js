@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {io} from 'socket.io-client'
+import io from 'socket.io-client'
 import events from '../events' ;
 import ChatPage from './chatData/ChatPage' ;
 import LoginPage from './chatData/LoginPage' ;
@@ -28,12 +28,13 @@ export class Chat extends Component {
         console.log(socket) ;
         
         this.setState({ socket })
-        socket.on('connect', () => alert( 'Connected'))
+        socket.on('connect', () => console.log( 'Connected'))
         socket.on( events.LOGOUT, this.setUsers( false ))
         socket.on( events.NEW_USER, this.setUsers( true ))
     }
 
     setUser = user => {
+        
         let { socket } = this.state
         this.setState({ user })
         socket.emit( events.NEW_USER, user )
@@ -81,7 +82,7 @@ export class Chat extends Component {
                 socket = { socket }
                 logout = { this.logout }
             /> : 
-            <LoginPage socket={socket} setUser={this.setUser} />
+            <LoginPage socket={socket} user={this.state.user} setUser={this.setUser} />
         )
     }
 }
