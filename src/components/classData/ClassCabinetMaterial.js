@@ -11,6 +11,7 @@ function ClassCabinetMaterial() {
     const fileHandler = async e => {
         const file = e.target.files[0];
         if (file) {
+            console.log(file) ;
             setFilename(file.name);
             const fileRef = storageRef.child(file.name);
             await fileRef.put(file);
@@ -33,7 +34,7 @@ function ClassCabinetMaterial() {
                     <form>
                         <input  onChange={fileHandler} id="file-upload" type="file" style={{ display: "none" }} />
                         <label htmlFor="file-upload">Upload File</label>
-                        <p>{filename}</p>z
+                        <p>{filename}</p>
                     </form>
                 </div>
                 {

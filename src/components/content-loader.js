@@ -28,7 +28,7 @@ export const NetflixLoader = props => {
 
   // Hardcoded values
   const rows = 2
-  const columns = 5
+  const columns = 7
   const coverHeight = 245
   const coverWidth = 245
   const padding = 5

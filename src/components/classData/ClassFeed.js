@@ -95,7 +95,7 @@ function ClassFeed() {
                 </div>
             </div>
             {/* Posts on the feed */}
-            {isBusy && postList ?
+            {isBusy  ?
            (<div className="classFeed__loader" >
            <MyLoader />
            <MyLoader />

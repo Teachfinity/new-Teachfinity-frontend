@@ -118,7 +118,7 @@ function Timetable(){
     return (
       <div className="timetable">
         {isBusy ? 
-        <div style={{paddingTop: "20px" , paddingLeft: "15px"}} >
+        <div style={{paddingTop: "20px" , paddingLeft: "15px",}} >
           <NetflixLoader />
         </div>
         : 

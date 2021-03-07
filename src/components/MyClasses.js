@@ -33,6 +33,7 @@ function MyClasses() {
     useEffect(() => {
         dispatch(clearClass()) ;
         dispatch(clearclassesEnrolled()) ;
+        
         axios.get("http://localhost:5000/users/getusers/" + user.uid)
             .then((res) => {
                 setCid(res.data[0].classroomsOwned)
@@ -80,7 +81,7 @@ function MyClasses() {
             <div className="myClasses__ClassList">
 
                 <p>Your Classes</p>
-                {isBusy && classList.length===0 ?
+                { classList.length===0 ?
                     <p class="myClasses__noclasses">No classes to Show</p>
                     :
                     <div className="classList__list">
@@ -94,7 +95,7 @@ function MyClasses() {
             </div>
             <div className="myClasses__ClassList">
                 <p>Classes Enrolled</p>
-                {isBusy && classenrolled.length===0 ?
+                {classenrolled.length===0 ?
                     <p class="myClasses__noclasses">No classes to Show</p>
                     :
                     <div className="classList__list">

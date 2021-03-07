@@ -83,6 +83,7 @@
     height: 40px;
     width: 250px;
     margin-bottom: 20px;
+    outline-width: 0;
 }
 .login-button:hover{
     background-color: #3aa5abc4;
@@ -97,6 +98,7 @@
  margin-top: 35px ;
  text-align: center;
  padding-left: 15px;
+ outline-width: 0;
  
 }
 
