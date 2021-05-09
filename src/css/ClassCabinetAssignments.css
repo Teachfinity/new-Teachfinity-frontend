@@ -1,6 +1,188 @@
 .cabinetAssignments{
-    display: flex;
+  
     justify-content: center ;
     align-items: center;
     padding-top: 4rem;
+}
+.cabinetAssignments__newAssignmentButton{
+    width: 100%;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgb(230, 230, 230);
+}
+.cabinetAssignments__newAssignmentButton > button{
+    padding: 15px 10px  ;
+    background-color: #3AA5AB ;
+    color: whitesmoke;
+    font-size: 1rem ;
+    outline-width: 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.cabinetAssignments__newAssignmentButton > button:hover{
+    background-color: #08b9c2 ;
+}
+
+.assignmentForm{
+    margin-top: 20px;
+}
+.assignmentFormTitle{
+    display: flex;
+    align-items: center ;
+}
+.assignmentFormTitle > label{
+    margin-right: 60px;
+    color: #3AA5AB;
+    font-size: 1rem;
+    font-weight: bold;
+}
+.assignmentFormTitle > input{
+    border-radius: 5px;
+    height: 2rem ;
+    color: gray;
+    border: none ;
+    font-size: 1rem;
+    outline-width: 0;
+}
+.assignmentFormInstructions{
+    display:flex ;
+    align-items: center ;
+    margin-top: 20px;
+}
+.assignmentFormInstructions > label {
+    margin-right: 5px;
+    color: #3AA5AB;
+    font-size: 1rem;
+    font-weight: bold;
+    
+}
+.assignmentFormInstructions > textarea{
+    border-radius: 5px;
+    color: gray;
+    border: none ;
+    font-size: 1rem;
+    outline-width: 0;
+}
+
+.assignmentFormDate{
+    margin-top: 20px;
+    display: flex;
+    align-items:center ;
+
+}
+.assignmentFormDate > label{
+    margin-right: 25px;
+    color: #3AA5AB;
+    font-size: 1rem;
+    font-weight: bold;
+}
+.assignmentFormDate > input{
+    border-radius: 5px;
+    height: 2rem ;
+    color: gray;
+    border: none ;
+    font-size: 1rem;
+    outline-width: 0;
+}
+
+.assignmentFormTime{
+    margin-top: 20px;
+    display: flex;
+    align-items:center ;
+}
+.assignmentFormTime > label {
+    margin-right: 20px;
+    color: #3AA5AB;
+    font-size: 1rem;
+    font-weight: bold;
+}
+.assignmentFormTime > input{
+    border-radius: 5px;
+    height: 2rem ;
+    color: gray;
+    border: none ;
+    font-size: 1rem;
+    outline-width: 0;
+}
+
+.assignmentFormFile{
+    margin-top: 20px;
+    display: flex;
+    align-items:center ;
+}
+
+.assignmentFormFile > label{
+    margin-right: 32px;
+    color: #3AA5AB;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.assignmentFormMarks{
+    margin-top: 20px;
+    display: flex;
+    align-items:center ;
+}
+
+.assignmentFormMarks > label{
+    margin-right: 6px ;
+    color: #3AA5AB;
+    font-size: 1rem;
+    font-weight: bold;
+}
+.assignmentFormMarks > input{
+        border-radius: 5px;
+        height: 2rem ;
+        color: gray;
+        border: none ;
+        font-size: 1rem;
+        outline-width: 0;
+}
+
+.assignmentFormButtons{
+    display: flex;
+    align-items: center;
+    margin-top: 40px;
+}
+.assignmentFormButton1{
+    background-color: #3AA5AB;
+    color: white;
+    font-weight: bold ;
+    border-radius: 5px;
+    padding: 10px 5px ;
+    border: none;
+    outline-width: 0;
+    cursor: pointer;
+    margin-right: 50px;
+}
+.assignmentFormButton1:hover{
+    background-color: #05bac3;
+}
+
+.assignmentFormButton2{
+    background-color: #a7a7a7;
+    color: white;
+    font-weight: bold ;
+    border-radius: 5px;
+    padding: 10px ;
+    border: none;
+    outline-width: 0;
+    cursor: pointer;
+    
+}
+.assignmentFormButton2:hover{
+    background-color: tomato;
+}
+
+.cabinetAssignments__assignmentsList{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 50px;
+}
+
+.cabinetAssignments__assignmentsList >h1{
+    color: rgb(216, 216, 216);
+    font-size: 3rem;
+    
 }
