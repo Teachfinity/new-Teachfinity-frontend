@@ -1,9 +1,16 @@
 import React from 'react';
+import { useHistory } from "react-router-dom";
 import "../../../css/Assignment.css";
 
 function Assignments({id, title, instructions, duetime, marks}) {
+    
+    const history = useHistory();
+
+    const openAssignment = () => {
+        history.push("/viewassignment")
+    }
     return (
-        <div className="assignments">
+        <div onClick={openAssignment} className="assignments">
             <div className="assignment">
                 <div>
                     <div className="assignment__logo">
