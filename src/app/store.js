@@ -11,6 +11,7 @@ import selectedClassReducer from "../features/selectClassSlice" ;
 import selectedPostReducer from "../features/postListSlice" ;
 import studentListReducer from "../features/studentListSlice" ;
 import eventListReducer from "../features/myEventsListSlice" ;
+import assignmentReducer from "../features/createAssignmentSlice" ;
 export default configureStore({
   reducer: {
     user: userReducer,
@@ -24,6 +25,7 @@ export default configureStore({
     selectedClass: selectedClassReducer,
     postList : selectedPostReducer,
     studentList : studentListReducer,
-    eventList : eventListReducer
+    eventList : eventListReducer,
+    assignmentList : assignmentReducer
   },
 });

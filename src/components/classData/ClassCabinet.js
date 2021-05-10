@@ -10,6 +10,7 @@ import {
   import ClassCabinetNavigation from "./ClassCabinetNavigation" ;
   import ClassCabinetQuizzes from "./ClassCabinetQuizzes" ;
   import ClassCabinetAssignments from "./Assignments/ClassCabinetAssignments" ;
+  import StudentAssignments from "./Assignments/StudentAssignments" ;
 function ClassCabinet() {
     return (
         <Router>
@@ -27,6 +28,9 @@ function ClassCabinet() {
                         </Route>
                         <Route exact path="/classData/classCabinet/assignments" >
                             <ClassCabinetAssignments />
+                        </Route>
+                        <Route exact path="/classData/classCabinet/studentassignments" >
+                            <StudentAssignments />
                         </Route>
                         <Redirect to="/classData/classCabinet/classmaterial" />
                     </Switch>

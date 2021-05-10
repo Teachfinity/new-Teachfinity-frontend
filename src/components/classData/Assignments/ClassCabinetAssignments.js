@@ -1,7 +1,29 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState, useRef} from 'react'
+import {useSelector , useDispatch} from "react-redux" ;
+import {useForm} from "react-hook-form" ;
 import "../../../css/ClassCabinetAssignments.css"
+import {selectedClass} from "../../../features/selectClassSlice" ;
+import {newAssignment, addAssignment, selectMyAssignmentList, clearAssignment, selectnewAssignment} from "../../../features/createAssignmentSlice";
+import DateFnsUtils from '@date-io/date-fns';
+import {
+    MuiPickersUtilsProvider,
+    KeyboardDateTimePicker
+} from '@material-ui/pickers';
+import axios from "axios" ;
+import AssignmentCard from './AssignmentCard';
 function ClassCabinetAssignments() {
+    const dispatch = useDispatch() ;
+    const title = useRef("");
+    const instructions = useRef("");
+    const duetime = useRef("");
+    const file = useRef("");
+    const marks = useRef("");
     const [getdisplay , setDisplay] = useState(false) ;
+    const [isBusy , setBusy] = useState(true) ;
+    const selectClass = useSelector(selectedClass) ;
+    const isNewAssignment = useSelector(selectnewAssignment) ;
+    const assignmentList = useSelector(selectMyAssignmentList) ;
+    const [date, Setdate] = useState();
 
     const handleNewAssignmentButton = () => {
         setDisplay(true) ;
@@ -10,6 +32,46 @@ function ClassCabinetAssignments() {
         e.preventDefault() ;
         setDisplay(false) ;
     }
+    const handleDateChange = (date) => {
+        Setdate(date)
+      };
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        dispatch(addAssignment({title: title.current.value, instructions: instructions.current.value, dueTime: duetime.current.value,
+            filePath: file.current.value, totalMarks: marks.current.value}));
+        const addassignment = {
+            "title" : title.current.value,
+            "instructions" : instructions.current.value,
+            "dueTime" : date,
+            "filePath": file.current.value,
+            "totalMarks": marks.current.value,
+        }
+             axios.post("http://localhost:5000/assignments/newassignment", addassignment)
+            .then((res) => {
+                axios.put("http://localhost:5000/classes/updateclass/"+selectClass.id+"/assignment/"+res.data._id)
+                .then((res) =>{
+                    console.log(res.data)
+                }).catch(err => alert("Put -> " + err)) 
+            })
+            .catch(err => alert(err))  
+    }
+    useEffect(() => {
+        dispatch(clearAssignment()) ;
+        dispatch(newAssignment()) ;
+        /* response for the assignments */
+        axios.get("http://localhost:5000/classes/getassignments/class/"+selectClass.id)
+        .then((res) => {
+            /* Array in response */
+            console.log(res.data);
+            dispatch(addAssignment(res.data)) ;
+        })
+        .then(()=>{
+            setTimeout(() => {
+                setBusy(false) ;
+              }, 2000);
+        })
+        .catch(err => alert("MY FEED SAYs" + err))
+    } , [isNewAssignment])
 
     return (
         <div class="cabinetAssignments" >
@@ -19,33 +81,36 @@ function ClassCabinetAssignments() {
                 </button>
 
                 <div className="cabinetAssignments__assignmentForm" style={{display: getdisplay ? 'block' : 'none' }}  >
-                    <form action="" className="assignmentForm">
+                    <form className="assignmentForm">
                         <div className="assignmentFormTitle" >
-                            <label >Title:</label>
-                            <input type="text" placeholder="Add title here" />
+                            <label>Title:</label>
+                            <input name="title" type="text" placeholder="Add title here" ref={title}/>
                         </div>
                         <div className="assignmentFormInstructions" >
                             <label>Instructions:</label>
-                            <textarea name="" id="" cols="40" rows="6" placeholder="Instructions"></textarea>
-                        </div>
-                        <div className="assignmentFormDate" >
-                            <label>Due date:</label>
-                            <input type="date" />
+                            <textarea name="instructions" type="text" cols="40" rows="6" placeholder="Instructions" ref={instructions}></textarea>
                         </div>
                         <div className="assignmentFormTime" >
-                            <label>Due Time:</label>
-                            <input type="time" />
+                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                        <KeyboardDateTimePicker
+                            value={date}
+                            label="Select Due Date/Time"
+                            onChange={handleDateChange}
+                            minDate={new Date("2021-01-01T00:00")}
+                            format="dd/MM/yyyy hh:mm a"
+                        />
+                        </MuiPickersUtilsProvider>
                         </div>
                         <div className="assignmentFormFile" >
                             <label>Add File:</label>
-                            <input type="file" />
+                            <input type="file" ref={file}/>
                         </div>
                         <div className="assignmentFormMarks" >
                             <label>Total Marks:</label>
-                            <input type="number" min="0" />
+                            <input type="number" min="0" ref={marks}/>
                         </div>
                         <div className="assignmentFormButtons" >
-                            <button className="assignmentFormButton1" >Post Assignment</button>
+                            <button type="submit" onClick={handleSubmit} className="assignmentFormButton1">Post Assignment</button>
                             <button className="assignmentFormButton2" onClick={handleCancelButton} >Cancel</button>
                         </div>
 
@@ -56,7 +121,12 @@ function ClassCabinetAssignments() {
             </div>
           
             <div className="cabinetAssignments__assignmentsList">
-                <h1>No Assignmets to Show</h1>
+            {assignmentList.length === 0 ?  <p class="classFeed__noclasses">No Announcements</p>
+                :
+            
+                assignmentList && assignmentList[0].map(({_id, aid}) => (
+                <AssignmentCard id={_id} title={aid.title} />
+                ))}
             </div>
         </div>
     )
