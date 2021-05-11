@@ -5,6 +5,7 @@ export const assignmentSlice = createSlice({
     initialState: {
         assignments : [],
         newassignment: false ,
+        assignmentModalIsOpen: false
     },
     reducers: {
      addAssignment : (state,action) => {
@@ -16,13 +17,19 @@ export const assignmentSlice = createSlice({
      newAssignment : (state) => {
        state.newassignment = !state.newassignment ;
      },
+     openModal: state => {
+      state.assignmentModalIsOpen = true ;
+    },
+    closeModal: state => {
+     state.assignmentModalIsOpen = false ;
+    }
   
     },
   });
   
-  export const { addAssignment, clearAssignment, newAssignment } = assignmentSlice.actions;
-  export const selectnewAssignment = state => state.assignmentList.newAssignment;
-  
+  export const { addAssignment, clearAssignment, newAssignment, openModal , closeModal } = assignmentSlice.actions;
+  export const selectnewAssignment = state => state.assignmentList.newassignment;
+  export const selectAssignmentModalIsOpen = state => state.class.assignmentModalIsOpen;
   export const selectMyAssignmentList = state => state.assignmentList.assignments;
   
   export default assignmentSlice.reducer;

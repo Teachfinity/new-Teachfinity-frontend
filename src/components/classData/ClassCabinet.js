@@ -33,7 +33,7 @@ function ClassCabinet() {
                         <Route exact path="/classData/classCabinet/studentassignments" >
                             <StudentAssignments />
                         </Route>
-                        <Route exact path="/classData/classCabinet/viewassignment" >
+                        <Route exact path="/classData/classCabinet/studentassignments/viewassignment" >
                             <ViewAssignment />
                         </Route>
                         <Redirect to="/classData/classCabinet/classmaterial" />

@@ -21,7 +21,6 @@ function StudentAssignments() {
 
     useEffect(() => {
         dispatch(clearAssignment()) ;
-        dispatch(newAssignment()) ;
         /* response for the assignments */
         axios.get("http://localhost:5000/classes/getassignments/class/"+selectClass.id)
         .then((res) => {
@@ -43,7 +42,7 @@ function StudentAssignments() {
             {assignmentList.length === 0 ?  <p class="classFeed__noclasses">No Assignments</p>
                 :
                 assignmentList && assignmentList[0].map(({_id, aid}) => (
-                <Assignments id={_id} title={aid.title} instructions={aid.instructions} duetime={aid.dueTime}
+                <Assignments id={_id} aid={aid._id} title={aid.title} instructions={aid.instructions} duetime={aid.dueTime}
                 file={aid.filePath} marks={aid.totalMarks} />
                 ))}
             </div>

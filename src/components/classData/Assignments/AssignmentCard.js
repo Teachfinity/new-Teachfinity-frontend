@@ -1,15 +1,22 @@
-import React from 'react'
+import React, {useEffect, useState, useRef} from 'react'
 import "../../../css/ClassCard.css";
 import {useSelector , useDispatch} from "react-redux" ;
+import EditAssignment from "./EditAssignment" ;
 import {selectedClass} from "../../../features/selectClassSlice" ;
 import { newAssignment } from '../../../features/createAssignmentSlice';
 import { StarBorder, Star, MoreVert } from '@material-ui/icons';
 import { Menu, MenuItem, IconButton } from '@material-ui/core';
+import { selectAssignmentModalIsOpen, openModal } from "../../../features/createAssignmentSlice";
+import "../../../css/ClassCabinetAssignments.css"
 import axios from 'axios';
 import {toast} from 'react-toastify';
 
 
-function AssignmentCard({id, title}) {
+function AssignmentCard({id, aid, title}) {
+    const isModalOpen = useSelector(selectAssignmentModalIsOpen);
+    const [displayed, setDisplayed] = useState()
+    const [ID, setID] = useState()
+
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const dispatch = useDispatch();
@@ -27,9 +34,12 @@ function AssignmentCard({id, title}) {
             position: toast.POSITION.TOP_RIGHT,
         })
     }
-
-    const deleteAssignment = (aid) => {
-         axios.put("http://localhost:5000/classes/updateclass/"+selectClass.id+"/removeassignment/"+ aid)
+    const editAssignment = (aid) =>{
+        setID(aid)
+        setDisplayed(true)
+    }
+    const deleteAssignment = (id, aid) => {
+         axios.put("http://localhost:5000/classes/updateclass/"+selectClass.id+"/removeassignment/"+ id)
             .then(() => {
                 axios.delete("http://localhost:5000/assignments/delassignment/"+aid)
             })
@@ -43,6 +53,8 @@ function AssignmentCard({id, title}) {
         handleClose() 
     }
     return (
+        <div>
+        {displayed && <EditAssignment id={ID}/>}
         <div className="classCard">
             <div className="more_icon" >
                 <IconButton
@@ -60,8 +72,8 @@ function AssignmentCard({id, title}) {
                     open={open}
                     onClose={handleClose}
                 >
-                    <MenuItem>Edit Assignment</MenuItem>
-                    <MenuItem onClick={() => deleteAssignment(id)}>Delete Assignment</MenuItem>
+                    <MenuItem onClick={() => editAssignment(aid)}>Edit Assignment</MenuItem>
+                    <MenuItem onClick={() => deleteAssignment(id, aid)}>Delete Assignment</MenuItem>
                 </Menu>
             </div>
             <div>
@@ -72,6 +84,7 @@ function AssignmentCard({id, title}) {
                 </div>
                 <h3>{title}</h3>
             </div>
+        </div>
         </div>
     )
 }

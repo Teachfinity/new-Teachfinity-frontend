@@ -11,6 +11,7 @@ import {
 } from '@material-ui/pickers';
 import axios from "axios" ;
 import AssignmentCard from './AssignmentCard';
+import db, { auth, storageRef } from "../../../firebase";
 function ClassCabinetAssignments() {
     const dispatch = useDispatch() ;
     const title = useRef("");
@@ -24,6 +25,26 @@ function ClassCabinetAssignments() {
     const isNewAssignment = useSelector(selectnewAssignment) ;
     const assignmentList = useSelector(selectMyAssignmentList) ;
     const [date, Setdate] = useState();
+    const [filename, setFilename] = useState("");
+    const [fileUrl, setFileUrl] = useState("");
+    
+    const fileHandler = async e => {
+        const file = e.target.files[0];
+        if (file) {
+            console.log(file) ;
+            setFilename(file.name);
+            const fileRef = storageRef.child(file.name);
+            await fileRef.put(file);
+            setFileUrl(await fileRef.getDownloadURL());
+            setTimeout(() => {
+                console.log(fileUrl)
+            } ,2000)
+           
+        }
+        else {
+            setFilename("");
+        }
+    }
 
     const handleNewAssignmentButton = () => {
         setDisplay(true) ;
@@ -38,26 +59,38 @@ function ClassCabinetAssignments() {
     const handleSubmit = (event) => {
         event.preventDefault();
         dispatch(addAssignment({title: title.current.value, instructions: instructions.current.value, dueTime: duetime.current.value,
-            filePath: file.current.value, totalMarks: marks.current.value}));
+            fileName : filename, filePath: fileUrl, totalMarks: marks.current.value}));
         const addassignment = {
             "title" : title.current.value,
             "instructions" : instructions.current.value,
             "dueTime" : date,
-            "filePath": file.current.value,
+            "fileName" : filename,
+            "filePath": fileUrl,
             "totalMarks": marks.current.value,
         }
              axios.post("http://localhost:5000/assignments/newassignment", addassignment)
             .then((res) => {
+                const assignmentid = res.data._id
                 axios.put("http://localhost:5000/classes/updateclass/"+selectClass.id+"/assignment/"+res.data._id)
                 .then((res) =>{
                     console.log(res.data)
-                }).catch(err => alert("Put -> " + err)) 
+                    dispatch(newAssignment())
+                    setDisplay(false) ;
+                }).catch(err => alert("Put -> " + err))
+                .then(()=>{
+                    axios.get("http://localhost:5000/classes/getstudents/class/"+selectClass.id)
+                    .then((res)=>{
+                        res.data.map((id)=>{
+                            console.log(id.sid._id)
+                            axios.put("http://localhost:5000/users/updateuser/"+id.sid._id+"/assignment/"+assignmentid)
+                        })
+                    })
+                }) 
             })
             .catch(err => alert(err))  
     }
     useEffect(() => {
         dispatch(clearAssignment()) ;
-        dispatch(newAssignment()) ;
         /* response for the assignments */
         axios.get("http://localhost:5000/classes/getassignments/class/"+selectClass.id)
         .then((res) => {
@@ -103,7 +136,8 @@ function ClassCabinetAssignments() {
                         </div>
                         <div className="assignmentFormFile" >
                             <label>Add File:</label>
-                            <input type="file" ref={file}/>
+                            <input type="file" onChange={fileHandler} />
+                            <p>{filename}</p>
                         </div>
                         <div className="assignmentFormMarks" >
                             <label>Total Marks:</label>
@@ -125,7 +159,7 @@ function ClassCabinetAssignments() {
                 :
             
                 assignmentList && assignmentList[0].map(({_id, aid}) => (
-                <AssignmentCard id={_id} title={aid.title} />
+                <AssignmentCard id={_id} aid={aid._id} title={aid.title} />
                 ))}
             </div>
         </div>
