@@ -44,13 +44,12 @@
 .viewAssignment__file{
     margin-top: 20px;
     padding: 10px ;
-    width: 25%;
     background-color: rgb(207, 207, 207);
     border-radius: 5px;
     
 }
 .viewAssignment__file > p{
-    color: #5c5c5c;
+    font-weight: bold;
 }
 
 .viewAssignment__uploadFile{
@@ -87,7 +86,21 @@
     color: white;
    
 }
-
+.viewAssignment__uploadFile > div > h4{
+    margin-top: 20px;
+    border: none;
+    border-radius: 5px;
+    outline-width: 0;
+   
+}
+.viewAssignment__uploadFile > div > a > p{
+    cursor: pointer;
+    margin-top: 20px;
+    border: none;
+    border-radius: 5px;
+    outline-width: 0;
+   
+}
 
 .viewAssignment__uploadFile > button {
     border-radius: 10px;

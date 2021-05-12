@@ -61,7 +61,7 @@ function AssignmentCard({id, aid, title}) {
     return (
         <div>
         {displayed && <EditAssignment id={ID}/>}
-        <div onClick={()=>openAssignment(aid)} className="classCard">
+        <div className="classCard">
             <div className="more_icon" >
                 <IconButton
                     aria-controls="simple-menu"
@@ -83,7 +83,7 @@ function AssignmentCard({id, aid, title}) {
                 </Menu>
             </div>
             <div>
-                <div align="center">
+                <div onClick={()=>openAssignment(aid)}  align="center">
                     <div className="classCard__logo">
                         <p>{title.charAt(0).toUpperCase()}</p>
                     </div>

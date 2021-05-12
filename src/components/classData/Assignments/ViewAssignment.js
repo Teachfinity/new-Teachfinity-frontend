@@ -23,6 +23,9 @@ function ViewAssignments() {
     const selectAssignment = useSelector(selectedAssignment) ;
     const [isBusy , setBusy] = useState(true) ;
     const [submitted , setSubmitted] = useState(false) ;
+    const [submissionTime , setSubmissionTime] = useState() ;
+    const [submittedfile , setSubmissionFile] = useState() ;
+    const [submittedfileUrl , setSubmissionUrl] = useState() ;
 
     const fileHandler = async e => {
         const file = e.target.files[0];
@@ -47,23 +50,32 @@ function ViewAssignments() {
     }
     const submitAssignment = () =>{
         var today = new Date().toLocaleString();
+        var userid = null;
         const data = {
-            "sid": user.uid,
             "fileNme": studentFile,
             "fileUrl": fileUrl,
             "submittedAt": today,
         }
         console.log(data)
-        axios.put("http://localhost:5000/assignments/updateassignment/"+selectAssignment.aid+"/studentfiles", data)
-        .then(()=>{
-            setSubmitted(true)
+        axios.get("http://localhost:5000/users/getusers/"+user.uid)
+        .then((res)=>{
+            userid = res.data[0]._id
+            axios.put("http://localhost:5000/assignments/updateassignment/"+selectAssignment.aid+"/student/"+userid+"/files",data)
+            .then(()=>{
+                setSubmitted(true)
+            })
+            .catch(err => alert("MY FEED SAYs" + err))  
         })
         .catch(err => alert("MY FEED SAYs" + err))  
     }
 
     useEffect(() => {
         /* response for the assignments */
-         axios.get("http://localhost:5000/assignments/getassignments/"+selectAssignment.aid)
+        var useri = null;
+        axios.get("http://localhost:5000/users/getusers/"+user.uid)
+        .then((res)=>{
+            useri = res.data[0]._id
+        axios.get("http://localhost:5000/assignments/getassignments/"+selectAssignment.aid)
         .then((res) => {
             console.log(res.data[0]);
             setTitle(res.data[0].title)
@@ -73,6 +85,16 @@ function ViewAssignments() {
             setInstr(res.data[0].instructions)
             setFileName(res.data[0].fileName)
             setFileLink(res.data[0].filePath)
+            res.data[0].studentfiles.map((id)=>{
+                if(id.sid===useri){
+                    setSubmitted(true)
+                    setSubmissionTime(id.submittedAt);
+                    setSubmissionFile(id.fileNme);
+                    setSubmissionUrl(id.fileUrl);
+                }
+            })
+        })
+        .catch(err => alert("MY FEED SAYs" + err))  
         })
         .then(()=>{
             setTimeout(() => {
@@ -89,7 +111,11 @@ function ViewAssignments() {
           <div className="viewAssignment__info">
               <h1>{title}</h1>
               <div>
-                <p>Due at : {due}, {dueTime}</p>
+                    {submitted ?
+                        <p>Submitted At: {submissionTime}</p>
+                        :
+                        <p>Due at : {due}, {dueTime}</p>
+                    }
                 <h3>Total Marks: {marks}</h3>
               </div>
           </div>
@@ -101,11 +127,18 @@ function ViewAssignments() {
             <a className="anchortag" href={fileLink} target="_blank" ><p>{fileName}</p></a>
           </div>
             <div className="viewAssignment__uploadFile">
-                <form>
+                {submitted?
+                    <div>
+                    <h4>My Work</h4>
+                    <a className="anchortag" href={submittedfileUrl} target="_blank"><p>{submittedfile}</p></a>
+                    </div>
+                    :
+                    <form>
                     <input  id="file-upload" type="file" onChange={fileHandler} style={{ display: "none" }} />
                     <label htmlFor="file-upload">Upload File</label>
                     <p>{studentFile}</p>
-                </form>
+                    </form>
+                }
 
                 {studentFile ? 
                 <button onClick={removeFile}>
@@ -120,7 +153,10 @@ function ViewAssignments() {
                 }
                 
             </div>
-            {studentFile?
+            {submitted ? 
+                <p></p>
+                :
+                studentFile ?
                 <button onClick={submitAssignment} className="viewAssignment__submitAssignment" >
                 Submit
                 </button>
@@ -128,9 +164,8 @@ function ViewAssignments() {
                 <button disabled={true} className="viewAssignment__disabled" >
                 Submit
                 </button>
+            
             }
-        
-
         </div>
     )
 }
