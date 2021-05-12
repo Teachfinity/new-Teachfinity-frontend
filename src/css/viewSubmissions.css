@@ -1,0 +1,81 @@
+.viewSubmissions{
+    padding: 20px;
+}
+.viewSubmissions__heading{
+    display: flex;
+    justify-content: space-between ;
+    align-items: center;
+    text-align: center;
+    
+}
+.viewSubmissions__heading > h1{
+    color: #3aa5ab;
+}
+.viewSubmissions__heading > hr{
+  
+    border: 2px solid gray;
+    background-color: gray;
+    width: 30%;
+    height: 50% ;
+ 
+}
+
+.viewSubmissions__submitted{
+    margin-top: 30px;
+}
+
+.viewSubmissions__submitted > h1{
+    color: #5c5c5c;
+}
+
+.viewSubmission__notSubmitted{
+    margin-top: 20px;
+}
+.viewSubmission__notSubmitted > h1{
+    color: #5c5c5c;
+}
+
+.viewSubmission__notSubmitted > ol > li{
+    background-color: rgb(235, 235, 235) ;
+    color: #5c5c5c;
+    margin-top: 7px;
+    padding: 5px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.viewAssignment__actionButtons{
+    margin-top: 50px;
+    display: flex;
+}
+
+.viewAssignment__downloadButton{
+    background-color: #3aa5ab;
+    color: white ;
+    padding: 10px ;
+    border: none;
+    outline-width: 0;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+.viewAssignment__downloadButton:hover{
+    background-color: #5DB8C6 ;
+}
+
+.viewAssignment__downloadPlagiarism{
+    padding: 10px ;
+    background-color: #C64334;
+    color: white ;
+    border: none;
+    outline-width: 0;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-left: 30px;
+    cursor: pointer;
+}
+.viewAssignment__downloadPlagiarism:hover{
+    background-color: #EC563E ;
+}
