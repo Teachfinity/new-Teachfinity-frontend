@@ -27,7 +27,7 @@ function ViewAssignments() {
         
     } , [])
         
-
+    
     return (
         <div>
             <p>Hi</p>
