@@ -1,0 +1,116 @@
+.viewAssignment{
+    padding: 30px 10px;
+}
+.viewAssignment__info > h1{
+    color: #5c5c5c;
+}
+
+.viewAssignment__info > div{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 10px;
+}
+
+
+.viewAssignment__info > div > p{
+    color: rgb(199, 56, 56);
+    font-size: '1rem';
+    font-weight: bold;
+}
+
+.viewAssignment__info > div > h3{
+    color: #5c5c5c;
+}
+
+.viewAssignment__instructions{
+    margin-top: 10px;
+}
+
+.viewAssignment__instructions > h2{
+    color: #5c5c5c;
+}
+.viewAssignment__instructions > p{
+    color: #3d3d3d;
+    font-size: 1rem;
+    width: 50%;
+    text-align: justify;
+    margin-top: 5px;
+}
+
+
+.viewAssignment__file{
+    margin-top: 20px;
+    padding: 10px ;
+    width: 25%;
+    background-color: rgb(207, 207, 207);
+    border-radius: 5px;
+    
+}
+.viewAssignment__file > p{
+    color: #5c5c5c;
+}
+
+.viewAssignment__uploadFile{
+    display: flex;
+    cursor: pointer;
+    
+    width: 50%;
+    justify-content: space-between;
+    align-items: center;
+}
+.viewAssignment__uploadFile > form {
+    display: flex;
+    align-items: center;
+    
+}
+.viewAssignment__uploadFile > form >label:hover{
+    background-color: #24739b ;
+}
+.viewAssignment__uploadFile > form > p{
+    margin-top: 20px;
+    margin-left: 20px;
+    color: #5c5c5c;
+
+}
+
+.viewAssignment__uploadFile > form > label{
+    cursor: pointer;
+    margin-top: 20px;
+    background-color: #3A5D9C ;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    outline-width: 0;
+    color: white;
+   
+}
+
+
+.viewAssignment__uploadFile > button {
+    border-radius: 10px;
+    outline-width: 0;
+    border: none;
+    display: flex;
+    align-items: center;
+    background-color: transparent ;
+    margin-top: 20px;
+  
+    cursor: pointer;
+}
+
+.viewAssignment__submitAssignment {
+    margin-top: 30px;
+    border: none;
+    outline-width: none;
+    padding: 10px 5px;
+    background-color: #3aa5ab;
+    width: 20%;
+    color: white;
+    font-size: 1.25rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.viewAssignment__submitAssignment:hover{
+    background-color: #25B2A9;
+}
