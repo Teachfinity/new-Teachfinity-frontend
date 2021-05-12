@@ -6,6 +6,8 @@ import {selectedClass} from "../../../features/selectClassSlice" ;
 import { newAssignment } from '../../../features/createAssignmentSlice';
 import { StarBorder, Star, MoreVert } from '@material-ui/icons';
 import { Menu, MenuItem, IconButton } from '@material-ui/core';
+import { useHistory } from "react-router-dom";
+import { addAssignment } from "../../../features/selectedAssignmentSlice";
 import { selectAssignmentModalIsOpen, openModal } from "../../../features/createAssignmentSlice";
 import "../../../css/ClassCabinetAssignments.css"
 import axios from 'axios';
@@ -16,6 +18,7 @@ function AssignmentCard({id, aid, title}) {
     const isModalOpen = useSelector(selectAssignmentModalIsOpen);
     const [displayed, setDisplayed] = useState()
     const [ID, setID] = useState()
+    const history = useHistory();
 
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
@@ -27,7 +30,10 @@ function AssignmentCard({id, aid, title}) {
     const handleClose = () => {
         setAnchorEl(null);
     };
-
+    const openAssignment = (aid) => {
+        dispatch(addAssignment({aid}));
+        history.push("/classData/classCabinet/assignments/viewAssignment")
+    }
     const successNotify = () =>{
         toast.success("Assignment Deleted Successfully" ,
         {
@@ -55,7 +61,7 @@ function AssignmentCard({id, aid, title}) {
     return (
         <div>
         {displayed && <EditAssignment id={ID}/>}
-        <div className="classCard">
+        <div onClick={()=>openAssignment(aid)} className="classCard">
             <div className="more_icon" >
                 <IconButton
                     aria-controls="simple-menu"

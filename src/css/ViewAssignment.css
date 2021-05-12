@@ -11,8 +11,10 @@
     width: 100%;
     margin-top: 10px;
 }
-
-
+.anchortag{
+    text-decoration: none;
+    color: gray;  
+}
 .viewAssignment__info > div > p{
     color: rgb(199, 56, 56);
     font-size: '1rem';
@@ -113,4 +115,16 @@
 }
 .viewAssignment__submitAssignment:hover{
     background-color: #25B2A9;
+}
+.viewAssignment__disabled {
+    margin-top: 30px;
+    border: none;
+    outline-width: none;
+    padding: 10px 5px;
+    background-color: grey;
+    width: 20%;
+    color: white;
+    font-size: 1.25rem;
+    border-radius: 5px;
+    cursor: pointer;
 }

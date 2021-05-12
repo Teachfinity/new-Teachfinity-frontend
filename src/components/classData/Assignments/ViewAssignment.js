@@ -3,20 +3,76 @@ import {selectUser} from "../../../features/userSlice" ;
 import { useSelector, useDispatch } from "react-redux";
 import { selectedAssignment } from "../../../features/selectedAssignmentSlice";
 import "../../../css/ViewAssignment.css";
+import db, { auth, storageRef } from "../../../firebase";
+import moment from 'moment'
 import axios from "axios" ;
 
 function ViewAssignments() {
 
     const dispatch = useDispatch();
+    const [title , setTitle] = useState("") ;
+    const [due , setDue] = useState() ;
+    const [dueTime , setDueTime] = useState() ;
+    const [marks , setMarks] = useState() ;
+    const [instr , setInstr] = useState() ;
+    const [fileName , setFileName] = useState() ;
+    const [fileLink , setFileLink] = useState() ;
+    const [studentFile , setStudentFile] = useState() ;
+    const [fileUrl , setFileUrl] = useState() ;
     const user = useSelector(selectUser) ;
     const selectAssignment = useSelector(selectedAssignment) ;
     const [isBusy , setBusy] = useState(true) ;
+    const [submitted , setSubmitted] = useState(false) ;
+
+    const fileHandler = async e => {
+        const file = e.target.files[0];
+        if (file) {
+            console.log(file) ;
+            setStudentFile(file.name);
+            const fileRef = storageRef.child(file.name);
+            await fileRef.put(file);
+            setFileUrl(await fileRef.getDownloadURL());
+            setTimeout(() => {
+                console.log(fileUrl)
+            } ,2000)
+           
+        }
+        else {
+            setStudentFile("");
+        }
+    }
+    const removeFile = () =>{
+        setStudentFile()
+        setFileUrl()
+    }
+    const submitAssignment = () =>{
+        var today = new Date().toLocaleString();
+        const data = {
+            "sid": user.uid,
+            "fileNme": studentFile,
+            "fileUrl": fileUrl,
+            "submittedAt": today,
+        }
+        console.log(data)
+        axios.put("http://localhost:5000/assignments/updateassignment/"+selectAssignment.aid+"/studentfiles", data)
+        .then(()=>{
+            setSubmitted(true)
+        })
+        .catch(err => alert("MY FEED SAYs" + err))  
+    }
 
     useEffect(() => {
         /* response for the assignments */
          axios.get("http://localhost:5000/assignments/getassignments/"+selectAssignment.aid)
         .then((res) => {
-            console.log(res.data);
+            console.log(res.data[0]);
+            setTitle(res.data[0].title)
+            setDue(moment(res.data[0].dueTime).format('DD-MM-YYYY'))
+            setDueTime(moment(res.data[0].dueTime).format('hh:mm A'))
+            setMarks(res.data[0].totalMarks)
+            setInstr(res.data[0].instructions)
+            setFileName(res.data[0].fileName)
+            setFileLink(res.data[0].filePath)
         })
         .then(()=>{
             setTimeout(() => {
@@ -31,37 +87,48 @@ function ViewAssignments() {
     return (
         <div className="viewAssignment" >
           <div className="viewAssignment__info">
-              <h1>Assignment 3</h1>
+              <h1>{title}</h1>
               <div>
-                <p>Due at : 14-5-2021, 11:59PM</p>
-                <h3>Total Marks: 30</h3>
+                <p>Due at : {due}, {dueTime}</p>
+                <h3>Total Marks: {marks}</h3>
               </div>
           </div>
           <div className="viewAssignment__instructions">
               <h2>Instructions</h2>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos porro nobis nemo cumque quidem at, assumenda molestias est numquam cupiditate quam, autem rerum. Libero obcaecati reprehenderit ducimus provident voluptatibus officia?</p>
+              <p>{instr}</p>
           </div>
           <div className="viewAssignment__file">
-            <p>Assignment File Name</p>
+            <a className="anchortag" href={fileLink} target="_blank" ><p>{fileName}</p></a>
           </div>
             <div className="viewAssignment__uploadFile">
                 <form>
-                    <input  id="file-upload" type="file" style={{ display: "none" }} />
+                    <input  id="file-upload" type="file" onChange={fileHandler} style={{ display: "none" }} />
                     <label htmlFor="file-upload">Upload File</label>
-                    <p>uploaded File name</p>
+                    <p>{studentFile}</p>
                 </form>
 
-                <button>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-square-x" width="30" height="30" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ff4500" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <rect x="4" y="4" width="16" height="16" rx="2" />
-                        <path d="M10 10l4 4m0 -4l-4 4" />
-                    </svg>
+                {studentFile ? 
+                <button onClick={removeFile}>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-square-x" width="30" height="30" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ff4500" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <rect x="4" y="4" width="16" height="16" rx="2" />
+                    <path d="M10 10l4 4m0 -4l-4 4" />
+                </svg>
                 </button>
+                :
+                <p></p>
+                }
+                
             </div>
-            <button className="viewAssignment__submitAssignment" >
+            {studentFile?
+                <button onClick={submitAssignment} className="viewAssignment__submitAssignment" >
                 Submit
-            </button>
+                </button>
+                :
+                <button disabled={true} className="viewAssignment__disabled" >
+                Submit
+                </button>
+            }
         
 
         </div>
