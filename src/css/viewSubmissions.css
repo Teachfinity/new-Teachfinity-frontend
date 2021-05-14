@@ -79,3 +79,63 @@
 .viewAssignment__downloadPlagiarism:hover{
     background-color: #EC563E ;
 }
+
+.viewSubmission__notSubmitted > h3{
+    color: #dbdbdb;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.viewSubmissions__submitted > h3{
+    color: #dbdbdb;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.viewSubmissions__submittedLI{
+    background-color: white;
+    border-radius: 5px;
+    margin-top: 10px;
+    padding: 10px;
+}
+
+.viewSubmissions__submittedLITop{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.viewSubmissions__submittedLITop > h2{
+    color: #888888;
+}
+.viewSubmissions__submittedLITop > div{
+    display: flex ;
+    align-items: center;
+    
+}
+.viewSubmissions__submittedLITop > div > h4{
+    color: #888888;
+}
+.viewSubmissions__submittedLITop > div > p{
+    color: #a1a1a1;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.viewSubmissions__submittedLIBottom{
+    margin-top: 25px;
+    display: flex;
+    align-items: center;
+    
+}
+.viewSubmissions__submittedLIBottom > h3{
+    color: #888888;
+}
+
+.viewSubmissions__submittedLIBottom > p{
+    margin-left: 20px;
+    background-color: whitesmoke;
+    padding: 5px;
+    border-radius: 5px;
+    color: #888888;
+    font-weight: bold;
+}

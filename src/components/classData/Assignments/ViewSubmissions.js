@@ -60,22 +60,54 @@ function ViewSubmissions() {
                     Submissions
                 </h1>
                 {/*map student submission in a Component for showing shubmission */}
+                {/* {
+                    sname.length > 0
+                    ?
                 <ol>
                 {sname.map((item, index)=>(
-                    <li>{item.name}</li>
+                    <li>
+                        {item.name}
+                    </li>
                 ))}
                 </ol>
+
+                :
+                <h3>No Submissons yet</h3>
+                } */}
+                {/* Put this part in the mapping list of submitted assignments */}
+                <div className="viewSubmissions__submittedLI">
+                    <div className="viewSubmissions__submittedLITop" >
+                        <h2>Muhmammad Ali Zaib</h2>
+                        <div>
+                            <h4>Submitted At:</h4>
+                            <p>11:24 PM</p>
+                        </div>
+                    </div>
+                    <div className="viewSubmissions__submittedLIBottom" >
+                        <h3>Submission File :</h3>
+                        <p>File Name</p>
+                    </div>
+                </div>
+               
+                
+                
             </div>
             <div className="viewSubmission__notSubmitted">
                 <h1>
                     Pending submissions
                 </h1>
                     {/* Map the name in this list */}
+                    {
+                        pending.length > 0
+                    ?
                     <ol>
                     {pending.map((item, index)=>(
                         <li>{item}</li>
                     ))}
                     </ol>
+                    :
+                        <h3>No pending submmissions</h3>
+}
             </div>
             <div className="viewAssignment__actionButtons" >
                 <button className="viewAssignment__downloadButton" >Download All</button>
