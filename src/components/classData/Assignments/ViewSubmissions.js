@@ -8,8 +8,9 @@ import axios from "axios" ;
 function ViewSubmissions() {
 
     const [isBusy , setBusy] = useState(true) ;
-    const [sname , setSname] = useState([{user:"", file:"", fileUrl:"", submission:""}]) ;
+    const [sname , setSname] = useState([]) ;
     const [pending , setPending] = useState([]) ;
+    const [files , setFiles] = useState([]) ;
     const dispatch = useDispatch();
     const selectClass = useSelector(selectedClass) ;
     const selectAssignment = useSelector(selectedAssignment) ;
@@ -20,20 +21,29 @@ function ViewSubmissions() {
         setPending([])
         axios.get("http://localhost:5000/classes/getstudents/class/"+selectClass.id)
         .then((res)=>{
+            var ids = []
              res.data.map((id)=>{
-                 console.log(id.sid)
                 var userid = id.sid._id
                 var username = id.sid.name
                 axios.get("http://localhost:5000/assignments/getassignments/"+selectAssignment.aid)
                 .then((res)=>{
-                    if(res.data[0].studentfiles[0].sid===userid){
-                        setSname(sname=> [...sname, {user: username, file: res.data[0].studentfiles[0].fileNme, 
-                        fileUrl: res.data[0].studentfiles[0].fileUrl, submission: res.data[0].studentfiles[0].submittedAt}])
-                        console.log("here")
+                    res.data[0].studentfiles.map((id)=>{
+                    if(ids.includes(id.sid)||ids.includes(userid)){
+                        //do nothing
                     }
                     else{
-                        setPending(pending => [...pending, username])
-                    }
+                        if(id.sid===userid){
+                        setSname(sname=> [...sname, {user: username, file: id.fileNme, 
+                        fileUrl: id.fileUrl, submission: id.submittedAt}])
+                        setFiles
+                        ids.push(userid)
+                        }
+                        else{
+                        setPending(pending => [...pending, {uid: userid, user: username}])
+                        ids.push(userid)
+                        } 
+                    }   
+                })
                 })
                 .catch(err => alert("MY FEED SAYs" + err))  
             }) 
@@ -59,36 +69,22 @@ function ViewSubmissions() {
                 <h1>
                     Submissions
                 </h1>
-                {/*map student submission in a Component for showing shubmission */}
-                {/* {
-                    sname.length > 0
-                    ?
-                <ol>
-                {sname.map((item, index)=>(
-                    <li>
-                        {item.name}
-                    </li>
-                ))}
-                </ol>
-
-                :
-                <h3>No Submissons yet</h3>
-                } */}
                 {/* Put this part in the mapping list of submitted assignments */}
+                {sname.map((item)=>(
                 <div className="viewSubmissions__submittedLI">
                     <div className="viewSubmissions__submittedLITop" >
-                        <h2>Muhmammad Ali Zaib</h2>
+                        <h2>{item.user}</h2>
                         <div>
                             <h4>Submitted At:</h4>
-                            <p>11:24 PM</p>
+                            <p>{item.submission}</p>
                         </div>
                     </div>
                     <div className="viewSubmissions__submittedLIBottom" >
-                        <h3>Submission File :</h3>
-                        <p>File Name</p>
+                        <h3>Submission File:   </h3>
+                        <a className="anchortag" href={item.fileUrl} target="_blank" ><p> {item.file}</p></a>
                     </div>
                 </div>
-               
+               ))}
                 
                 
             </div>
@@ -102,7 +98,7 @@ function ViewSubmissions() {
                     ?
                     <ol>
                     {pending.map((item, index)=>(
-                        <li>{item}</li>
+                        <li>{item.user}</li>
                     ))}
                     </ol>
                     :
@@ -111,7 +107,9 @@ function ViewSubmissions() {
             </div>
             <div className="viewAssignment__actionButtons" >
                 <button className="viewAssignment__downloadButton" >Download All</button>
-                <button className="viewAssignment__downloadPlagiarism">Download Plagiarism Report</button>
+                <a href="http://localhost:80/hello/Mahnoor" target="_blank" style={{textDecoration:"none"}}>
+                    <button className="viewAssignment__downloadPlagiarism">Download Plagiarism Report</button>
+                </a>
             </div>
         </div>
     )

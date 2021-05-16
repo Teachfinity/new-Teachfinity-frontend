@@ -132,7 +132,7 @@
     color: #888888;
 }
 
-.viewSubmissions__submittedLIBottom > p{
+.viewSubmissions__submittedLIBottom > a > p{
     margin-left: 20px;
     background-color: whitesmoke;
     padding: 5px;
