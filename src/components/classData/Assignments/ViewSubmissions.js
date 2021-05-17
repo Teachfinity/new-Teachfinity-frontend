@@ -35,7 +35,7 @@ function ViewSubmissions() {
                         if(id.sid===userid){
                         setSname(sname=> [...sname, {user: username, file: id.fileNme, 
                         fileUrl: id.fileUrl, submission: id.submittedAt}])
-                        setFiles
+                        //setFiles
                         ids.push(userid)
                         }
                         else{
