@@ -4,13 +4,14 @@ import {useSelector , useDispatch} from "react-redux" ;
 import {selectedClass} from "../../../features/selectClassSlice" ;
 import { selectedAssignment } from "../../../features/selectedAssignmentSlice";
 import axios from "axios" ;
+import $ from 'jquery';
 
 function ViewSubmissions() {
 
     const [isBusy , setBusy] = useState(true) ;
     const [sname , setSname] = useState([]) ;
     const [pending , setPending] = useState([]) ;
-    // const [files , setFiles] = useState([]) ;
+    const [files , setFiles] = useState([]) ;
     const dispatch = useDispatch();
     const selectClass = useSelector(selectedClass) ;
     const selectAssignment = useSelector(selectedAssignment) ;
@@ -28,6 +29,7 @@ function ViewSubmissions() {
                 axios.get("http://localhost:5000/assignments/getassignments/"+selectAssignment.aid)
                 .then((res)=>{
                     res.data[0].studentfiles.map((id)=>{
+                        console.log(id)
                     if(ids.includes(id.sid)||ids.includes(userid)){
                         //do nothing
                     }
@@ -35,7 +37,7 @@ function ViewSubmissions() {
                         if(id.sid===userid){
                         setSname(sname=> [...sname, {user: username, file: id.fileNme, 
                         fileUrl: id.fileUrl, submission: id.submittedAt}])
-                        // setFiles
+                        files.push(id.fileUrl)
                         ids.push(userid)
                         }
                         else{
@@ -57,6 +59,29 @@ function ViewSubmissions() {
         .catch(err => alert("MY FEED SAYs" + err))  
         
     } , [])
+
+    const sendURLs = () =>{
+        console.log(files)
+        /* fetch("http://localhost:80/example", {
+            headers: {
+                'Content-Type': 'application/json'
+              },
+              // Specify the method
+              method: 'POST',
+              // A JSON payload
+              body: JSON.stringify(
+                  files
+              )
+          }).then(function (response) { // At this point, Flask has printed our JSON
+              return response.text();
+          }).then(function (text) {
+          
+              console.log('POST response: ');
+          
+              // Should be 'OK' if everything was successful
+              console.log(text); 
+    })*/
+}
 
     return (
         <div className="viewSubmissions" >
@@ -107,9 +132,7 @@ function ViewSubmissions() {
             </div>
             <div className="viewAssignment__actionButtons" >
                 <button className="viewAssignment__downloadButton" >Download All</button>
-                <a href="http://localhost:80/hello/Mahnoor" target="_blank" style={{textDecoration:"none"}}>
-                    <button className="viewAssignment__downloadPlagiarism">Download Plagiarism Report</button>
-                </a>
+                <button onClick={sendURLs} className="viewAssignment__downloadPlagiarism">Download Plagiarism Report</button>
             </div>
         </div>
     )
