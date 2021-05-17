@@ -10,7 +10,7 @@ function ViewSubmissions() {
     const [isBusy , setBusy] = useState(true) ;
     const [sname , setSname] = useState([]) ;
     const [pending , setPending] = useState([]) ;
-    const [files , setFiles] = useState([]) ;
+    // const [files , setFiles] = useState([]) ;
     const dispatch = useDispatch();
     const selectClass = useSelector(selectedClass) ;
     const selectAssignment = useSelector(selectedAssignment) ;
@@ -35,7 +35,7 @@ function ViewSubmissions() {
                         if(id.sid===userid){
                         setSname(sname=> [...sname, {user: username, file: id.fileNme, 
                         fileUrl: id.fileUrl, submission: id.submittedAt}])
-                        //setFiles
+                        // setFiles
                         ids.push(userid)
                         }
                         else{
