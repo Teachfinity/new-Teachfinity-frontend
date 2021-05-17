@@ -4,7 +4,7 @@ import {useSelector , useDispatch} from "react-redux" ;
 import {selectedClass} from "../../../features/selectClassSlice" ;
 import { selectedAssignment } from "../../../features/selectedAssignmentSlice";
 import axios from "axios" ;
-import $ from 'jquery';
+// import $ from 'jquery';
 
 function ViewSubmissions() {
 

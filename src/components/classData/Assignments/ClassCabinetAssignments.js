@@ -26,7 +26,7 @@ function ClassCabinetAssignments() {
     const assignmentList = useSelector(selectMyAssignmentList) ;
     const [date, Setdate] = useState();
     const [filename, setFilename] = useState("");
-    const [fileUrl, setFileUrl] = useState("");
+   let fileUrl = ""
     
     const fileHandler = async e => {
         const file = e.target.files[0];
@@ -35,11 +35,9 @@ function ClassCabinetAssignments() {
             setFilename(file.name);
             const fileRef = storageRef.child(file.name);
             await fileRef.put(file);
-            setFileUrl(await fileRef.getDownloadURL());
-            setTimeout(() => {
-                console.log(fileUrl)
-            } ,2000)
-           
+            fileUrl = await fileRef.getDownloadURL()
+            // console.log(await fileRef.getDownloadURL() ) ;
+            console.log(fileUrl)
         }
         else {
             setFilename("");
