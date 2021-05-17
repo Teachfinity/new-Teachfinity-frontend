@@ -6,7 +6,7 @@ import LoginPage from './chatData/LoginPage' ;
 
 
 // ***** it will used in dev mode
- const socketUrl = 'http://127.0.0.1:9000/' 
+ const socketUrl = 'http://127.0.0.1:6500/' 
 // const socketUrl = '/'
 
 export class Chat extends Component {
