@@ -1,5 +1,6 @@
 .viewSubmissions{
     padding: 20px;
+    position: relative;
 }
 .viewSubmissions__heading{
     display: flex;
@@ -139,4 +140,39 @@
     border-radius: 5px;
     color: #888888;
     font-weight: bold;
+}
+
+.viewSubmissions__modal{
+    position: absolute;
+    display: flex;
+    padding: 5px;
+    padding-top: 70px;
+    flex-direction: column;
+    position: fixed;
+  
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+    width: 600px;
+    max-width: 100%;
+    height: 600px;
+    max-height: 100%;
+    max-width: 800px;
+    background-color: rgb(238, 236, 236);
+    box-shadow: -7px 15px 7px 1000px rgba(0, 0, 0, 0.52);
+    border: 1px solid gray;
+    border-radius: 6px;
+    text-align: center;
+   
+}
+.viewSubmissions__modal > div{
+    display: flex;
+  
+    justify-content: flex-end;
+}
+
+.viewSubmissions__modal > div > button{
+  background-color: transparent;
+  outline-width: 0;
+  border: none;
 }
