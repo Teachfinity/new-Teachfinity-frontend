@@ -26,17 +26,18 @@ function ClassCabinetAssignments() {
     const assignmentList = useSelector(selectMyAssignmentList) ;
     const [date, Setdate] = useState();
     const [filename, setFilename] = useState("");
-   let fileUrl = ""
+    const [filepath, setFilepath] = useState("");
+    var fileUrl = ""
     
     const fileHandler = async e => {
         const file = e.target.files[0];
         if (file) {
-            console.log(file) ;
             setFilename(file.name);
             const fileRef = storageRef.child(file.name);
             await fileRef.put(file);
             fileUrl = await fileRef.getDownloadURL()
             // console.log(await fileRef.getDownloadURL() ) ;
+            setFilepath(fileUrl)
             console.log(fileUrl)
         }
         else {
@@ -57,15 +58,16 @@ function ClassCabinetAssignments() {
     const handleSubmit = (event) => {
         event.preventDefault();
         dispatch(addAssignment({title: title.current.value, instructions: instructions.current.value, dueTime: duetime.current.value,
-            fileName : filename, filePath: fileUrl, totalMarks: marks.current.value}));
+            fileName : filename, filePath: filepath, totalMarks: marks.current.value}));
         const addassignment = {
             "title" : title.current.value,
             "instructions" : instructions.current.value,
             "dueTime" : date,
             "fileName" : filename,
-            "filePath": fileUrl,
+            "filePath": filepath,
             "totalMarks": marks.current.value,
         }
+        console.log(addassignment)
              axios.post("http://localhost:5000/assignments/newassignment", addassignment)
             .then((res) => {
                 const assignmentid = res.data._id
@@ -79,7 +81,6 @@ function ClassCabinetAssignments() {
                     axios.get("http://localhost:5000/classes/getstudents/class/"+selectClass.id)
                     .then((res)=>{
                         res.data.map((id)=>{
-                            console.log(id.sid._id)
                             axios.put("http://localhost:5000/users/updateuser/"+id.sid._id+"/assignment/"+assignmentid)
                         })
                     })

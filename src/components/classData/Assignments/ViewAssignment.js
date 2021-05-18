@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {selectUser} from "../../../features/userSlice" ;
 import { useSelector, useDispatch } from "react-redux";
 import { selectedAssignment } from "../../../features/selectedAssignmentSlice";
+import {newAssignment, addAssignment, selectMyAssignmentList, clearAssignment, selectnewAssignment} from "../../../features/createAssignmentSlice";
 import "../../../css/ViewAssignment.css";
 import db, { auth, storageRef } from "../../../firebase";
 import moment from 'moment'
@@ -18,7 +19,6 @@ function ViewAssignments() {
     const [fileName , setFileName] = useState() ;
     const [fileLink , setFileLink] = useState() ;
     const [studentFile , setStudentFile] = useState() ;
-    const [fileUrl , setFileUrl] = useState() ;
     const user = useSelector(selectUser) ;
     const selectAssignment = useSelector(selectedAssignment) ;
     const [isBusy , setBusy] = useState(true) ;
@@ -26,6 +26,8 @@ function ViewAssignments() {
     const [submissionTime , setSubmissionTime] = useState() ;
     const [submittedfile , setSubmissionFile] = useState() ;
     const [submittedfileUrl , setSubmissionUrl] = useState() ;
+    const isNewAssignment = useSelector(selectnewAssignment) ;
+    let fileUrl = ""
 
     const fileHandler = async e => {
         const file = e.target.files[0];
@@ -34,10 +36,10 @@ function ViewAssignments() {
             setStudentFile(file.name);
             const fileRef = storageRef.child(file.name);
             await fileRef.put(file);
-            setFileUrl(await fileRef.getDownloadURL());
-            setTimeout(() => {
-                console.log(fileUrl)
-            } ,2000)
+            fileUrl = await fileRef.getDownloadURL()
+            // console.log(await fileRef.getDownloadURL() ) ;\
+            setSubmissionUrl(fileUrl)
+            console.log(fileUrl)
            
         }
         else {
@@ -46,14 +48,14 @@ function ViewAssignments() {
     }
     const removeFile = () =>{
         setStudentFile()
-        setFileUrl()
+        setSubmissionUrl()
     }
     const submitAssignment = () =>{
         var today = new Date().toLocaleString();
         var userid = null;
         const data = {
             "fileNme": studentFile,
-            "fileUrl": fileUrl,
+            "fileUrl": submittedfileUrl,
             "submittedAt": today,
         }
         console.log(data)
@@ -63,6 +65,7 @@ function ViewAssignments() {
             axios.put("http://localhost:5000/assignments/updateassignment/"+selectAssignment.aid+"/student/"+userid+"/files",data)
             .then(()=>{
                 setSubmitted(true)
+                dispatch(newAssignment())
             })
             .catch(err => alert("MY FEED SAYs" + err))  
         })
@@ -103,7 +106,7 @@ function ViewAssignments() {
         })
         .catch(err => alert("MY FEED SAYs" + err))  
         
-    } , [])
+    } , [isNewAssignment])
         
     
     return (

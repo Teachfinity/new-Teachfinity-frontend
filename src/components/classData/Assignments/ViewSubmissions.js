@@ -12,6 +12,7 @@ function ViewSubmissions() {
     const [sname , setSname] = useState([]) ;
     const [pending , setPending] = useState([]) ;
     const [files , setFiles] = useState([]) ;
+    const [student, setStudent] = useState([]) ;
     const dispatch = useDispatch();
     const selectClass = useSelector(selectedClass) ;
     const selectAssignment = useSelector(selectedAssignment) ;
@@ -24,10 +25,11 @@ function ViewSubmissions() {
         .then((res)=>{
             var ids = []
              res.data.map((id)=>{
+                console.log(id.sid.name)
                 var userid = id.sid._id
                 var username = id.sid.name
                 axios.get("http://localhost:5000/assignments/getassignments/"+selectAssignment.aid)
-                .then((res)=>{
+                .then((res)=>{ 
                     res.data[0].studentfiles.map((id)=>{
                         console.log(id)
                     if(ids.includes(id.sid)||ids.includes(userid)){
@@ -38,14 +40,15 @@ function ViewSubmissions() {
                         setSname(sname=> [...sname, {user: username, file: id.fileNme, 
                         fileUrl: id.fileUrl, submission: id.submittedAt}])
                         files.push(id.fileUrl)
+                        student.push(username)
                         ids.push(userid)
                         }
-                        else{
-                        setPending(pending => [...pending, {uid: userid, user: username}])
-                        ids.push(userid)
-                        } 
                     }   
                 })
+                if(!ids.includes(id.sid)&&!ids.includes(userid)){
+                    setPending(pending => [...pending, {uid: userid, user: username}])
+                    ids.push(userid)
+                    } 
                 })
                 .catch(err => alert("MY FEED SAYs" + err))  
             }) 
@@ -61,8 +64,8 @@ function ViewSubmissions() {
     } , [])
 
     const sendURLs = () =>{
-        console.log(files)
-        /* fetch("http://localhost:80/example", {
+        console.log(student)
+        fetch("http://localhost:80/example", {
             headers: {
                 'Content-Type': 'application/json'
               },
@@ -70,17 +73,36 @@ function ViewSubmissions() {
               method: 'POST',
               // A JSON payload
               body: JSON.stringify(
-                  files
+                  {assignments: files,
+                  studentNames: student}
               )
-          }).then(function (response) { // At this point, Flask has printed our JSON
-              return response.text();
+          }).then(function (response) { // At this point, Flask has printed our JSON  
+            return response.text();
           }).then(function (text) {
-          
+            
               console.log('POST response: ');
           
               // Should be 'OK' if everything was successful
               console.log(text); 
-    })*/
+              axios(
+                {
+                  url: "http://localhost:80/example", 
+                  method: "GET",
+                  responseType: "blob", // important
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                },
+              )
+                .then((response) => {
+                  const url = window.URL.createObjectURL(new Blob([response.data]));
+                  const link = document.createElement("a");
+                  link.href = url;
+                  link.setAttribute("download", "Results.csv"); //or any other extension
+                  document.body.appendChild(link);
+                  link.click();
+                }) 
+    })
 }
 
     return (
