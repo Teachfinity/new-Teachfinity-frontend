@@ -16,7 +16,7 @@ function ViewSubmissions() {
     const dispatch = useDispatch();
     const selectClass = useSelector(selectedClass) ;
     const selectAssignment = useSelector(selectedAssignment) ;
-
+    const [modal , setModal] = useState(false) ;
     useEffect(() => {
         /* response for the assignments */
         setSname([])
@@ -118,7 +118,7 @@ function ViewSubmissions() {
                 </h1>
                 {/* Put this part in the mapping list of submitted assignments */}
                 {sname.map((item)=>(
-                <div className="viewSubmissions__submittedLI">
+                <div className="viewSubmissions__submittedLI" onClick={() => setModal(true)}>
                     <div className="viewSubmissions__submittedLITop" >
                         <h2>{item.user}</h2>
                         <div>
@@ -156,6 +156,24 @@ function ViewSubmissions() {
                 <button className="viewAssignment__downloadButton" >Download All</button>
                 <button onClick={sendURLs} className="viewAssignment__downloadPlagiarism">Download Plagiarism Report</button>
             </div>
+
+            {/* ViewSubissions Modal */}
+            
+            {modal 
+            &&
+            <div className="viewSubmissions__modal">
+                <div>
+                    <button onClick={() => {setModal(false)}}>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="35" height="35" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ff2825" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <line x1="18" y1="6" x2="6" y2="18" />
+                            <line x1="6" y1="6" x2="18" y2="18" />
+                        </svg>
+                    </button>
+                </div>
+                This is the modal
+            </div>
+            }
         </div>
     )
 }
