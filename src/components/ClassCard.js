@@ -19,8 +19,11 @@ function ClassCard({ title, description, id, code }) {
     const history = useHistory();
     const user = useSelector(selectUser);
     /* Function That will dispatch data into redux */
-    const openClass = () => {
+    const openClass = (id) => {
         dispatch(addClass({ title, description, id, code }));
+        setTimeout(()=>{
+            dispatch(newClass())
+        },5000)
         history.push("/classData")
     }
     const handleClick = (event) => {
@@ -96,7 +99,7 @@ function ClassCard({ title, description, id, code }) {
                     <MenuItem onClick={() => deleteClass(id)}>Delete Class</MenuItem>
                 </Menu>
             </div>
-            <div onClick={openClass}>
+            <div onClick={()=>openClass(id)}>
                 <div align="center">
                     <div className="classCard__logo">
                         <p>{title.charAt(0).toUpperCase()}</p>

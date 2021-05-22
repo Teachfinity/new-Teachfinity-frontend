@@ -2,6 +2,8 @@ import React from 'react'
 import Header from "./Header" ;
 import Sidebar from "./Sidebar" ;
 import Chat from "./Chat" ;
+import QuizEngine from "./quizData/QuizEngine" ;
+import QuestionGenerator from "./quizData/QuestionGenerator" ;
 import Timetable from "./timetableData/Timetable" ;
 import {selectAvatarMenuIsOpen} from "../features/avatarMenuSlice" ;
 import {selectEditProfileModalIsOpen} from "../features/editProfileSlice" ;
@@ -40,6 +42,12 @@ function MainComponent() {
                         </Route>
                         <Route path="/chats" >
                             <Chat />
+                        </Route>
+                        <Route exact path="/quiz" >
+                            <QuizEngine />
+                        </Route>
+                        <Route exact path="/quiz/generatequestions" >
+                            <QuestionGenerator />
                         </Route>
                         <Route path="/timetable" >
                             <Timetable />
