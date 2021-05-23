@@ -37,7 +37,7 @@ function Sidebar() {
         setBookmarks(false)
     }
     const Diary = ()=>{
-        //history.push("/chats")
+        history.push("/mydiary")
         setMain(false)
         setChat(false)
         setDiary(true)
@@ -78,7 +78,7 @@ function Sidebar() {
             
             {main? <div className="sidebar__button__active" onClick={Classes}><SchoolIcon /><p>My Classes</p></div> : <div className="sidebar__button" onClick={Classes}><SchoolIcon /><p>My Classes</p></div>}
             {chat? <div className="sidebar__button__active" ><MessageIcon /><p>Chat</p></div>:<div className="sidebar__button" onClick={Chat} ><MessageIcon /><p>Chat</p></div> }
-            {diary? <div className="sidebar__button__active" ><LocalLibraryIcon /><p>Diary</p></div>:<div className="sidebar__button" ><LocalLibraryIcon /><p>Diary</p></div>}
+            {diary? <div className="sidebar__button__active" ><LocalLibraryIcon /><p>Diary</p></div>:<div className="sidebar__button" onClick={Diary} ><LocalLibraryIcon /><p>Diary</p></div>}
             {timetable? <div className="sidebar__button__active" ><DateRangeIcon /><p>Timetable</p></div>:<div className="sidebar__button" onClick={Timetable} ><DateRangeIcon /><p>Timetable</p></div>}
             {quiz? <div className="sidebar__button__active" ><CreateIcon /><p>Quiz Generator</p></div>:<div className="sidebar__button" onClick={Quiz}><CreateIcon /><p>Quiz Generator</p></div>}
             {bookmarks? <div className="sidebar__button__active" ><BookmarksIcon /><p>Bookmarks</p></div>:<div className="sidebar__button" ><BookmarksIcon /><p>Bookmarks</p></div>}
