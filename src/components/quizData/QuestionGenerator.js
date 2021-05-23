@@ -1,11 +1,18 @@
 import React, {useState} from 'react'
 import db, { auth, storageRef } from "../../firebase";
+import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { addData, quizData } from "../../features/quizDataSlice";
 import "../../css/QuizEngine.css" 
 import "../../css/QuestionGenerator.css" 
 
 function QuestionGenerator() {
 
     const [text, setText] = useState("Muhammad Ali Jinnah 25 December 1876 – 11 September 1948 was a barrister, politician and the founder of Pakistan. Jinnah served as the leader of the All-India Muslim League from 1913 until the inception of Pakistan on 14 August 1947, and then as the Dominion of Pakistan's first Governor-General until his death. He is revered in Pakistan as the Quaid-i-Azam (Great Leader) and Baba-i-Qaum (Father of the Nation). His birthday is observed as a national holiday in Pakistan.")
+    const [loading, setLoading] = useState(false)
+    const history = useHistory();
+    const dispatch = useDispatch();
+    const quiz = useSelector(quizData);
     var fileUrl = ""
 
     const convert = async e =>{
@@ -29,19 +36,58 @@ function QuestionGenerator() {
             console.log('POST response: ');
             // console.log(response.text())
             return response.json();
-          })}
+          })
+          .then(function (text) {
+              console.log(text.Text)
+              setText(text.Text)
+            })}
+    }
+    const handleSubmit = () => {
+        setLoading(true)
+        fetch("http://localhost:80/generate_questions", {
+            headers: {
+                'Content-Type': 'application/json'
+              },
+              // Specify the method
+              method: 'POST',
+              // A JSON payload
+              body: JSON.stringify(
+                  text
+              )
+          }).then(function (response) { // At this point, Flask has printed our JSON  
+            console.log('POST response: ');
+            // console.log(response.text())
+            return response.json();
+          })
+          .then(function (text) {
+              console.log(text.original)
+              var original = text.original
+              var questions = text.result
+              dispatch(addData({original, questions}));
+            })
+            .then(()=>{
+                setLoading(false)
+                history.push("/quiz/generatequestions/questions")
+            })
+            if(loading===false){
+                //history.push("/quiz/generatequestions/questions")
+            }
     }
 
     return(
         <div className="body">
             <div className="box">
+                {loading ?
+                <div><img src="https://media3.giphy.com/media/PnsF0HweRIw2A7K9yp/source.gif"></img>
+                <p className="ptag">Generating Questions...</p></div>
+                :
                 <div className="scontainer">
                     <h2>Generate Your Own Quiz</h2>
                     <p>Want to test whatever you've learnt? Enter the text and we'll generate practice questions for you!</p>
                     <br></br>
                     <div>
                         <h3>Paste your Text</h3>
-                        <form>
+                        <form onSubmit={handleSubmit}>
                             <div className="textArea">
                                 <textarea value={text} onChange={e => setText(e.target.value)} className="sample-text">
                                 </textarea>
@@ -55,7 +101,7 @@ function QuestionGenerator() {
                             <div className="sbutton"><button className="scover-button" type="submit">Generate Questions</button></div>
                         </form>
                     </div>
-                </div>
+                </div>}
             </div>
         </div>
     )
