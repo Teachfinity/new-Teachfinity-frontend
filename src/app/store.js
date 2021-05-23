@@ -13,6 +13,7 @@ import studentListReducer from "../features/studentListSlice" ;
 import eventListReducer from "../features/myEventsListSlice" ;
 import assignmentReducer from "../features/createAssignmentSlice" ;
 import selectedAssignmentReducer from "../features/selectedAssignmentSlice" ;
+import quizDataReducer from "../features/quizDataSlice" ;
 export default configureStore({
   reducer: {
     user: userReducer,
@@ -28,6 +29,7 @@ export default configureStore({
     studentList : studentListReducer,
     eventList : eventListReducer,
     assignmentList : assignmentReducer,
-    selectedAssignment : selectedAssignmentReducer
+    selectedAssignment : selectedAssignmentReducer,
+    quizData : quizDataReducer
   },
 });

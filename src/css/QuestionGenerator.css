@@ -17,6 +17,11 @@
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+.ptag{
+    color: #1f1f1f;
+    font-weight: bolder;
+    text-align: center
+}
 .navbar-custom {
     background-color: #1f1f1f;
     font-family: 'Oswald', sans-serif;

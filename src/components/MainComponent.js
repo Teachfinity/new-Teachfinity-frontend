@@ -4,6 +4,7 @@ import Sidebar from "./Sidebar" ;
 import Chat from "./Chat" ;
 import QuizEngine from "./quizData/QuizEngine" ;
 import QuestionGenerator from "./quizData/QuestionGenerator" ;
+import Questions from "./quizData/Questions" ;
 import Timetable from "./timetableData/Timetable" ;
 import {selectAvatarMenuIsOpen} from "../features/avatarMenuSlice" ;
 import {selectEditProfileModalIsOpen} from "../features/editProfileSlice" ;
@@ -48,6 +49,9 @@ function MainComponent() {
                         </Route>
                         <Route exact path="/quiz/generatequestions" >
                             <QuestionGenerator />
+                        </Route>
+                        <Route exact path="/quiz/generatequestions/questions" >
+                            <Questions />
                         </Route>
                         <Route path="/timetable" >
                             <Timetable />
