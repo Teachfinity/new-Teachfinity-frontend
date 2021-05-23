@@ -1,73 +1,98 @@
-import React, { Component } from 'react'
-import event from  '../../events'
+import React, {useState, useEffect } from 'react'
+import event from  '../../events' ;
 import { Icon, Form, Message } from 'semantic-ui-react';
 import "../../css/Chat.css" ;
-export class LoginPage extends Component {
-  state = {
-    nickname: '',
-    error: '' ,
-   
-  }
-  
-  isvalid = ({ nickname }) => nickname
+import {useSelector} from "react-redux" ;
+import {selectUser} from "../../features/userSlice" ;
 
-  setUser = ({ user, isUser }) =>  {
+function LoginPage({setUser , socket , user}){
+
+  const sockett = socket ;
+  const currentUser = useSelector(selectUser) ;
+  const  [nickname, setNickname] =  useState(currentUser.displayName) ;
+  const [error , setError]= useState('') ;
+   
+  
+  
+  
+  
+   const isvalid = ( nick ) => nick
+
+   const setUserr = ({ user, isUser }) =>  {
     
     if( isUser ) {
-      this.setState({ error: 'This nickname already taken'})
+      setError('This nickname already taken')
     } else {
-      this.setState({ error : '' })
-      this.props.setUser( user )
+      setError('')
+      setUser( user )
     }
   }
 
-  handleChange = e => {
-    this.setState({ nickname: e.target.value })
+  const handleChange = e => {
+    setNickname(e.target.value) ; 
   }
 
   
-  handleSubmit = () => {
-    let { socket } = this.props
-    let { nickname } = this.state
+  const handleSubmit = () => {
     
-    this.isvalid( this.state ) ?   socket.emit( event.IS_USER, nickname, this.setUser ) :
-    this.setState({ error : 'Please input your nickname'})
+    let nick = nickname
+    console.log(sockett) ;
+    isvalid(nick) ?   sockett.emit( event.IS_USER, nickname, setUserr ) :
+    setError('Please input your nickname') ;
+    
+
   }
 
-  render() {
+   useEffect(()=> {
+    setTimeout(() => {
+      let nick = nickname
+      console.log(sockett) ;
+      isvalid(nick) ?   sockett.emit( event.IS_USER, nickname, setUserr ) :
+      setError('Please input your nickname') ;
+      localStorage.setItem("user" , "Zaibi") ;
+
+    }  , 1000)
+
+  }, []) 
+
+
+
+ 
     return (
      
        <div className="chat__login" >
          <div className="chat__loginHeader">
-         <h2>Welcome to chats</h2>
-         <p>You need to enter a nickname to continue with chats</p>
+         <h2>Loading...</h2>
+         {/* <p>You need to enter a nickname to continue with chats</p> */}
            </div>
          <div className="chat__loginForm">
-
-          <Form size='small' onSubmit={this.handleSubmit}>
+         
+       {/*    <Form size='small' onSubmit={handleSubmit}>
             <Form.Input 
               className=""
               name='nickname'
               type='text'
               placeholder='Your nickname !'
-              onChange={this.handleChange}
+              onChange={handleChange}
               autoFocus
-              icon={<Icon name='add user' link circular inverted onClick={ this.handleSubmit } />}
+              icon={<Icon name='add user' link circular inverted onClick={handleSubmit} />}
             />
-            { this.state.error && (
-              <Message negative>{ this.state.error }</Message>
+            { error && (
+              <Message negative>{ error }</Message>
             )}
-          </Form>
+          </Form>  */}
+         {/*  <button onClick={handleSubmit} >Continue</button> */}
          </div>
          <img className="chat__loginImg" src="https://eyeonindie.com/wp-content/uploads/2020/08/ClutteredPlayfulAnteater-size_restricted.gif" />
        
             
+             
         
        </div>
         
    
     )
-  }
+  
 }
 
 export default LoginPage

@@ -128,6 +128,7 @@ export class ChatPage extends Component {
     return (
     <div className="chat__chatPage">
       <div className="chat__sidebar">
+        {console.log(user)}
       <Sidebar
         user = { user }
         users = { users }

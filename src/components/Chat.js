@@ -74,7 +74,7 @@ export class Chat extends Component {
     render() { 
         let { user, users, pChats, socket } = this.state
         return (
-            user ? 
+           user ? 
             <ChatPage 
                 user = { user }
                 users = { users }
@@ -82,7 +82,10 @@ export class Chat extends Component {
                 socket = { socket }
                 logout = { this.logout }
             /> : 
-            <LoginPage socket={socket} user={this.state.user} setUser={this.setUser} />
+            socket &&
+
+            <LoginPage socket={this.state.socket} user={this.state.user} setUser={this.setUser} />
+            
         )
     }
 }
