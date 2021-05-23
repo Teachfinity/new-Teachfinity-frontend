@@ -6,6 +6,7 @@ import QuizEngine from "./quizData/QuizEngine";
 import QuestionGenerator from "./quizData/QuestionGenerator";
 import Questions from "./quizData/Questions";
 import Timetable from "./timetableData/Timetable";
+import Diary from "./Diary";
 import { selectAvatarMenuIsOpen } from "../features/avatarMenuSlice";
 import { selectEditProfileModalIsOpen } from "../features/editProfileSlice";
 import { useSelector } from "react-redux";

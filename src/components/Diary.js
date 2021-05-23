@@ -41,7 +41,7 @@ class Diary extends Component {
     return (
       <header className="bg" >
         <header className="bg-cover">
-          <div className="box">
+          <div className="dbox">
             <br></br><h1>My Diary</h1><br></br>
             <div>
               <TextField className="textfield" value={this.state.input} onChange={this.updatestate} label="Todo"  placeholder="add task..."></TextField>
