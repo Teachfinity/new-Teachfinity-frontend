@@ -18,6 +18,7 @@ import {
 import EditProfileForm from './EditProfile';
 import AvatarMenu from './AvatarMenu';
 import ClassData from './ClassData';
+import Diary from "./Diary" ;
 
 
 function MainComponent() {
@@ -40,6 +41,9 @@ function MainComponent() {
                         </Route>
                         <Route path="/chats" >
                             <Chat />
+                        </Route>
+                        <Route path="/mydiary" >
+                            <Diary />
                         </Route>
                         <Route path="/timetable" >
                             <Timetable />

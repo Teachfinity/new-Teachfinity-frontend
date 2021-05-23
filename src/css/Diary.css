@@ -1,0 +1,62 @@
+
+.bg{
+    display: flex;
+    background-image: url(https://static.vecteezy.com/system/resources/previews/001/229/020/non_2x/back-to-school-pattern-on-notebook-vector.jpg);
+    min-width: 100%;
+    height: 200vh;
+}
+.bg-cover{
+    display: flex;
+    justify-content: center;
+   
+    background-color: #44adb173;
+    min-width: 100%;
+}
+.box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #ebecf1;
+    overflow-y: scroll;
+    box-shadow: -30px 30px 20px rgba(0, 0, 0, 0.452);
+    color: #3AA5AB;
+    height: 600px;
+    width: 450px;
+    margin-top: 50px;
+    border-radius: 5px;
+}
+.textfield{ 
+    color: #3AA5AB !important;
+    margin-bottom: 15px;
+    width: 350px;
+    margin-left: 5px;
+}
+.button{
+    height: 60px;
+}
+.addicon{
+    color: #3AA5AB;
+    font-size: xx-large !important;
+}
+.TODO{
+    display: flex;
+    background-color: #3AA5AB;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+    padding-left: 5px;
+    color: white;
+    margin-top: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    width: 400px;
+    height: 60px;
+}
+.todoicons{
+    font-size: 35px;
+    
+}
+
+.todoicons > .MuiSvgIcon-root {
+    color: white;
+}
