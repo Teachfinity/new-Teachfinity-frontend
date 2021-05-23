@@ -17,6 +17,9 @@ function ViewSubmissions() {
     const selectClass = useSelector(selectedClass) ;
     const selectAssignment = useSelector(selectedAssignment) ;
     const [modal , setModal] = useState(false) ;
+    const [selectedname , setselectedname] = useState() ;
+    const [storedText , setstoredText] = useState() ;
+    const [matchedText , setmatchedText] = useState([]) ;
     useEffect(() => {
         /* response for the assignments */
         setSname([])
@@ -31,7 +34,6 @@ function ViewSubmissions() {
                 axios.get("http://localhost:5000/assignments/getassignments/"+selectAssignment.aid)
                 .then((res)=>{ 
                     res.data[0].studentfiles.map((id)=>{
-                        console.log(id)
                     if(ids.includes(id.sid)||ids.includes(userid)){
                         //do nothing
                     }
@@ -63,6 +65,43 @@ function ViewSubmissions() {
         
     } , [])
 
+    const openModal = (it) =>{
+        setselectedname(it.user)
+        fetch("http://localhost:80/PlagiarismCheck", {
+            headers: {
+                'Content-Type': 'application/json'
+              },
+              // Specify the method
+              method: 'POST',
+              // A JSON payload
+              body: JSON.stringify(
+                  {assignments: files,
+                  studentNames: student}
+              )
+          }).then(function (response) { // At this point, Flask has printed our JSON  
+            console.log('POST response: ');
+            // console.log(response.text())
+            return response.json();
+          })
+             .then(function (text) {
+                 text.data[0].highlight.map((item,index)=>{
+                     if(it.user===item.name){
+                        setstoredText(item.string)
+                     }
+                 })
+                 console.log(text.data[0].responses);
+                text.data[0].responses.map((item,index)=>{
+                     if(item[0]===it.user){
+                        matchedText.push({student: item[1], match: item[2]})
+                        // console.log(item[2])
+                     }
+                     console.log(matchedText);
+                })
+           }) 
+            .then(function (){
+                setModal(true)
+            })
+    }
     const sendURLs = () =>{
         console.log(student)
         fetch("http://localhost:80/example", {
@@ -118,7 +157,7 @@ function ViewSubmissions() {
                 </h1>
                 {/* Put this part in the mapping list of submitted assignments */}
                 {sname.map((item)=>(
-                <div className="viewSubmissions__submittedLI" onClick={() => setModal(true)}>
+                <div className="viewSubmissions__submittedLI" onClick={() => {openModal(item)}}>
                     <div className="viewSubmissions__submittedLITop" >
                         <h2>{item.user}</h2>
                         <div>
@@ -163,7 +202,7 @@ function ViewSubmissions() {
             &&
             <div className="viewSubmissions__modal">
                 <div>
-                    <button onClick={() => {setModal(false)}}>
+                    <button onClick={() => {setModal(false); setmatchedText([])}}>
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="35" height="35" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ff2825" fill="none" stroke-linecap="round" stroke-linejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                             <line x1="18" y1="6" x2="6" y2="18" />
@@ -171,7 +210,17 @@ function ViewSubmissions() {
                         </svg>
                     </button>
                 </div>
-                This is the modal
+                <h2>{selectedname}</h2>
+                <div>
+                    <p className="orignal__text">{storedText}</p>
+                    <ul>
+                    {matchedText.map((text)=>(
+                        <div>
+                        <li className="matched__lists"><p><strong>{text.student}</strong></p><mark >{text.match}</mark></li>
+                        </div>
+                    ))}
+                    </ul>
+                </div>
             </div>
             }
         </div>

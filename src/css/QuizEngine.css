@@ -1,0 +1,39 @@
+.body{
+    background-image: url(https://quizmaster.tv/sites/default/files/b028a2493053bcd5537605a92d15593e.jpg);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    justify-content: center;
+    align-items: center;
+}
+.box {
+    display: flex;
+    flex-direction: row;
+    background-color:#3aa5ab59;
+    height: 100vh;
+    min-width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+.triviatime{
+    background-color: #eeeeee;
+    text-align: center;
+    align-items: center;
+    color: #3AA5AB;
+    justify-content: center;
+    height: 420px;
+    width: 520px;
+    box-shadow: -20px 20px 7px -3px rgba(0, 0, 0, 0.623);
+}
+.cover-button {
+    width: 200px;
+    height: 50px;
+    border: none;
+    background-color: #3aa5ab;
+    color: white;
+    font-weight: bolder;
+    border-radius: 10px;
+    outline-width: 0;
+}
+.cover-button:hover {
+    background-color: #3aa5abab;
+}

@@ -167,12 +167,18 @@
 }
 .viewSubmissions__modal > div{
     display: flex;
-  
-    justify-content: flex-end;
+    text-align: left;
 }
 
 .viewSubmissions__modal > div > button{
   background-color: transparent;
   outline-width: 0;
   border: none;
+}
+.orignal__text{
+    margin-top: 16px;
+}
+.matched__lists{
+    margin-top: 16px;
+
 }
