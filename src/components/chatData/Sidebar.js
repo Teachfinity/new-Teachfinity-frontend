@@ -104,7 +104,7 @@ export class Sidebar extends Component {
         <h1>Teachfinity Chat</h1> 
         <RateReviewIcon />
         </div>
-        <p> Your Nickname: {user.nickname[0].toUpperCase() + user.nickname.slice(1)}</p>
+    {/*   */}
         <div className="chatSidebar__channels">
             <div className="chatSidebar__channelsHeader" >
               <span style={{ fontSize: '1.2em' }}>
@@ -131,12 +131,12 @@ export class Sidebar extends Component {
           </div>
           
           <br />
-              <div className="chatSidebar__logoutButton">
+              {/* <div className="chatSidebar__logoutButton">
               <button onClick={logout}>
                  LogOut
               </button>
 
-              </div>
+              </div> */}
            
          {modal && 
          
