@@ -36,3 +36,46 @@
 .card-text{
     padding: 10px
 }
+.edit__question{
+    padding: 10px;
+    margin-left: 200px;
+}
+.edit__question:hover{
+    color: #3aa5abb7;
+}
+.edit__modal{
+    position: absolute;
+    display: flex;
+    padding: 5px;
+    padding-top: 70px;
+    flex-direction: column;
+    position: fixed;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+    width: 500px;
+    max-width: 100%;
+    height: 300px;
+    max-height: 100%;
+    max-width: 800px;
+    background-color: rgb(238, 236, 236);
+    box-shadow: -7px 15px 7px 1000px rgba(0, 0, 0, 0.52);
+    border: 1px solid gray;
+    border-radius: 6px;
+    text-align: center;
+   
+}
+.cross__button{
+    margin-left: 400px;
+}
+.etextArea{
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+.esample-text {
+    width: 100%;
+    height: 100px;
+    color: #1f1f1f;
+    margin-bottom: 10px;
+}
