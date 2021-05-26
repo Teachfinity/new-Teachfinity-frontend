@@ -8,7 +8,10 @@ import {
   } from "react-router-dom";
   import ClassCabinetMaterial from "./ClassCabinetMaterial" ;
   import ClassCabinetNavigation from "./ClassCabinetNavigation" ;
-  import ClassCabinetQuizzes from "./ClassCabinetQuizzes" ;
+  import ClassCabinetQuizzes from "./Quizzes/ClassCabinetQuizzes" ;
+  import StudentQuizzes from "./Quizzes/StudentQuizzes" ;
+  import ViewQuiz from "./Quizzes/ViewQuiz" ;
+  import ViewSubmission from "./Quizzes/ViewSubmission" ;
   import ClassCabinetAssignments from "./Assignments/ClassCabinetAssignments" ;
   import StudentAssignments from "./Assignments/StudentAssignments" ;
   import ViewAssignment from "./Assignments/ViewAssignment" ;
@@ -27,6 +30,15 @@ function ClassCabinet() {
                         </Route>
                         <Route exact path="/classData/classCabinet/myquizzes" >
                             <ClassCabinetQuizzes />
+                        </Route>
+                        <Route exact path="/classData/classCabinet/myquizzes/viewsubmissions" >
+                            <ViewSubmission />
+                        </Route>
+                        <Route exact path="/classData/classCabinet/studentquiz" >
+                            <StudentQuizzes />
+                        </Route>
+                        <Route exact path="/classData/classCabinet/studentquiz/viewQuiz" >
+                            <ViewQuiz />
                         </Route>
                         <Route exact path="/classData/classCabinet/assignments" >
                             <ClassCabinetAssignments />

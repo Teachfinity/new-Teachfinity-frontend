@@ -40,10 +40,16 @@ function ClassCabinetNavigation() {
             <button 
             onClick={() => history.push("/classData/classCabinet/classmaterial")}
             >Files</button>
+            {admin ? 
             <button
              onClick={() => history.push("/classData/classCabinet/myquizzes")}>
-                 Quiz
+                 Quizzes
             </button>
+                :
+                <button onClick={() => history.push("/classData/classCabinet/studentquiz")}>
+                Quizzes
+                </button>
+            }
             {admin ? 
                 <button onClick={() => history.push("/classData/classCabinet/assignments")}>
                 Assignments

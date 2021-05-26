@@ -1,5 +1,6 @@
 import React, {useEffect, useState, useRef} from 'react'
 import {useSelector , useDispatch} from "react-redux" ;
+ import { CommonLoading } from 'react-loadingg';
 import {useForm} from "react-hook-form" ;
 import "../../../css/ClassCabinetAssignments.css"
 import {selectedClass} from "../../../features/selectClassSlice" ;
@@ -27,9 +28,11 @@ function ClassCabinetAssignments() {
     const [date, Setdate] = useState();
     const [filename, setFilename] = useState("");
     const [filepath, setFilepath] = useState("");
+    const [isLoading , setLoading] = useState(false) ;
     var fileUrl = ""
     
     const fileHandler = async e => {
+        setLoading(true) ;
         const file = e.target.files[0];
         if (file) {
             setFilename(file.name);
@@ -39,6 +42,9 @@ function ClassCabinetAssignments() {
             // console.log(await fileRef.getDownloadURL() ) ;
             setFilepath(fileUrl)
             console.log(fileUrl)
+            if(fileUrl){
+                setLoading(false)
+            }
         }
         else {
             setFilename("");
@@ -142,8 +148,14 @@ function ClassCabinetAssignments() {
                             <label>Total Marks:</label>
                             <input type="number" min="0" ref={marks}/>
                         </div>
+                        {isLoading && <CommonLoading color='#3aa5ab' size='large' />}
                         <div className="assignmentFormButtons" >
+                           { !isLoading ? 
                             <button type="submit" onClick={handleSubmit} className="assignmentFormButton1">Post Assignment</button>
+                            :
+                            <button  className="assignmentFormButtonDisabled" disabled >Post Assignment</button>
+
+                        }
                             <button className="assignmentFormButton2" onClick={handleCancelButton} >Cancel</button>
                         </div>
 
@@ -154,7 +166,7 @@ function ClassCabinetAssignments() {
             </div>
           
             <div className="cabinetAssignments__assignmentsList">
-            {assignmentList.length === 0 ?  <p class="classFeed__noclasses">No Announcements</p>
+            {assignmentList.length === 0 ?  <p class="classFeed__noclasses">No Assignment</p>
                 :
             
                 assignmentList && assignmentList[0].map(({_id, aid}) => (

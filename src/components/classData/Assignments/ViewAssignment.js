@@ -7,6 +7,7 @@ import "../../../css/ViewAssignment.css";
 import db, { auth, storageRef } from "../../../firebase";
 import moment from 'moment'
 import axios from "axios" ;
+import { CommonLoading } from 'react-loadingg';
 
 function ViewAssignments() {
 
@@ -27,9 +28,16 @@ function ViewAssignments() {
     const [submittedfile , setSubmissionFile] = useState() ;
     const [submittedfileUrl , setSubmissionUrl] = useState() ;
     const isNewAssignment = useSelector(selectnewAssignment) ;
+    const [isLoading, setLoading] = useState(false); 
+    const [pastDue, setPastDue] = useState(false); 
+    const [check, setCheck] = useState()
     let fileUrl = ""
 
     const fileHandler = async e => {
+        if(check <= Date.now()){
+            setPastDue(true)
+        }
+        setLoading(true); 
         const file = e.target.files[0];
         if (file) {
             console.log(file) ;
@@ -40,6 +48,9 @@ function ViewAssignments() {
             // console.log(await fileRef.getDownloadURL() ) ;\
             setSubmissionUrl(fileUrl)
             console.log(fileUrl)
+            if(fileUrl){
+                setLoading(false)
+            }
            
         }
         else {
@@ -82,8 +93,15 @@ function ViewAssignments() {
         .then((res) => {
             console.log(res.data[0]);
             setTitle(res.data[0].title)
-            setDue(moment(res.data[0].dueTime).format('DD-MM-YYYY'))
-            setDueTime(moment(res.data[0].dueTime).format('hh:mm A'))
+            var date = new Date(res.data[0].dueTime)
+            setCheck(date.getTime())
+            if (date.getTime() <= Date.now()){
+                setPastDue(true)
+            }
+            else{
+                setDue(moment(res.data[0].dueTime).format('DD-MM-YYYY'))
+                setDueTime(moment(res.data[0].dueTime).format('hh:mm A'))
+            }
             setMarks(res.data[0].totalMarks)
             setInstr(res.data[0].instructions)
             setFileName(res.data[0].fileName)
@@ -111,14 +129,20 @@ function ViewAssignments() {
     
     return (
         <div className="viewAssignment" >
+            { isLoading && <CommonLoading color='#3aa5ab' size='large' />}
+          
           <div className="viewAssignment__info">
               <h1>{title}</h1>
               <div>
-                    {submitted ?
+                  {pastDue?
+                  <p>Past Due!</p>
+                  :
+                    submitted ?
                         <p>Submitted At: {submissionTime}</p>
                         :
                         <p>Due at : {due}, {dueTime}</p>
-                    }
+                    
+                }
                 <h3>Total Marks: {marks}</h3>
               </div>
           </div>
@@ -129,6 +153,7 @@ function ViewAssignments() {
           <div className="viewAssignment__file">
             <a className="anchortag" href={fileLink} target="_blank" ><p>{fileName}</p></a>
           </div>
+          
             <div className="viewAssignment__uploadFile">
                 {submitted?
                     <div>
@@ -157,9 +182,9 @@ function ViewAssignments() {
                 
             </div>
             {submitted ? 
-                <p></p>
+                <p>Submitted!!!</p>
                 :
-                studentFile ?
+                !isLoading && !pastDue?
                 <button onClick={submitAssignment} className="viewAssignment__submitAssignment" >
                 Submit
                 </button>

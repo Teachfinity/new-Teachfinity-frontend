@@ -1,56 +1,31 @@
 import React, {useState, useEffect} from 'react'
 import { useSelector, useDispatch } from "react-redux";
 import { addData, quizData } from "../../features/quizDataSlice";
+import { useHistory } from "react-router-dom";
 import CreateIcon from '@material-ui/icons/Create';
 import "../../css/QuizEngine.css" 
 import "../../css/Questions.css" 
 import * as Survey from "survey-react";
 import axios from "axios";
 
-let json = {
-    questions: [
-      {
-       type: "checkbox",
-       name: "car",
-       title: "What car are you driving?",
-       isRequired: true,
-       hasSelectAll: true,
-       hasNone: true,
-       noneText: "None of the above",
-       colCount: 4,
-       choicesOrder: "asc",
-       choices: [
-        "Ford",
-        "Tesla",
-        "Vauxhall",
-        "Volkswagen",
-       ]
-      },
-      {
-          type: "comment",
-          name: "car",
-          title: "What car are you driving?",
-          isRequired: true,
-         },
-    ]
-  }
-
 function Questions() {
     
     var quiz = useSelector(quizData);
     // let update = quiz.questions.slice()
+    const history = useHistory();
     const [update,setUpdate]=useState(quiz.questions.slice())
     const [isEdit, setEdit] = useState(false)
     const [text, setText] = useState("")
     const [key, setKey] = useState()
+    const dispatch = useDispatch();
     const [selected, setSelected] = useState([])
     const [tem, setemp] = useState(false)
     const [jsonQuestions,setJsonQuestions]=useState([])
 
     const updateDb =()=>{
-    axios.post("http://localhost:5000/survey/create",jsonQuestions)
-    .then(res=>{console.log(res)})
-}
+        dispatch(addData(jsonQuestions))
+        history.push("/quiz/generatequestions/questions/form")
+    }
 
     const editQuestion = (item, index) =>{
         setEdit(true)
@@ -79,20 +54,13 @@ function Questions() {
         console.log(selected)
         selected.map((item,index)=>{
             jsonQuestions.push({
-                type: "comment",
-                name: "question"+index,
                 title: update[item],
-                isRequired: true,
-               })
+            })
         })
         console.log(jsonQuestions);
         updateDb()
         
     }
-
-const createSurveyObject = ()=>{
-
-}
 
     useEffect(()=>{
         console.log("Updated");
@@ -101,16 +69,6 @@ const createSurveyObject = ()=>{
 
     return(
     <div className="body">
-        <div className="survey">
-        <Survey.Survey
-          style={{backgroundColor:"silver"}}
-          json={json}
-          showCompletedPage={false}
-        
-        //   onComplete={this.onCompleteComponent}
-        //   css={{ root: "sv_main sv_default_css " + rootClass }}
-        />
-        </div>
     <div className="qbox">
             <div className="qcontainer">
                 <h4>Original Text</h4>
@@ -118,15 +76,17 @@ const createSurveyObject = ()=>{
             </div>
             <div className="cards">
                 {update.map((items, index)=>(
-                        <div className="card-body">
-                            <CreateIcon onClick={()=>editQuestion(items, index)} className="edit__question"></CreateIcon>
-                            <input type="checkbox" onClick={()=>Selected(index)}></input>
-                            <p className="card-text">{items}</p>
+                    <div className="card-body">
+                        <div className="card-body-options">
+                            <CreateIcon onClick={() => editQuestion(items, index)} className="edit__question"></CreateIcon>
+                            <input type="checkbox" onClick={() => Selected(index)}></input>
                         </div>
+                        <p className="card-text">{items}</p>
+                    </div>
                 ))}
             </div>
             <div>
-                <button onClick={()=>sendQuestions()}>Make Quiz</button>
+                <button onClick={()=>sendQuestions()} className="cover-button" >Make Quiz</button>
             </div>
             {isEdit
             &&

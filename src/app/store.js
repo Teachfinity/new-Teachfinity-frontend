@@ -14,6 +14,7 @@ import eventListReducer from "../features/myEventsListSlice" ;
 import assignmentReducer from "../features/createAssignmentSlice" ;
 import selectedAssignmentReducer from "../features/selectedAssignmentSlice" ;
 import quizDataReducer from "../features/quizDataSlice" ;
+import selectedQuizReducer from "../features/selectedQuizSlice" ;
 export default configureStore({
   reducer: {
     user: userReducer,
@@ -30,6 +31,7 @@ export default configureStore({
     eventList : eventListReducer,
     assignmentList : assignmentReducer,
     selectedAssignment : selectedAssignmentReducer,
+    selectedQuiz : selectedQuizReducer,
     quizData : quizDataReducer
   },
 });

@@ -1,0 +1,155 @@
+.ccontainer{
+    padding: 20px;
+    background-color: #eeeeee;
+    margin-top: 30px;
+    align-items: center;
+    color: #3AA5AB;
+    justify-content: center;
+    width: 900px;
+    max-height: 500px;
+    overflow-y: scroll;
+    box-shadow: -20px 20px 7px -3px rgba(0, 0, 0, 0.623);
+}
+
+.quiz__details{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.quiz__details > div{
+    display: flex ;
+    margin-bottom: 20px;
+    align-items: center;
+    
+}
+#quizname{
+    margin-left: 20px;
+    width: 400px;
+    outline-width: 0;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+}
+#quizmarks{
+    margin-left: 13px;
+    width: 100px;
+    outline-width: 0;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+}
+#quiztime{
+    display: flex;
+    align-items: center;
+}
+#quiztime > input{
+    margin-left: 90px;
+    outline-width: 0;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+
+}
+#quizclass{
+    margin-bottom: 10px;
+}
+#mcqdisplay{
+    display: flex;
+    align-items: center;
+    font-size: 1.25rem;
+    margin-top: 10px;
+}
+
+
+
+
+
+
+.quizQuestionList{
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.addQuestion{
+    display: flex;
+    align-items: center;
+    padding-top: 20px;
+    border-top: 1px solid rgb(206, 206, 206);
+}
+.addQuestion > div{
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+.newQuestionForm{
+    margin-top:20px ;
+    display: flex;
+    align-items: center ;
+}
+.newQuestionForm > input{
+    width: 300px;
+    padding: 7px;
+    font-size: 1rem;
+    margin-right: 10px;
+    outline-width: 0;
+    border: none;
+    border-radius: 5px;
+}
+.newQuestionForm > div{
+    display: flex;
+    justify-content: space-between;
+    width: 100px;
+}
+
+.newMCQForm{
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+
+}
+.newMCQForm > input{
+    outline-width: 0;
+    border: none;
+    border-radius: 5px;
+    padding: 7px;
+    width: 80%;
+    font-size: 1rem;
+}
+
+.newMCQForm > div{
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    width: 200px;
+    justify-content: space-between;
+    
+}
+#mcqOption{
+    outline-width: 0;
+    border: none;
+    background-color: transparent;
+    border-bottom: 1px solid gray;
+}
+#correctAnswer{
+    margin-left: 15px;
+    display: flex;
+    align-items: center;
+    width: 400px;
+}
+#correctAnswer > input {
+    outline-width: 0;
+    border: none;
+    border-radius: 5px ;
+    padding: 7px;
+    width: 200px;
+
+}
+
+#correctAnswer > div{
+    display: flex;
+    justify-content: space-between;
+    
+    width: 200px;
+    margin-left: 10px;
+   
+}

@@ -156,13 +156,14 @@
     width: 600px;
     max-width: 100%;
     height: 600px;
-    max-height: 100%;
+    max-height: 600px;
     max-width: 800px;
     background-color: rgb(238, 236, 236);
     box-shadow: -7px 15px 7px 1000px rgba(0, 0, 0, 0.52);
     border: 1px solid gray;
     border-radius: 6px;
     text-align: center;
+    overflow-y: scroll;
    
 }
 .viewSubmissions__modal > div{
@@ -181,4 +182,79 @@
 .matched__lists{
     margin-top: 16px;
 
+}
+#marksInput{
+    width: 50px;
+    padding: 5px;
+    font-size: 1rem;
+    outline-width: 0;
+    border: none;
+    border-radius: 5px;
+    margin-top: 15px;
+}
+
+.quizQuestionList{
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+    padding: 0px 10px;
+}
+.quizQuestion > h3{
+    margin-top: 25px;
+}
+.quizQuestion > h4{
+    margin-top: 5px;
+}
+.quizQuestion>div{
+    width: 100%;
+    height: 100px;
+    max-height: 100px;
+    background-color: whitesmoke;
+    overflow-y: scroll;
+    border-radius: 5px;
+    padding: 5px;
+    margin-top: 15px;
+}
+.quizMCQList{
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+    padding: 0px 10px;
+
+}
+.quizMCQ> h3{
+    margin-top: 10px;
+}
+.quizMCQ>h4{
+    margin-top: 5px;
+}
+.quizMCQOptionsList{
+  margin-top: 10px;
+}
+.quizMCQOption{
+    display: flex;
+    align-items: center;
+
+}
+.quizMCQOption > p {
+    margin-bottom: 5px;
+}
+.gradeQuiz{
+    display: flex ;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.gradeQuiz>button{
+    margin-top: 40px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: bold;
+    outline-width: 0;
+    border: none;
+    color: white;
+    width: 200px;
+    
 }

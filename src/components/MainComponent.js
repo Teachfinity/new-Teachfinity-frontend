@@ -5,6 +5,7 @@ import Chat from "./Chat";
 import QuizEngine from "./quizData/QuizEngine";
 import QuestionGenerator from "./quizData/QuestionGenerator";
 import Questions from "./quizData/Questions";
+import QuizForm from "./quizData/QuizForm";
 import Timetable from "./timetableData/Timetable";
 import Diary from "./Diary";
 import { selectAvatarMenuIsOpen } from "../features/avatarMenuSlice";
@@ -56,6 +57,9 @@ function MainComponent() {
                             </Route>
                             <Route exact path="/quiz/generatequestions/questions" >
                                 <Questions />
+                            </Route>
+                            <Route exact path="/quiz/generatequestions/questions/form" >
+                                <QuizForm />
                             </Route>
                             <Route path="/timetable" >
                                 <Timetable />
