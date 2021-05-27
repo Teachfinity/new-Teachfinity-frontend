@@ -44,19 +44,24 @@ function Meeting({ meetingName, startTime, endTime }) {
                 </h2>
                 
                 <div className="meeting__timings">
-                    <div className="meeting__time">
-                        <p>From:</p>
-                        <h4>{start}</h4>
-                        <p>to</p>
-                        <h4>{end}</h4>
+                    <div>
+                        <div className="meeting__time">
+                            <p>From:</p>
+                            <h4>{start}</h4>
+                            <p>to</p>
+                            <h4>{end}</h4>
+                        </div>
+                        <div className="meeting__date">
+                            <p>Date:</p>
+                            <h4>{date}</h4>
+                            <h4>{day}</h4>
+                        </div>
                     </div>
-                    
-                    <div className="meeting__date">
-                    <p>Date:</p>
-                    <h4>{date}</h4>
-                    <h4>{day}</h4>
+                    <div>
+                        <a href="http://localhost:9001/demos/video-conferencing.html" target="_blank" className="MeetingStartButton">Start Class Session</a>
                     </div>
-                   
+
+
                 </div>
 
             </div>
