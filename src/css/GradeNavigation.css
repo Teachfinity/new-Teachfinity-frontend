@@ -1,0 +1,19 @@
+.GradeNavigation{
+    padding: 10px 5px;  
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgb(209, 209, 209);
+}
+.GradeNavigation>button{
+    color: #3aa5ab;
+    border: none;
+    outline-width: 0;
+    margin: 0px 20px;
+    background-color: transparent;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+.GradeNavigation>button:hover{
+    text-decoration: underline;
+}

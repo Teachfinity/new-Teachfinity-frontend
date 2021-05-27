@@ -74,14 +74,10 @@ function ClassSidebar() {
                     onClick={() => history.push("/classData/classFeed")}>
                     Announcements
             </button>
-                <button
-                    onClick={() => history.push("/classData/meetings")} >
+                <button onClick={() => history.push("/classData/meetings")}>
                     Meetings
-            </button>
-                <button
-                    onClick={() => history.push("/classData/grades")}>
-                    Grades
                 </button>
+                <button onClick={() => history.push("/classData/myGrades")}>Grades</button>
                 <button
                     onClick={() => history.push("/classData/classCabinet")} >
                     Class Cabinet
