@@ -1,9 +1,13 @@
 import React, { useRef, useState } from 'react'
 import '../../css/ClassCabinetMaterial.css';
 import db, { auth, storageRef } from "../../firebase";
+import { useSelector, useDispatch } from "react-redux";
+import {selectedClass} from "../../features/selectClassSlice" ;
 import ClassCabinetMaterialFile from "./ClassCabinetMaterialFile";
 import CancelIcon from '@material-ui/icons/Cancel';
+import axios from 'axios'
 function ClassCabinetMaterial() {
+    const selectClass = useSelector(selectedClass) ;
     const [filename, setFilename] = useState("");
     const [fileUrl, setFileUrl] = useState("");
     const [submitFileName, setSubmitFileName] = useState("")
@@ -25,6 +29,7 @@ function ClassCabinetMaterial() {
     const handleSubmit = e => {
         e.preventDefault();
         setSubmitFileName(filename);
+        axios.put('http://localhost:5000/classes/updateclass/'+selectClass.id+'/file/'+filename, fileUrl)
     }
 
     return (
