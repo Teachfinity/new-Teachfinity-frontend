@@ -52,6 +52,7 @@ function ViewSubmission() {
     }
     const gradeQuiz = () =>{ 
         axios.put('http://localhost:5000/quizzes/updatequiz/'+Quiz.qid+'/student/'+selected+'/marks/'+obtainedMarks)  
+        setMarked(true)
     }
 
     useEffect(() => {
@@ -207,11 +208,17 @@ function ViewSubmission() {
                             </>
                         }
                         </div>
+                    {marked?
+                    <div className="gradeQuiz">
+                    <p style={{fontSize:'20px', fontWeight:'bold', color: "#3aa5ab"}}>Graded!!</p>
+                    </div>
+                    :
                     <div className="gradeQuiz">
                         <button onClick={gradeQuiz}
                         style={{backgroundColor: "#3aa5ab"}} >
                             Grade Quiz</button>
                     </div>
+                    }
                         </>
                 </div>
             }

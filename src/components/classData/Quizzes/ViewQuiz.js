@@ -11,12 +11,20 @@ function ViewQuiz() {
     const dispatch = useDispatch();
     const [title , setTitle] = useState("") ;
     const [dueTime , setDueTime] = useState() ;
+    const [dueDate , setDueDate] = useState() ;
+    const [timer , setTimer] = useState() ;
+    const [days , setDays] = useState() ;
+    const [hours , setHours] = useState() ;
+    const [minutes , setMinutes] = useState() ;
+    const [sec , setSec] = useState() ;
     const [marks , setMarks] = useState() ;
     const [submitted , setSubmitted] = useState(false) ;
     const [questions , setQuestions] = useState([]) ;
     const [mcqs , setMCQS] = useState([]) ;
     const [answers , setAnswers] = useState([]) ;
     const [options , setOptions] = useState([]) ;
+    const [pastDue, setPastDue] = useState(false); 
+    var time = null;
 
     const HandleChange = (event, index) =>{
         answers[index] = event.target.value
@@ -48,6 +56,9 @@ function ViewQuiz() {
             .then((res) => {
                 console.log(res.data);
                 setTitle(res.data.name)
+                time = new Date(res.data.time).getTime()
+                setTimer(time)
+                setDueDate(moment(res.data.time).format('DD-MM-YYYY'))
                 setDueTime(moment(res.data.time).format('hh:mm A'))
                 setMarks(res.data.marks)
                 setQuestions(res.data.questions)
@@ -58,9 +69,21 @@ function ViewQuiz() {
                     }
                 })
         })
-        .catch(err => alert("MY FEED SAYs" + err))  
-        })
+        .catch(err => alert("MY FEED SAYs" + err))
     }, [submitted])
+    
+    setInterval(()=>{
+        var now = Date.now()
+        var distance = time - now
+        setDays(Math.floor(distance/(1000*60*60*24)))
+        setHours(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)))
+        setMinutes(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)))
+        setSec(Math.floor((distance % (1000 * 60)) / 1000))
+        if(distance<0){
+            setPastDue(true)
+        }
+    })  
+    }, 1000)
 
     return (
         <div className="body">
@@ -71,7 +94,8 @@ function ViewQuiz() {
                     :
                     <><h2>{title}</h2>
                     <p>Total Marks: {marks}</p>
-                    <p>Due At: {dueTime}</p>
+                    <p>Due At: {dueDate} {dueTime}</p>
+                    <p>Time Left: {days} d {hours} h {minutes} m {sec} s</p>
                     {questions.length!==0?
                         questions.map((item, index)=>(
                             <div>
@@ -106,7 +130,12 @@ function ViewQuiz() {
                         <>
                         </>
                     }
-                    <button onClick={Submit}>Submit Quiz</button></>
+                    {!pastDue?
+                    <button disabled='true'>Past Due</button>
+                    :
+                    <button onClick={Submit}>Submit Quiz</button>
+                    }
+                    </>
                     }
                 </div>
             </div>

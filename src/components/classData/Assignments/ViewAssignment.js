@@ -30,6 +30,7 @@ function ViewAssignments() {
     const isNewAssignment = useSelector(selectnewAssignment) ;
     const [isLoading, setLoading] = useState(false); 
     const [pastDue, setPastDue] = useState(false); 
+    const [uploaded, setUploaded] = useState(false); 
     const [check, setCheck] = useState()
     let fileUrl = ""
 
@@ -50,6 +51,7 @@ function ViewAssignments() {
             console.log(fileUrl)
             if(fileUrl){
                 setLoading(false)
+                setUploaded(true)
             }
            
         }
@@ -58,6 +60,7 @@ function ViewAssignments() {
         }
     }
     const removeFile = () =>{
+        setUploaded(false)
         setStudentFile()
         setSubmissionUrl()
     }
@@ -184,7 +187,7 @@ function ViewAssignments() {
             {submitted ? 
                 <p>Submitted!!!</p>
                 :
-                !isLoading && !pastDue?
+                !isLoading && !pastDue && uploaded? 
                 <button onClick={submitAssignment} className="viewAssignment__submitAssignment" >
                 Submit
                 </button>

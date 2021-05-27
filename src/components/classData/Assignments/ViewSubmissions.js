@@ -19,7 +19,12 @@ function ViewSubmissions() {
     const [modal , setModal] = useState(false) ;
     const [selectedname , setselectedname] = useState() ;
     const [storedText , setstoredText] = useState() ;
+    const [marks , setMarks] = useState() ;
+    const [obtainedMarks, setObtainedMarks] = useState()
     const [matchedText , setmatchedText] = useState([]) ;
+    const [selected, setSelected] = useState() ;
+    const [marked, setMarked] = useState(false)
+
     useEffect(() => {
         /* response for the assignments */
         setSname([])
@@ -33,6 +38,7 @@ function ViewSubmissions() {
                 var username = id.sid.name
                 axios.get("http://localhost:5000/assignments/getassignments/"+selectAssignment.aid)
                 .then((res)=>{ 
+                    setMarks(res.data[0].totalMarks)
                     res.data[0].studentfiles.map((id)=>{
                     if(ids.includes(id.sid)||ids.includes(userid)){
                         //do nothing
@@ -40,7 +46,7 @@ function ViewSubmissions() {
                     else{
                         if(id.sid===userid){
                         setSname(sname=> [...sname, {user: username, file: id.fileNme, 
-                        fileUrl: id.fileUrl, submission: id.submittedAt}])
+                        fileUrl: id.fileUrl, submission: id.submittedAt, id:userid}])
                         files.push(id.fileUrl)
                         student.push(username)
                         ids.push(userid)
@@ -64,8 +70,13 @@ function ViewSubmissions() {
         .catch(err => alert("MY FEED SAYs" + err))  
         
     } , [])
+    const gradeAssignment = () =>{ 
+        axios.put('http://localhost:5000/assignments/updateassignment/'+selectAssignment.aid+'/student/'+selected+'/marks/'+obtainedMarks)  
+        setMarked(true)
+    }
 
     const openModal = (it) =>{
+        setSelected(it.id)
         setselectedname(it.user)
         fetch("http://localhost:80/PlagiarismCheck", {
             headers: {
@@ -83,7 +94,17 @@ function ViewSubmissions() {
             // console.log(response.text())
             return response.json();
           })
-             .then(function (text) {
+             .then(function (text) { 
+                axios.get("http://localhost:5000/assignments/getassignments/"+selectAssignment.aid)
+                .then((res)=>{
+                    console.log(res.data[0].studentMarks)
+                    res.data[0].studentMarks.map((id)=>{
+                        if(id.sid === it.id){
+                            setObtainedMarks(id.marks)
+                            setMarked(true)
+                        }
+                    })
+                })
                  text.data[0].highlight.map((item,index)=>{
                      if(it.user===item.name){
                         setstoredText(item.string)
@@ -211,6 +232,11 @@ function ViewSubmissions() {
                     </button>
                 </div>
                 <h2>{selectedname}</h2>
+                    {marked?
+                    <p>Marked {obtainedMarks}/{marks}</p>
+                    :
+                    <p>Total Marks: <input id="marksInput" onChange={event => setObtainedMarks(event.target.value)}/> / {marks} </p>
+                    }
                 <div>
                     <p className="orignal__text">{storedText}</p>
                     <ul>
@@ -221,6 +247,17 @@ function ViewSubmissions() {
                     ))}
                     </ul>
                 </div>
+                {marked?
+                    <div className="gradeQuiz">
+                    <p style={{fontSize:'20px', fontWeight:'bold', color: "#3aa5ab"}}>Graded!!</p>
+                    </div>
+                    :
+                    <div className="gradeQuiz">
+                        <button onClick={gradeAssignment}
+                        style={{backgroundColor: "#3aa5ab"}} >
+                            Grade Assignment</button>
+                    </div>
+                    }
             </div>
             }
         </div>
