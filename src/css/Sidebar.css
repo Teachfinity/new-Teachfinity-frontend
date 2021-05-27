@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     background-color: #3aa5ab;
-    height: 200vh;
+    min-height: 100vh;
 }
  .sidebar__button >.MuiSvgIcon-root{
     margin-top: 5px;

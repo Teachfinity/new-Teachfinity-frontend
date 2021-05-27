@@ -1,0 +1,59 @@
+
+.viewQuizTile{
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+}
+.viewQuizTile > p{
+    font-weight: bold;
+    text-decoration: underline;
+    font-size: 1rem;
+    margin-top: 10px;
+}
+
+.viewQuiz__due{
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+}
+.viewQuiz__due > p{
+    font-weight: bold;
+    font-size: 1.25;
+}
+.viewQuiz__questionList{
+    margin-bottom: 15px;
+}
+.viewQuiz__questionList > textarea{
+    margin-top: 10px;
+}
+.viewQuiz__submitButton{
+    margin-top: 25px;
+    font-size: 1.25rem;
+    background-color: #3aa5ab;
+    border-radius: 5px;
+    outline-width: 0;
+    border: none;
+    padding: 10px 20px;
+    color: white;
+    font-weight: bold;
+}
+.viewQuiz__mcq{
+    margin-bottom: 15px;
+}
+
+.viewQuiz__mcqOption{
+    display: flex;
+    padding: 10px ;
+    align-items: center; 
+}
+.viewQuiz__mcqOption > input{
+    width: 5%;
+    height: 1rem;
+}
+.viewQuiz__mcqOption > p{
+    margin-bottom: 3px;
+    font-size: 1.25rem;
+}
