@@ -8,6 +8,9 @@ import { Menu, MenuItem, IconButton } from '@material-ui/core';
 import "../../css/Post.css";
 import moment from 'moment';
 import axios from "axios";
+import {toast} from 'react-toastify';
+
+toast.configure();
 
 function Post({ id, profilepic, message, timestamp, username, image }) {
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -24,6 +27,13 @@ function Post({ id, profilepic, message, timestamp, username, image }) {
     const isNewPost = useSelector(selectNewPost);
     const [isBusy, setBusy] = useState(true);
     const dispatch = useDispatch();
+
+    const successNotify = () =>{
+        toast.success("Reminder Added to Diary!" ,
+        {
+            position: toast.POSITION.TOP_RIGHT,
+        })
+    }
 
     useEffect(() => {
         axios.get("http://localhost:5000/posts/getposts/id/" + id)
@@ -85,6 +95,12 @@ function Post({ id, profilepic, message, timestamp, username, image }) {
         .catch(err => alert("Error says " + err))
         handleClose()
     }
+    const addToDiary = (message) =>{
+        axios.put('http://localhost:5000/users/updateuser/'+user.uid+'/task/'+message)
+        .then(()=>{
+            successNotify()
+        })
+    }
 
     return (
         <div className="post" >
@@ -105,6 +121,7 @@ function Post({ id, profilepic, message, timestamp, username, image }) {
                 >
                 <MenuItem>Edit Post</MenuItem>
                 <MenuItem onClick={()=>deletePost(id)}>Delete Post</MenuItem>
+                <MenuItem onClick={()=>addToDiary(message)}>Add To Diary</MenuItem>
                 </Menu>
             </div>
             <div className="post__top">

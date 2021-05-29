@@ -46,7 +46,7 @@ function Diary() {
     setRender(false)
     axios.get('http://localhost:5000/users/getusers/'+user.uid)
     .then((res)=>{
-      console.log(res.data[0].diary)
+      console.log(res.data[0])
       setTask(res.data[0].diary)
     })
   },[render])

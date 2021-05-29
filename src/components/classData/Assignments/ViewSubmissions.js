@@ -130,8 +130,9 @@ function ViewSubmissions() {
             })
     }
     const sendURLs = () =>{
+        setLoading(true)
         console.log(student)
-        fetch("http://localhost:80/example", {
+        fetch("http://localhost:80/PlagiarismCheck", {
             headers: {
                 'Content-Type': 'application/json'
               },
@@ -152,7 +153,7 @@ function ViewSubmissions() {
               console.log(text); 
               axios(
                 {
-                  url: "http://localhost:80/example", 
+                  url: "http://localhost:80/PlagiarismCheck", 
                   method: "GET",
                   responseType: "blob", // important
                   headers: {
@@ -167,6 +168,7 @@ function ViewSubmissions() {
                   link.setAttribute("download", "Results.csv"); //or any other extension
                   document.body.appendChild(link);
                   link.click();
+                  setLoading(false)
                 }) 
     })
 }
@@ -231,9 +233,10 @@ function ViewSubmissions() {
             
             {modal 
             &&
-            <div className="viewSubmissions__modal">
-                <div>
-                    <button onClick={() => {setModal(false); setmatchedText([]); setObtainedMarks()}}>
+            <div className="viewAssignmentSubmissions__modal">
+                <div className="cancelModalButton" >
+                    <div></div>
+                    <button  onClick={() => {setModal(false); setmatchedText([]); setObtainedMarks()}}>
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="35" height="35" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ff2825" fill="none" stroke-linecap="round" stroke-linejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                             <line x1="18" y1="6" x2="6" y2="18" />
@@ -241,21 +244,31 @@ function ViewSubmissions() {
                         </svg>
                     </button>
                 </div>
+                <div className="viewAssignmentSubmissions__contents" >
                 <h2>{selectedname}</h2>
                     {marked?
                     <p>Marked {obtainedMarks}/{marks}</p>
                     :
                     <p>Total Marks: <input id="marksInput" onChange={event => setObtainedMarks(event.target.value)}/> / {marks} </p>
                     }
-                <div>
-                    <p className="orignal__text">{storedText}</p>
-                    <ul>
-                    {matchedText.map((text)=>(
-                        <div>
-                        <li className="matched__lists"><p><strong>{text.student}</strong></p><mark >{text.match}</mark></li>
-                        </div>
-                    ))}
-                    </ul>
+                </div>
+                <div className="AssignmentDataDisplay" >
+                    <div className="assignmentOriginalContent" >
+                        <h2>Original Text</h2>
+                        <p className="orignal__text">{storedText}</p>
+                    </div>
+                    <div className="AssignmentPlagiarismContent">
+                        <h2>Copied From</h2>
+                        <ul>
+                            {matchedText.map((text) => (
+                                    text.match && 
+                                    <div>
+                                        <li className="matched__lists"><p><strong>{text.student}</strong></p><mark >{text.match}</mark></li>
+                                    </div>
+                                 
+                            ))}
+                        </ul>
+                    </div>
                 </div>
                 {marked?
                     <div className="gradeQuiz">

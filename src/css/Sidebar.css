@@ -3,6 +3,7 @@
     flex-direction: column;
     background-color: #3aa5ab;
     min-height: 100vh;
+    
 }
  .sidebar__button >.MuiSvgIcon-root{
     margin-top: 5px;
