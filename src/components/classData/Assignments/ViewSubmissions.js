@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import "../../../css/viewSubmissions.css" ;
 import {useSelector , useDispatch} from "react-redux" ;
+import { CommonLoading } from 'react-loadingg';
 import {selectedClass} from "../../../features/selectClassSlice" ;
 import { selectedAssignment } from "../../../features/selectedAssignmentSlice";
 import axios from "axios" ;
@@ -23,7 +24,8 @@ function ViewSubmissions() {
     const [obtainedMarks, setObtainedMarks] = useState()
     const [matchedText , setmatchedText] = useState([]) ;
     const [selected, setSelected] = useState() ;
-    const [marked, setMarked] = useState(false)
+    const [marked, setMarked] = useState(false) ;
+    const [loading , setLoading] = useState(false) ;
 
     useEffect(() => {
         /* response for the assignments */
@@ -76,6 +78,9 @@ function ViewSubmissions() {
     }
 
     const openModal = (it) =>{
+        setObtainedMarks()
+        setMarked(false)
+        setLoading(true)
         setSelected(it.id)
         setselectedname(it.user)
         fetch("http://localhost:80/PlagiarismCheck", {
@@ -120,6 +125,7 @@ function ViewSubmissions() {
                 })
            }) 
             .then(function (){
+                setLoading(false) ;
                 setModal(true)
             })
     }
@@ -167,6 +173,7 @@ function ViewSubmissions() {
 
     return (
         <div className="viewSubmissions" >
+            {loading && <CommonLoading />}
             <div className="viewSubmissions__heading">
                 <hr></hr>
                 <h1>Assignment Details</h1>
@@ -178,7 +185,7 @@ function ViewSubmissions() {
                 </h1>
                 {/* Put this part in the mapping list of submitted assignments */}
                 {sname.map((item)=>(
-                <div className="viewSubmissions__submittedLI" onClick={() => {openModal(item)}}>
+                <div className="viewSubmissions__submittedLI" >
                     <div className="viewSubmissions__submittedLITop" >
                         <h2>{item.user}</h2>
                         <div>
@@ -187,8 +194,11 @@ function ViewSubmissions() {
                         </div>
                     </div>
                     <div className="viewSubmissions__submittedLIBottom" >
+                        <div>
                         <h3>Submission File:   </h3>
                         <a className="anchortag" href={item.fileUrl} target="_blank" ><p> {item.file}</p></a>
+                        </div>
+                        <button onClick={() => {openModal(item)}}>View Plagiarism</button>
                     </div>
                 </div>
                ))}
@@ -223,7 +233,7 @@ function ViewSubmissions() {
             &&
             <div className="viewSubmissions__modal">
                 <div>
-                    <button onClick={() => {setModal(false); setmatchedText([])}}>
+                    <button onClick={() => {setModal(false); setmatchedText([]); setObtainedMarks()}}>
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="35" height="35" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ff2825" fill="none" stroke-linecap="round" stroke-linejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                             <line x1="18" y1="6" x2="6" y2="18" />

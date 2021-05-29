@@ -127,13 +127,28 @@
     margin-top: 25px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     
 }
-.viewSubmissions__submittedLIBottom > h3{
+.viewSubmissions__submittedLIBottom > div{
+    display: flex ;
+    align-items: center;
+}
+.viewSubmissions__submittedLIBottom > button{
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: #3aa5ab;
+    color: white;
+    cursor: pointer;
+    outline-width: 0;
+    border: none;
+    font-weight: bold;
+}
+.viewSubmissions__submittedLIBottom > div > h3{
     color: #888888;
 }
 
-.viewSubmissions__submittedLIBottom > a > p{
+.viewSubmissions__submittedLIBottom > div > a > p{
     margin-left: 20px;
     background-color: whitesmoke;
     padding: 5px;

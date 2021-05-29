@@ -60,7 +60,7 @@ function MyClasses() {
                 })
             })
             .then(() => {
-                console.log(classList.map((item) =>{
+                (classList.map((item) =>{
                     console.log(item)
                 }))
                 setBusy(false);
