@@ -82,6 +82,10 @@ function ClassSidebar() {
                     onClick={() => history.push("/classData/classCabinet")} >
                     Class Cabinet
             </button>
+                <button
+                    onClick={() => history.push("/classData/classEnvironment")} >
+                    Class Environment Dashboard
+            </button>
             </div>
 
         </div>
