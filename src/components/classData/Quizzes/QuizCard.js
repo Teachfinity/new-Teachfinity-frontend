@@ -5,6 +5,7 @@ import {selectedClass} from "../../../features/selectClassSlice" ;
 import { StarBorder, Star, MoreVert } from '@material-ui/icons';
 import { Menu, MenuItem, IconButton } from '@material-ui/core';
 import { addQuiz } from "../../../features/selectedQuizSlice";
+import { newPost } from "../../../features/postListSlice";
 import {toast} from 'react-toastify';
 import axios from 'axios'
 
@@ -35,7 +36,7 @@ function QuizCard({id, title}) {
         })
         .then(()=>{
             setTimeout(()=>{
-                setNew(true)
+                dispatch(newPost())
             },5000)
             successNotify()
         })
