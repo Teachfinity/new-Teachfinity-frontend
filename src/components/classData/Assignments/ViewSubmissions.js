@@ -225,7 +225,6 @@ function ViewSubmissions() {
 }
             </div>
             <div className="viewAssignment__actionButtons" >
-                <button className="viewAssignment__downloadButton" >Download All</button>
                 <button onClick={sendURLs} className="viewAssignment__downloadPlagiarism">Download Plagiarism Report</button>
             </div>
 

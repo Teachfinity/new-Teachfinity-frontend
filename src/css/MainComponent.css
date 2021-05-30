@@ -1,18 +1,14 @@
 .mainComponent{
     display: flex;
     flex-direction: column;
-    
- 
-    
+    height: 200vh;
 }
 .mainComponent__body{
     display: flex;
     flex-direction: row;
     flex: 1;
     background-color: rgb(248, 248, 248);
-    min-height: 100vh;
-    
- 
+    height: 200vh;
 }
 
 .mainComponent__sidebar{

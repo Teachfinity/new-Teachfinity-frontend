@@ -65,7 +65,7 @@ function MyClasses() {
                 }))
                 setBusy(false);
             })
-            .catch(err => alert("Cid says" + err))
+            .catch(err => console.log("Cid says" + err))
     }, [isNewClass])
     return (
 

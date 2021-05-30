@@ -6,6 +6,7 @@ import {addclassesEnrolled} from "../features/classesEnrolledSlice" ;
 import axios from "axios";
 import "../css/JoinClassCard.css" ;
 import { FormatListNumberedRtlRounded } from '@material-ui/icons';
+import {newClass} from "../features/myClassListSlice";
 import {toast} from 'react-toastify';
 
 toast.configure();
@@ -81,6 +82,7 @@ function JoinClassCard({icon , title , description}) {
                         })
                         .then(()=>{
                             successNotify()
+                            dispatch(newClass())
                         })
                         .catch(err => alert(err))
                     } 
