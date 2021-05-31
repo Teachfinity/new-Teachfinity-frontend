@@ -16,7 +16,6 @@ function Sidebar() {
     const [diary, setDiary] = useState(false)
     const [timetable, setTimetable] = useState(false)
     const [quiz, setQuiz] = useState(false)
-    const [bookmarks, setBookmarks] = useState(false)
 
     const Classes = ()=>{
         history.push("/myclasses")
@@ -25,7 +24,6 @@ function Sidebar() {
         setDiary(false)
         setTimetable(false)
         setQuiz(false)
-        setBookmarks(false)
     }
     const Chat = ()=>{
         history.push("/chats")
@@ -34,7 +32,6 @@ function Sidebar() {
         setDiary(false)
         setTimetable(false)
         setQuiz(false)
-        setBookmarks(false)
     }
     const Diary = ()=>{
         history.push("/mydiary")
@@ -43,7 +40,6 @@ function Sidebar() {
         setDiary(true)
         setTimetable(false)
         setQuiz(false)
-        setBookmarks(false)
     }
     const Timetable = ()=>{
         history.push("/timetable")
@@ -52,7 +48,6 @@ function Sidebar() {
         setDiary(false)
         setTimetable(true)
         setQuiz(false)
-        setBookmarks(false)
     }
     const Quiz = ()=>{
         history.push("/quiz")
@@ -61,7 +56,6 @@ function Sidebar() {
         setDiary(false)
         setTimetable(false)
         setQuiz(true)
-        setBookmarks(false)
     }
     const Bookmarks = ()=>{
         //history.push("/chats")
@@ -70,7 +64,6 @@ function Sidebar() {
         setDiary(false)
         setTimetable(false)
         setQuiz(false)
-        setBookmarks(true)
     }
 
     return (
@@ -81,7 +74,7 @@ function Sidebar() {
             {diary? <div className="sidebar__button__active" ><LocalLibraryIcon /><p>Diary</p></div>:<div className="sidebar__button" onClick={Diary} ><LocalLibraryIcon /><p>Diary</p></div>}
             {timetable? <div className="sidebar__button__active" ><DateRangeIcon /><p>Timetable</p></div>:<div className="sidebar__button" onClick={Timetable} ><DateRangeIcon /><p>Timetable</p></div>}
             {quiz? <div className="sidebar__button__active" ><CreateIcon /><p>Quiz Generator</p></div>:<div className="sidebar__button" onClick={Quiz}><CreateIcon /><p>Quiz Generator</p></div>}
-            {bookmarks? <div className="sidebar__button__active" ><BookmarksIcon /><p>Bookmarks</p></div>:<div className="sidebar__button" ><BookmarksIcon /><p>Bookmarks</p></div>}
+           {/*  {bookmarks? <div className="sidebar__button__active" ><BookmarksIcon /><p>Bookmarks</p></div>:<div className="sidebar__button" ><BookmarksIcon /><p>Bookmarks</p></div>} */}
             
         </div>
     )

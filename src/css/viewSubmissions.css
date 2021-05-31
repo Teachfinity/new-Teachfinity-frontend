@@ -127,13 +127,28 @@
     margin-top: 25px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     
 }
-.viewSubmissions__submittedLIBottom > h3{
+.viewSubmissions__submittedLIBottom > div{
+    display: flex ;
+    align-items: center;
+}
+.viewSubmissions__submittedLIBottom > button{
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: #3aa5ab;
+    color: white;
+    cursor: pointer;
+    outline-width: 0;
+    border: none;
+    font-weight: bold;
+}
+.viewSubmissions__submittedLIBottom > div > h3{
     color: #888888;
 }
 
-.viewSubmissions__submittedLIBottom > a > p{
+.viewSubmissions__submittedLIBottom > div > a > p{
     margin-left: 20px;
     background-color: whitesmoke;
     padding: 5px;
@@ -166,6 +181,52 @@
     overflow-y: scroll;
    
 }
+.viewAssignmentSubmissions__modal{
+    position: absolute;
+    display: flex;
+    padding: 5px;
+    padding-top: 70px;
+    flex-direction: column;
+    position: fixed;
+  
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+    width: 600px;
+    max-width: 100%;
+    height: 600px;
+    max-height: 600px;
+    max-width: 800px;
+    background-color: rgb(238, 236, 236);
+    box-shadow: -7px 15px 7px 1000px rgba(0, 0, 0, 0.52);
+    border: 1px solid gray;
+    border-radius: 6px;
+    
+    overflow-y: scroll;
+}
+
+.cancelModalButton{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    
+}
+.cancelModalButton > button{
+    outline-width: none;
+    border: none;
+    cursor: pointer;
+}
+.viewAssignmentSubmissions__contents{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.AssignmentPlagiarismContent{
+    margin-top: 15px;
+}
+
+
 .viewSubmissions__modal > div{
     display: flex;
     text-align: left;
@@ -257,4 +318,7 @@
     color: white;
     width: 200px;
     
+}
+.AssignmentDataDisplay{
+    padding: 20px 10px; 
 }

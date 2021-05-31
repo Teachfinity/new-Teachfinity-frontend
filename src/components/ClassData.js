@@ -10,6 +10,7 @@ import ClassSidebar from './classData/ClassSidebar';
 import ClassFeed from './classData/ClassFeed';
 import ClassMeetings from './classData/ClassMeetings';
 import ClassCabinet from "./classData/ClassCabinet" ;
+import ClassEnvironment from "./classData/ClassEnvironment" ;
 import GradesScreen from "./classData/Grades/GradesScreen" ;
 
 function ClassData() {
@@ -29,6 +30,9 @@ function ClassData() {
                         </Route>
                         <Route exact path="/classData/classCabinet" >
                             <ClassCabinet />
+                        </Route>
+                        <Route exact path="/classData/classEnvironment" >
+                            <ClassEnvironment />
                         </Route>
                         <Route exact path="/classData/myGrades" >
                             <GradesScreen />

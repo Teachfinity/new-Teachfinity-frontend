@@ -6,13 +6,13 @@ import {useSelector , useDispatch} from "react-redux" ;
 import {openclassCode, selectclassCodeIsOpen , changeClassCode , selectClassCode} from "../features/classCodeSlice" ;
 import {addClass} from "../features/myClassListSlice" ;
 import {selectUser} from "../features/userSlice" ;
+import {newClass} from "../features/myClassListSlice";
 import axios from "axios" ;
 import "../css/CreateClassForm.css" ;
 
 function CreateClassForm() {
     const dispatch = useDispatch() ;
     const user = useSelector(selectUser) ;
-
     const {register, handleSubmit , errors} = useForm() ;
     var currentUser = null ;  
     
@@ -35,6 +35,7 @@ function CreateClassForm() {
             .then((res) => {
                 axios.put("http://localhost:5000/users/updateuser/"+user.uid+"/classroomsOwned/"+res.data._id)
                 .then(() =>{
+                    dispatch(newClass())
                 }).catch(err => alert("Put -> " + err))
                
             })
@@ -42,24 +43,6 @@ function CreateClassForm() {
         })
         .catch(err => alert(err)) ;
 
-        
-       
-          
-        
-        /* dispatch(addClass({
-            className: formData.classTitle , 
-            classDescription: formData.description })) */
-
-            
-
-            /* Post the class data into the database */
-           
-                
-
-
-            
-
-            
         dispatch(closeModal()) ;
     
     }

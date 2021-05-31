@@ -1,12 +1,16 @@
 import React from 'react';
 import "../../css/Meeting.css";
 import moment from 'moment'
+import {selectedClass} from "../../features/selectClassSlice" ;
+import {useSelector , useDispatch} from "react-redux" ;
+import axios from 'axios';
 
-function Meeting({ meetingName, startTime, endTime }) {
+function Meeting({meetingId, meetingName, startTime, endTime }) {
     const start = moment(startTime).format('hh:mm A ') ;
     const end = moment(endTime).format('hh:mm A ') ;
     const date = moment(startTime).format('DD-MM-YYYY');
     const getday = moment(startTime).weekday() ;
+    const selectClass = useSelector(selectedClass) ;
     var day ;
     switch(getday){
         case 1:
@@ -31,6 +35,18 @@ function Meeting({ meetingName, startTime, endTime }) {
             day = "Sunday";
             break;
             
+    }
+
+    const fetchData = () =>{      
+    fetch('http://127.0.0.1:5050/',{
+    mode:'cors'
+    })
+    .then(response => response.json())
+    //.then(json => console.log(json.emotion));
+    .then(json=>{
+        console.log(json.emotion)
+        axios.put('http://localhost:5000/classes/updateclass/'+selectClass.id+'/meeting/'+meetingId+'/mood/'+json.emotion)
+    })
     }
    
     return (
@@ -58,7 +74,7 @@ function Meeting({ meetingName, startTime, endTime }) {
                         </div>
                     </div>
                     <div>
-                        <a href="http://localhost:9001/demos/video-conferencing.html" target="_blank" className="MeetingStartButton">Start Class Session</a>
+                        <a href="http://localhost:9001/demos/video-conferencing.html" onClick={fetchData} target="_blank" className="MeetingStartButton">Start Class Session</a>
                     </div>
 
 

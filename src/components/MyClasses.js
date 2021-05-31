@@ -60,12 +60,12 @@ function MyClasses() {
                 })
             })
             .then(() => {
-                console.log(classList.map((item) =>{
+                (classList.map((item) =>{
                     console.log(item)
                 }))
                 setBusy(false);
             })
-            .catch(err => alert("Cid says" + err))
+            .catch(err => console.log("Cid says" + err))
     }, [isNewClass])
     return (
 

@@ -18,6 +18,7 @@ function ClassMeetings() {
         .then((res)=>{
             res.data.map(meeting => {
                 dispatch(addEvent({
+                    id: meeting._id,
                     title: meeting.name ,
                     start: meeting.startTime,
                     end:  meeting.endTime 
@@ -38,7 +39,7 @@ function ClassMeetings() {
             :
             <div className="classMeetings__list">
             {myEventsList && myEventsList.map((item) => (
-                <Meeting  meetingName={item.title} startTime={item.start} endTime={item.end} />
+                <Meeting meetingId={item.id}  meetingName={item.title} startTime={item.start} endTime={item.end} />
             ))}
             </div>
             }
