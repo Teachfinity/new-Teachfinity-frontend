@@ -74,7 +74,7 @@ function Meeting({meetingId, meetingName, startTime, endTime }) {
                         </div>
                     </div>
                     <div>
-                        <a href="http://localhost:9001/demos/video-conferencing.html" onClick={fetchData} target="_blank" className="MeetingStartButton">Start Class Session</a>
+                        <a href="https://teachfinityvc.herokuapp.com/demos/video-conferencing.html" onClick={fetchData} target="_blank" className="MeetingStartButton">Start Class Session</a>
                     </div>
 
 
