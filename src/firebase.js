@@ -13,7 +13,7 @@ const firebaseConfig = {
   const firebaseApp = firebase.initializeApp(firebaseConfig) ;
 
   const db = firebaseApp.firestore() ;
- const storageRef = firebaseApp.storage().ref()
+  const storageRef = firebaseApp.storage().ref() ;
   const auth = firebase.auth() ;
   const provider = new firebase.auth.GoogleAuthProvider() ;
 
